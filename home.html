@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>從知識灌輸到行為重塑</title>
+  <link rel="stylesheet" href="home.css">
+</head>
+<style>
+
+</style>
+<body>
+
+   <!-- 頂部導航 -->
+   <nav class="top-nav">
+    <div class="logo-section">
+      <div class="logo">🛡️</div>
+      <div class="title-section">
+        <h1>青少年詐騙防衛訓練站</h1>
+      </div>
+    </div>
+    <div class="user-section">
+      <div class="topbox">
+        
+          <a href="login.html" class="header-btn" aria-label="登入系統" onclick="showLogin()">登入</a>
+          <a href="login.html" class="header-btn" aria-label="註冊新帳號" onclick="showForm('register'); event.preventDefault(); window.location.href='login.html#registerForm';">註冊</a>
+      </div>
+    
+    </div>
+  </nav>
+
+  <header>
+    <h1>從知識灌輸到行為重塑生成式AI賦能<br>的青少年網路詐騙預防體系構建</h1>
+    <p>透過互動情境，學會辨識與防範網路詐騙，保護自己與家人！</p>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-text">
+        <h2>準備好挑戰了嗎？</h2>
+        <p>模擬真實詐騙情境，學習如何聰明應對！透過AI驅動的互動學習，提升你的數位安全意識。</p>
+        <div class="hero-buttons">
+          <button class="btn btn-primary" onclick="startChallenge()" aria-label="開始挑戰">
+            🚀 開始挑戰
+          </button>
+          <button class="btn btn-secondary" onclick="showAbout()" aria-label="了解計畫詳情">
+            📖 了解計畫
+          </button>
+        </div>
+      </div>
+      <div class="phone-mockup">
+        <div class="phone-frame">
+          <div class="chat-preview">
+            <div class="message scammer">🎁 恭喜你獲得免費遊戲鑽石！點擊連結立即領取：bit.ly/free-diamonds</div>
+            <div class="message user">🤔 這是真的嗎？我應該點擊嗎？</div>
+            <div class="message scammer">快點！限時優惠，只剩5分鐘！</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tips">
+      <h3>🛡️ 防詐小提示</h3>
+      <ul>
+        <li>不要點擊來路不明的連結，特別是聲稱有「限時優惠」的訊息</li>
+        <li>不隨意提供個人資訊，如銀行卡號、密碼或身分證字號</li>
+        <li>遇到可疑訊息，立即向平台客服或家長回報，不要獨自處理</li>
+        <li>記住：真正的優惠不會催促你立即行動，騙子才會製造緊迫感</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 機器人想放假團隊。保留所有權利。</p>
+    <p>致力於青少年數位安全教育 🛡️</p>
+  </footer>
+
+  <div class="modal" id="aboutModal">
+    <div class="modal-content">
+      <h2>🤖 關於計畫</h2>
+      <p>本計畫由「機器人想放假」團隊設計，參與2025年第三屆「解決未來問題能力競賽」。我們運用生成式 AI 技術，打造青少年網路詐騙防範教育平台，結合情境學習理論，透過互動式體驗提升數位安全意識。</p>
+      <p><strong>讓AI成為你的防詐夥伴！</strong></p>
+      <button class="btn btn-primary" onclick="closeModal()">關閉</button>
+    </div>
+  </div>
+
+  <script>
+    // 模擬對話動畫
+    function animateChat() {
+      const messages = document.querySelectorAll('.message');
+      messages.forEach((msg, index) => {
+        msg.style.animationDelay = `${index * 0.5}s`;
+      });
+    }
+
+    // 開始挑戰功能
+    function startChallenge() {
+      // 創建視覺反饋
+      const button = event.target;
+      button.style.transform = 'scale(0.95)';
+      setTimeout(() => {
+        button.style.transform = 'scale(1)';
+      }, 150);
+      
+      // 模擬跳轉到挑戰頁面
+      alert('🎯 挑戰即將開始！請準備好你的防詐知識！');
+      // 這裡可以添加實際的頁面跳轉邏輯
+    }
+
+    // 顯示關於我們的彈窗
+    function showAbout() {
+      const modal = document.getElementById('aboutModal');
+      modal.classList.add('active');
+    }
+
+    // 關閉彈窗
+    function closeModal() {
+      const modal = document.getElementById('aboutModal');
+      modal.classList.remove('active');
+    }
+
+    // 模擬登入功能
+    function showLogin() {
+      alert('🔑 前往登入！');
+    }
+
+    // 模擬註冊功能
+    function showRegister() {
+      alert('📝 前往註冊！');
+    }
+
+    // 點擊模態框背景關閉
+    document.getElementById('aboutModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeModal();
+      }
+    });
+
+    // 鍵盤事件處理
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+
+    // 頁面載入完成後的動畫
+    window.addEventListener('load', function() {
+      animateChat();
+      
+      // 添加滾動視差效果
+      window.addEventListener('scroll', function() {
+        const scrolled = window.pageYOffset;
+        const parallax = document.querySelector('header');
+        const speed = scrolled * 0.5;
+        parallax.style.transform = `translateY(${speed}px)`;
+      });
+    });
+
+    // 添加滑鼠跟隨效果
+    document.addEventListener('mousemove', function(e) {
+      const phoneFrame = document.querySelector('.phone-frame');
+      const rect = phoneFrame.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      
+      phoneFrame.style.transform = `perspective(1000px) rotateY(${x * 0.02}deg) rotateX(${-y * 0.02}deg)`;
+    });
+  </script>
+</body>
+
+</html>

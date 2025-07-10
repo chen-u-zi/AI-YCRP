@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>青少年詐騙防衛訓練站</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="container">
+    <!-- 左側：說明區 -->
+    <div class="left-panel">
+      <h2>詐騙情境：遊戲儲值詐騙</h2>
+      <p>目標：辨識詐騙訊息，選擇正確回應。</p>
+      <p>指引：閱讀右側對話，點選回應選項，系統會告訴你是否正確。</p>
+    </div>
+    <!-- 右側：互動模擬區 -->
+    <div class="right-panel">
+      <div class="phone-frame">
+        <div class="chat-container" id="chatContainer">
+          <!-- 動態插入對話訊息 -->
+        </div>
+        <div class="response-options">
+          <button class="response-btn" data-response="trust">相信並點擊連結</button>
+          <button class="response-btn" data-response="doubt">懷疑並回報</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="./script.js"></script>
+</body>
+</html>

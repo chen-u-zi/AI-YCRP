@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>登入與註冊 - 青少年詐騙防衛訓練站</title>
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+  <header>
+    <h1>🛡️ 青少年詐騙防衛訓練站</h1>
+    <a href="home.html" class="back-btn" onclick="goBack()" aria-label="返回首頁">← 返回首頁</a>
+  </header>
+
+  <main>
+    <div class="form-container">
+      <div class="form-tabs">
+        <button class="tab active" onclick="showForm('login')" aria-label="切換到登入表單">
+          🔑 登入
+        </button>
+        <button class="tab" onclick="showForm('register')" aria-label="切換到註冊表單">
+          📝 註冊
+        </button>
+      </div>
+
+      <div id="loginForm" class="form-content active">
+        <h2>🔐 會員登入</h2>
+        <form onsubmit="submitForm('login', event)">
+          <div class="form-group">
+            <label for="loginUsername">使用者名稱</label>
+            <input type="text" id="loginUsername" placeholder="請輸入使用者名稱" aria-label="輸入使用者名稱" required>
+          </div>
+          <div class="form-group">
+            <label for="loginPassword">密碼</label>
+            <div style="position: relative;">
+              <input type="password" id="loginPassword" placeholder="請輸入密碼" aria-label="輸入密碼" required>
+              <button type="button" class="password-toggle" onclick="togglePassword('loginPassword')" aria-label="顯示/隱藏密碼">
+                👁️
+              </button>
+            </div>
+          </div>
+          <button type="submit" class="submit-btn" aria-label="提交登入">
+            🚀 立即登入
+          </button>
+        </form>
+        
+        <div style="margin-top: 2rem; padding: 1rem; background: rgba(59, 130, 246, 0.1); border-radius: 10px; font-size: 0.9rem;">
+          <p><strong>💡 測試帳號：</strong></p>
+          <p>學生：1000 / 1000</p>
+          <p>教師：2000 / 2000</p>
+          <p>家長：3000 / 3000</p>
+          <p>管理員：admin / admin</p>
+        </div>
+      </div>
+
+      <div id="registerForm" class="form-content">
+        <h2>📋 新會員註冊</h2>
+        <form onsubmit="submitForm('register', event)">
+          <div class="form-group">
+            <label for="registerUsername">使用者名稱</label>
+            <input type="text" id="registerUsername" placeholder="請輸入使用者名稱" aria-label="輸入使用者名稱" required>
+          </div>
+          <div class="form-group">
+            <label for="registerPassword">密碼</label>
+            <div style="position: relative;">
+              <input type="password" id="registerPassword" placeholder="請輸入密碼（至少6位）" aria-label="輸入密碼" required minlength="6">
+              <button type="button" class="password-toggle" onclick="togglePassword('registerPassword')" aria-label="顯示/隱藏密碼">
+                👁️
+              </button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="confirmPassword">確認密碼</label>
+            <div style="position: relative;">
+              <input type="password" id="confirmPassword" placeholder="請再次輸入密碼" aria-label="確認密碼" required>
+              <button type="button" class="password-toggle" onclick="togglePassword('confirmPassword')" aria-label="顯示/隱藏密碼">
+                👁️
+              </button>
+            </div>
+          </div>
+          <div class="form-group role-select">
+            <label for="registerRole">選擇身份</label>
+            <select id="registerRole" aria-label="選擇用戶角色" required>
+              <option value="">請選擇您的身份</option>
+              <option value="學生">🎓 學生</option>
+              <option value="教師">👨‍🏫 教師</option>
+              <option value="家長">👪 家長</option>
+              <option value="系統管理員">⚙️ 系統管理員</option>
+            </select>
+          </div>
+          <button type="submit" class="submit-btn" aria-label="提交註冊">
+            ✨ 立即註冊
+          </button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 機器人想放假團隊。保留所有權利。</p>
+    <p>🤖 致力於青少年數位安全教育</p>
+  </footer>
+
+  <div class="modal" id="alertModal">
+    <div class="modal-content">
+      <div class="icon" id="modalIcon">ℹ️</div>
+      <p id="modalMessage"></p>
+      <button onclick="closeModal()" id="modalButton">確認</button>
+    </div>
+  </div>
+
+  <script>
+    // 預設用戶資料
+    const defaultUsers = {
+      '1000': { password: '1000', role: '學生', redirect: './student/index.html' },
+      '2000': { password: '2000', role: '教師', redirect: './teacher/index.html' },
+      '3000': { password: '3000', role: '家長', redirect: './parent/index.html' },
+      'admin': { password: 'admin', role: '系統管理員', redirect: './admin/index.html' }
+    };
+
+    // 用戶資料庫（使用記憶體存儲）
+    let users = { ...defaultUsers };
+
+    // 切換表單
+    function showForm(formType) {
+      document.querySelectorAll('.form-content').forEach(form => {
+        form.classList.remove('active');
+      });
+      document.querySelectorAll('.tab').forEach(tab => {
+        tab.classList.remove('active');
+      });
+
+      document.getElementById(formType + 'Form').classList.add('active');
+      document.querySelector(`button[onclick="showForm('${formType}')"]`).classList.add('active');
+      
+      document.getElementById(formType + 'Form').querySelector('form').reset();
+    }
+
+    // 切換密碼顯示/隱藏
+    function togglePassword(inputId) {
+      const input = document.getElementById(inputId);
+      const button = input.nextElementSibling;
+      
+      if (input.type === 'password') {
+        input.type = 'text';
+        button.textContent = '🙈';
+      } else {
+        input.type = 'password';
+        button.textContent = '👁️';
+      }
+    }
+
+    // 表單提交
+    function submitForm(formType, event) {
+      event.preventDefault();
+      
+      const submitButton = event.target.querySelector('.submit-btn');
+      submitButton.classList.add('loading');
+      submitButton.disabled = true;
+      
+      setTimeout(() => {
+        if (formType === 'login') {
+          handleLogin();
+        } else {
+          handleRegister();
+        }
+        
+        submitButton.classList.remove('loading');
+        submitButton.disabled = false;
+      }, 1000);
+    }
+
+    // 處理登入
+    function handleLogin() {
+      const username = document.getElementById('loginUsername').value.trim();
+      const password = document.getElementById('loginPassword').value.trim();
+
+      if (!username || !password) {
+        showAlert('❌ 請輸入使用者名稱和密碼！', 'error');
+        return;
+      }
+
+      if (users[username] && users[username].password === password) {
+        showAlert(`✅ ${users[username].role}登入成功！`, 'success');
+        localStorage.setItem('role', users[username].role); // 儲存角色
+        setTimeout(() => {
+          closeModal(); // 關閉模態視窗
+          window.location.href = users[username].redirect; // 跳轉到對應頁面
+        }, 1500); // 延遲 1.5 秒
+      } else {
+        showAlert('❌ 使用者名稱或密碼錯誤！', 'error');
+      }
+    }
+
+    // 處理註冊
+    function handleRegister() {
+      const username = document.getElementById('registerUsername').value.trim();
+      const password = document.getElementById('registerPassword').value.trim();
+      const confirmPassword = document.getElementById('confirmPassword').value.trim();
+      const role = document.getElementById('registerRole').value;
+
+      if (!username || !password || !confirmPassword || !role) {
+        showAlert('❌ 請填寫所有欄位！', 'error');
+        return;
+      }
+
+      if (password.length < 6) {
+        showAlert('❌ 密碼長度至少需要6位！', 'error');
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        showAlert('❌ 密碼確認不一致，請重新輸入！', 'error');
+        return;
+      }
+
+      if (users[username]) {
+        showAlert('❌ 此使用者名稱已被註冊！', 'error');
+        return;
+      }
+
+      const redirectMap = {
+        '學生': './student/index.html',
+        '教師': './teacher/index.html',
+        '家長': './parent/index.html',
+        '系統管理員': './admin/index.html'
+      };
+
+      users[username] = {
+        password: password,
+        role: role,
+        redirect: redirectMap[role]
+      };
+
+      showAlert(`🎉 ${role}註冊成功！`, 'success');
+      setTimeout(() => {
+        closeModal(); // 關閉模態視窗
+        window.location.href = redirectMap[role]; // 跳轉到對應頁面
+      }, 2000); // 延遲 2 秒
+    }
+
+    // 顯示提示框
+    function showAlert(message, type = 'info') {
+      const modal = document.getElementById('alertModal');
+      const icon = document.getElementById('modalIcon');
+      const messageEl = document.getElementById('modalMessage');
+      const button = document.getElementById('modalButton');
+
+      if (type === 'success') {
+        icon.textContent = '✅';
+        button.style.background = 'linear-gradient(135deg, #059669, #047857)';
+      } else if (type === 'error') {
+        icon.textContent = '❌';
+        button.style.background = 'linear-gradient(135deg, #dc2626, #b91c1c)';
+      } else {
+        icon.textContent = 'ℹ️';
+        button.style.background = 'linear-gradient(135deg, #667eea, #764ba2)';
+      }
+
+      messageEl.textContent = message;
+      modal.classList.add('active');
+    }
+
+    // 關閉提示框
+    function closeModal() {
+      const modal = document.getElementById('alertModal');
+      modal.classList.remove('active');
+    }
+
+    // 返回首頁
+    function goBack() {
+      showAlert('🏠 即將返回首頁...', 'info');
+      setTimeout(() => {
+        window.history.back();
+      }, 1000);
+    }
+
+    // 點擊模態框背景關閉
+    document.getElementById('alertModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeModal();
+      }
+    });
+
+    // 鍵盤事件
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+
+    // 根據URL錨點切換表單
+    window.onload = function() {
+      const hash = window.location.hash;
+      if (hash === '#register') {
+        showForm('register');
+      } else {
+        showForm('login');
+      }
+    };
+
+    // 表單驗證增強
+    document.addEventListener('DOMContentLoaded', function() {
+      const passwordInput = document.getElementById('registerPassword');
+      const confirmInput = document.getElementById('confirmPassword');
+      
+      if (passwordInput) {
+        passwordInput.addEventListener('input', function() {
+          const password = this.value;
+          if (password.length > 0 && password.length < 6) {
+            this.style.borderColor = '#dc2626';
+          } else if (password.length >= 6) {
+            this.style.borderColor = '#059669';
+          }
+        });
+      }
+      
+      if (confirmInput) {
+        confirmInput.addEventListener('input', function() {
+          const password = document.getElementById('registerPassword').value;
+          const confirm = this.value;
+          if (confirm.length > 0) {
+            if (password === confirm) {
+              this.style.borderColor = '#059669';
+            } else {
+              this.style.borderColor = '#dc2626';
+            }
+          }
+        });
+      }
+    });
+
+    // 密碼強度檢查函數
+    function getPasswordStrength(password) {
+      let strength = 0;
+      if (password.length >= 6) strength++;
+      if (password.match(/[a-z]/)) strength++;
+      if (password.match(/[A-Z]/)) strength++;
+      if (password.match(/[0-9]/)) strength++;
+      if (password.match(/[^a-zA-Z0-9]/)) strength++;
+      return strength;
+    }
+  </script>
+</body>
+</html>

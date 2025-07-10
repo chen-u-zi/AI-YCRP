@@ -1,0 +1,60 @@
+[
+  {
+    "id": 1,
+    "theme": "game-scam",
+    "title": "遊戲儲值詐騙",
+    "messages": [
+      {
+        "sender": "scammer",
+        "text": "恭喜你獲得免費遊戲鑽石！點擊此連結領取：bit.ly/free-diamonds",
+        "screenshotUrl": null
+      },
+      {
+        "sender": "feedback",
+        "text": "",
+        "responseOptions": ["trust", "doubt"]
+      }
+    ],
+    "feedback": {
+      "trust": {
+        "text": "錯誤！你點擊了詐騙連結，可能會洩露個人資訊。",
+        "isCorrect": false,
+        "explanation": "詐騙者常使用免費獎勵誘惑你點擊惡意連結，應避免點擊來路不明的連結。"
+      },
+      "doubt": {
+        "text": "正確！懷疑並回報是安全的做法！",
+        "isCorrect": true,
+        "explanation": "遇到可疑訊息時，應保持懷疑並向平台或相關單位回報。"
+      }
+    }
+  },
+  {
+    "id": 2,
+    "theme": "fake-job",
+    "title": "假工作詐騙",
+    "messages": [
+      {
+        "sender": "scammer",
+        "text": "在家工作日賺 5000！立即加入我們的兼職計畫：job.tw/easy-money",
+        "screenshotUrl": null
+      },
+      {
+        "sender": "feedback",
+        "text": "",
+        "responseOptions": ["trust", "doubt"]
+      }
+    ],
+    "feedback": {
+      "trust": {
+        "text": "錯誤！這可能是詐騙，可能要求你支付費用或提供個人資料。",
+        "isCorrect": false,
+        "explanation": "正規工作不會要求預付費用，應確認對方身份並查證工作來源。"
+      },
+      "doubt": {
+        "text": "正確！保持懷疑並查證是最佳做法！",
+        "isCorrect": true,
+        "explanation": "高薪兼職廣告通常是詐騙陷阱，應查證公司背景。"
+      }
+    }
+  }
+]
