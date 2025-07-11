@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>防詐騙自信評估</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: linear-gradient(135deg, #2C82C9 0%, #1B3B5F 100%);
+      min-height: 100vh;
+      color: #1B3B5F;
+      line-height: 1.6;
+    }
+
+    .top-nav {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(44, 130, 201, 0.2);
+      box-shadow: 0 2px 15px rgba(28, 59, 95, 0.1);
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-size: 2rem;
+      background: linear-gradient(45deg, #2C82C9, #1B3B5F);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .title-section h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1B3B5F;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: #2C82C9;
+      margin-top: 0.25rem;
+    }
+
+    .user-section {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, #2C82C9, #1B3B5F);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 600;
+      font-size: 1.1rem;
+      box-shadow: 0 2px 5px rgba(44, 130, 201, 0.2);
+    }
+
+    .user-name {
+      font-weight: 600;
+      color: #1B3B5F;
+    }
+
+    .user-role {
+      font-size: 0.8rem;
+      color: #2C82C9;
+    }
+
+    .logout-btn {
+      background: linear-gradient(45deg, #E57373, #EF5350);
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .logout-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(229, 115, 115, 0.3);
+    }
+
+    .admin-layout {
+      display: flex;
+      min-height: calc(100vh - 80px);
+      gap: 2rem;
+      padding: 2rem;
+    }
+
+    .sidebar {
+      width: 280px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 1.5rem;
+      box-shadow: 0 5px 20px rgba(28, 59, 95, 0.1);
+    }
+
+    .sidebar-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #1B3B5F;
+      margin-bottom: 0.5rem;
+    }
+
+    .sidebar-subtitle {
+      color: #2C82C9;
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .nav-menu {
+      list-style: none;
+    }
+
+    .nav-item {
+      margin-bottom: 0.5rem;
+    }
+
+    .nav-btn {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1rem;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      text-align: left;
+      color: #1B3B5F;
+    }
+
+    .nav-btn:hover {
+      background: rgba(44, 130, 201, 0.1);
+      transform: translateX(5px);
+    }
+
+    .nav-btn.active {
+      background: linear-gradient(45deg, #2C82C9, #1B3B5F);
+      color: #fff;
+      box-shadow: 0 3px 10px rgba(44, 130, 201, 0.2);
+    }
+
+    .nav-icon {
+      font-size: 1.2rem;
+    }
+
+    .main-content {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 1.5rem;
+      box-shadow: 0 5px 20px rgba(28, 59, 95, 0.1);
+    }
+
+    .content-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(44, 130, 201, 0.1);
+    }
+
+    .content-title {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1B3B5F;
+    }
+
+    .content-actions {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .action-btn {
+      background: linear-gradient(45deg, #2C82C9, #1B3B5F);
+      color: #fff;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      font-weight: 500;
+    }
+
+    .action-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(44, 130, 201, 0.3);
+    }
+
+    .question {
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      border-left: 5px solid #2C82C9;
+      position: relative;
+      overflow: hidden;
+      display: none;
+    }
+
+    .question.active {
+      display: block;
+    }
+
+    .question-number {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      background: linear-gradient(45deg, #2C82C9, #1B3B5F);
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 24px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-right: 0.5rem;
+    }
+
+    .question p {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #1B3B5F;
+      margin-bottom: 0.5rem;
+    }
+
+    .custom-select {
+      position: relative;
+      width: 100%;
+    }
+
+    .custom-select select {
+      width: 100%;
+      padding: 0.5rem 1rem;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      background: #fff;
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231B3B5F' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 0.75rem center;
+      background-size: 1rem;
+      padding-right: 2rem;
+    }
+
+    .custom-select select:focus {
+      outline: none;
+      border-color: #2C82C9;
+      box-shadow: 0 0 0 2px rgba(44, 130, 201, 0.1);
+    }
+
+    .progress-container {
+      margin-bottom: 1.5rem;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: #4a5568;
+    }
+
+    .progress {
+      width: 100%;
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #2C82C9, #1B3B5F);
+      width: 0;
+      transition: width 0.5s ease;
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .pagination-btn {
+      background: linear-gradient(45deg, #2C82C9, #1B3B5F);
+      color: #fff;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      font-weight: 500;
+    }
+
+    .pagination-btn:disabled {
+      background: #a0aec0;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .pagination-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(44, 130, 201, 0.3);
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      background: linear-gradient(45deg, #2C82C9, #1B3B5F);
+      color: #fff;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      margin-top: 1rem;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(44, 130, 201, 0.3);
+    }
+
+    .result {
+      display: none;
+      text-align: center;
+      padding: 1.5rem;
+      background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+      border-radius: 10px;
+      border-left: 5px solid #2C82C9;
+      margin-top: 1.5rem;
+    }
+
+    .result h3 {
+      color: #2d3748;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .score-display {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .score-item {
+      background: #fff;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      min-width: 150px;
+    }
+
+    .score-item h4 {
+      color: #718096;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .score-value {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #2C82C9;
+    }
+
+    .chart {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+      align-items: end;
+      height: 200px;
+    }
+
+    .bar-container {
+      text-align: center;
+    }
+
+    .bar {
+      width: 60px;
+      border-radius: 4px 4px 0 0;
+      transition: height 0.5s ease;
+    }
+
+    .bar.confidence {
+      background: linear-gradient(45deg, #2C82C9, #1B3B5F);
+    }
+
+    .bar.actual {
+      background: linear-gradient(45deg, #66BB6A, #43A047);
+    }
+
+    .bar-label {
+      color: #718096;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+
+    .bar-value {
+      font-weight: 600;
+      color: #2d3748;
+      background: #fff;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .analysis {
+      padding: 1rem;
+      background: rgba(44, 130, 201, 0.1);
+      border-radius: 8px;
+      border: 1px solid rgba(44, 130, 201, 0.2);
+      color: #4a5568;
+      margin-top: 1rem;
+    }
+
+    .reset-btn {
+      margin-top: 1rem;
+      padding: 0.75rem 1.5rem;
+      border: 1px solid #2C82C9;
+      background: transparent;
+      color: #2C82C9;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .reset-btn:hover {
+      background: #2C82C9;
+      color: #fff;
+    }
+
+    @media (max-width: 768px) {
+      .admin-layout {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+      }
+
+      .sidebar {
+        width: 100%;
+      }
+
+      .question {
+        padding: 0.75rem;
+      }
+
+      .chart {
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+        gap: 1rem;
+      }
+
+      .bar {
+        width: 50px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav">
+    <div class="logo-section">
+      <div class="logo">🛡️</div>
+      <div class="title-section">
+        <h1>青少年防詐互動學習平台</h1>
+        <div class="subtitle">成為網路安全小達人</div>
+      </div>
+    </div>
+    <div class="user-section">
+      <div class="user-info">
+        <div class="user-avatar" id="userAvatar">U</div>
+        <div class="user-details">
+          <div class="user-name" id="userName">陳大明，同學您好</div>
+          <div class="user-role" id="userRole">學員</div>
+        </div>
+      </div>
+      <button class="logout-btn" onclick="logout()" aria-label="登出並返回首頁">
+        <span>🚪</span>
+        登出
+      </button>
+    </nav>
+
+  <div class="admin-layout">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2 class="sidebar-title">學習選單</h2>
+        <p class="sidebar-subtitle">選擇您的學習路徑</p>
+      </div>
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <button class="nav-btn" onclick="loadModule('home')" aria-label="切換到首頁">
+            <span class="nav-icon">🏠</span>
+            首頁
+          </button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-btn" onclick="loadModule('challenge')" aria-label="切換到詐騙模擬挑戰">
+            <span class="nav-icon">🎮</span>
+            詐騙模擬挑戰
+          </button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-btn active" onclick="loadModule('assessment')" aria-label="切換到自信心評估">
+            <span class="nav-icon">🧠</span>
+            自信心評估
+          </button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-btn" onclick="loadModule('knowledge')" aria-label="切換到知識庫">
+            <span class="nav-icon">📚</span>
+            知識庫
+          </button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-btn" onclick="loadModule('achievements')" aria-label="切換到成就系統">
+            <span class="nav-icon">🏆</span>
+            成就系統
+          </button>
+        </li>
+      </ul>
+    </aside>
+
+    <main class="main-content">
+      <div class="content-header">
+        <h2 class="content-title">
+          <span id="moduleIcon">🧠</span>
+          <span id="moduleTitle">自信心評估</span>
+        </h2>
+        <div class="content-actions">
+          <button class="action-btn" onclick="refreshModule()" aria-label="重新整理當前模組">
+            <span>🔄</span>
+            重新整理
+          </button>
+          <button class="action-btn" onclick="showHelp()" aria-label="顯示幫助資訊">
+            <span>❓</span>
+            幫助
+          </button>
+        </div>
+      </div>
+
+      <div class="content-area">
+        <div class="progress-container">
+          <div class="progress-label">
+            <span>評估進度</span>
+            <span id="progressText">0/7</span>
+          </div>
+          <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
+          </div>
+        </div>
+
+        <form id="surveyForm" onsubmit="submitSurvey(event)">
+          <div class="question" data-page="1">
+            <p><span class="question-number">1</span>我很容易分辨網路上的詐騙訊息。</p>
+            <div class="custom-select">
+              <select name="q1" required>
+                <option value="">請選擇...</option>
+                <option value="1">完全不同意</option>
+                <option value="2">不太同意</option>
+                <option value="3">普通</option>
+                <option value="4">同意</option>
+                <option value="5">非常同意</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="question" data-page="1">
+            <p><span class="question-number">2</span>我不會隨便點擊不熟悉的抽獎連結。</p>
+            <div class="custom-select">
+              <select name="q2" required>
+                <option value="">請選擇...</option>
+                <option value="1">完全不同意</option>
+                <option value="2">不太同意</option>
+                <option value="3">普通</option>
+                <option value="4">同意</option>
+                <option value="5">非常同意</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="question" data-page="1">
+            <p><span class="question-number">3</span>我能判斷收到陌生人私訊時是否可疑。</p>
+            <div class="custom-select">
+              <select name="q3" required>
+                <option value="">請選擇...</option>
+                <option value="1">完全不同意</option>
+                <option value="2">不太同意</option>
+                <option value="3">普通</option>
+                <option value="4">同意</option>
+                <option value="5">非常同意</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="question" data-page="2">
+            <p><span class="question-number">4</span>我經常覺得自己無法判斷詐騙訊息。（反向題）</p>
+            <div class="custom-select">
+              <select name="q4" required>
+                <option value="">請選擇...</option>
+                <option value="1">完全不同意</option>
+                <option value="2">不太同意</option>
+                <option value="3">普通</option>
+                <option value="4">同意</option>
+                <option value="5">非常同意</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="question" data-page="2">
+            <p><span class="question-number">5</span>我知道如何檢查線上購物的真偽。</p>
+            <div class="custom-select">
+              <select name="q5" required>
+                <option value="">請選擇...</option>
+                <option value="1">完全不同意</option>
+                <option value="2">不太同意</option>
+                <option value="3">普通</option>
+                <option value="4">同意</option>
+                <option value="5">非常同意</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="question" data-page="2">
+            <p><span class="question-number">6</span>我能冷靜應對假冒客服的電話。</p>
+            <div class="custom-select">
+              <select name="q6" required>
+                <option value="">請選擇...</option>
+                <option value="1">完全不同意</option>
+                <option value="2">不太同意</option>
+                <option value="3">普通</option>
+                <option value="4">同意</option>
+                <option value="5">非常同意</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="question" data-page="3">
+            <p><span class="question-number">7</span>我很少因為好奇點擊不明來電的回撥連結。</p>
+            <div class="custom-select">
+              <select name="q7" required>
+                <option value="">請選擇...</option>
+                <option value="1">完全不同意</option>
+                <option value="2">不太同意</option>
+                <option value="3">普通</option>
+                <option value="4">同意</option>
+                <option value="5">非常同意</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="pagination">
+            <button type="button" class="pagination-btn" id="prevPage" disabled>上一頁</button>
+            <button type="button" class="pagination-btn" id="nextPage">下一頁</button>
+          </div>
+
+          <button type="submit" class="submit-btn" id="submitBtn" style="display: none;">📊 提交評估</button>
+        </form>
+
+        <div class="result" id="result">
+          <h3>📊 評估結果</h3>
+
+          <div class="score-display">
+            <div class="score-item">
+              <h4>自信程度</h4>
+              <span class="stat-number" id="confidenceScore">0.0</span>
+            </div>
+            <div class="score-item">
+              <h4>實際能力</h4>
+              <span class="stat-number">3.2</span>
+            </div>
+          </div>
+
+          <div class="chart">
+            <div class="bar-container">
+              <div class="bar confidence" id="confidenceBar" style="height: 40px;">
+                <div class="bar-value" id="confidenceValue">0.0</div>
+              </div>
+              <div class="bar-label">自信程度</div>
+            </div>
+            <div class="bar-container">
+              <div class="bar actual" id="actualBar" style="height: 128px;">
+                <div class="bar-value">3.2</div>
+              </div>
+              <div class="bar-label">實際能力</div>
+            </div>
+          </div>
+
+          <div class="analysis" id="analysis"></div>
+          
+          <button class="reset-btn" onclick="resetSurvey()">🔄 重新評估</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <p>© 2025 機器人想放假團隊。保留所有權利。系統版本 v2.1.0</p>
+  </footer>
+
+  <script>
+    const questions = document.querySelectorAll('.question');
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
+    const surveyForm = document.getElementById('surveyForm');
+    const result = document.getElementById('result');
+    const confidenceScore = document.getElementById('confidenceScore');
+    const confidenceValue = document.getElementById('confidenceValue');
+    const confidenceBar = document.getElementById('confidenceBar');
+    const actualBar = document.getElementById('actualBar');
+    const analysis = document.getElementById('analysis');
+    const prevPageBtn = document.getElementById('prevPage');
+    const nextPageBtn = document.getElementById('nextPage');
+    const submitBtn = document.getElementById('submitBtn');
+
+    let currentPage = 1;
+    const questionsPerPage = 3;
+    const totalPages = Math.ceil(questions.length / questionsPerPage);
+
+    // 模組配置
+    const moduleConfig = {
+      home: { title: '首頁', icon: '🏠', description: '歡迎回來，開始您的學習之旅' },
+      challenge: { title: '詐騙模擬挑戰', icon: '🎮', description: '體驗真實詐騙情境' },
+      assessment: { title: '自信心評估', icon: '🧠', description: '測試您的防詐信心' },
+      knowledge: { title: '知識庫', icon: '📚', description: '探索防詐騙知識' },
+      achievements: { title: '成就系統', icon: '🏆', description: '展示您的學習成果' }
+    };
+
+    // 初始化
+    window.onload = function() {
+      initializeUser();
+      loadModule('assessment');
+    };
+
+    // 初始化用戶資訊
+    function initializeUser() {
+      const role = localStorage.getItem('role') || 'guest';
+      const name = role === 'guest' ? '訪客' : role === 'admin' ? '系統管理員' : '學員';
+      const userRole = role === 'guest' ? '未登入' : role === 'admin' ? 'Administrator' : '學員';
+
+      document.getElementById('userName').textContent = name;
+      document.getElementById('userRole').textContent = userRole;
+      document.getElementById('userAvatar').textContent = name.charAt(0);
+    }
+
+    // 載入模組
+    function loadModule(moduleName) {
+      if (!moduleConfig[moduleName]) return;
+
+      const config = moduleConfig[moduleName];
+
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+
+      const currentBtn = Array.from(document.querySelectorAll('.nav-btn')).find(btn => {
+        return btn.textContent.trim().includes(config.title);
+      });
+      if (currentBtn) {
+        currentBtn.classList.add('active');
+      }
+
+      document.getElementById('moduleIcon').textContent = config.icon;
+      document.getElementById('moduleTitle').textContent = config.title;
+
+      if (moduleName === 'challenge') {
+        window.location.href = 'test.html';
+      }
+      if (moduleName === 'assessment') {
+        window.location.href = './confidence.html';
+      }
+      if (moduleName === 'knowledge') {
+        window.location.href = 'test.html';
+      }
+      if (moduleName === 'achievements') {
+        window.location.href = 'test.html';
+      }
+    }
+
+    // 重新整理模組
+    function refreshModule() {
+      loadModule('assessment');
+      showMessage('模組已重新整理！');
+    }
+
+    // 顯示幫助
+    function showHelp() {
+      showMessage('幫助資訊：點擊側邊欄切換模組，使用按鈕開始學習。如需支持，請聯繫管理團隊。');
+    }
+
+    // 登出
+    function logout() {
+      localStorage.removeItem('role');
+      showMessage('已登出，2秒後返回首頁...');
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 2000);
+    }
+
+    // 顯示訊息
+    function showMessage(message) {
+      alert(message);
+    }
+
+    // 更新進度條
+    function updateProgress() {
+      const selects = document.querySelectorAll('select');
+      const completed = Array.from(selects).filter(select => select.value !== '').length;
+      const percentage = (completed / questions.length) * 100;
+      progressBar.style.width = `${percentage}%`;
+      progressText.textContent = `${completed}/${questions.length}`;
+    }
+
+    // 顯示當前頁的題目
+    function showPage(page) {
+      questions.forEach(q => q.classList.remove('active'));
+      const start = (page - 1) * questionsPerPage;
+      const end = start + questionsPerPage;
+      for (let i = start; i < end && i < questions.length; i++) {
+        questions[i].classList.add('active');
+      }
+
+      prevPageBtn.disabled = page === 1;
+      nextPageBtn.disabled = page === totalPages;
+      submitBtn.style.display = page === totalPages ? 'block' : 'none';
+    }
+
+    // 切換頁面
+    function goToPage(page) {
+      currentPage = page;
+      showPage(currentPage);
+      updateProgress();
+    }
+
+    prevPageBtn.addEventListener('click', () => goToPage(currentPage - 1));
+    nextPageBtn.addEventListener('click', () => goToPage(currentPage + 1));
+
+    // 提交評估
+    function submitSurvey(event) {
+      event.preventDefault();
+      let totalScore = 0;
+
+      const answers = new FormData(surveyForm);
+      for (let [key, value] of answers) {
+        const score = parseInt(value);
+        if (key === 'q4') {
+          totalScore += 6 - score;
+        } else {
+          totalScore += score;
+        }
+      }
+      
+      const confidenceIndex = (totalScore / (questions.length * 5)) * 5;
+      const actualScore = 3.2;
+
+      surveyForm.style.display = 'none';
+      result.style.display = 'block';
+      
+      setTimeout(() => {
+        confidenceScore.textContent = confidenceIndex.toFixed(1);
+        confidenceValue.textContent = confidenceIndex.toFixed(1);
+        
+        const confidenceHeight = (confidenceIndex / 5) * 200;
+        confidenceBar.style.height = `${confidenceHeight}px`;
+        
+        let analysisText = '';
+        let analysisIcon = '';
+        
+        if (confidenceIndex > actualScore + 1) {
+          analysisText = '💡 你的實際防詐能力略低於你的自信程度。建議多關注假購物網站和客服電話詐騙的識別技巧！';
+          analysisIcon = '⚠️';
+        } else if (confidenceIndex < actualScore - 1) {
+          analysisText = '🎉 你的實際防詐能力超過了你的自信程度！你比自己想像的更有能力識別詐騙！';
+          analysisIcon = '✅';
+        } else {
+          analysisText = '👍 你的自信程度與實際能力匹配良好！繼續保持學習新的詐騙手法！';
+          analysisIcon = '🎯';
+        }
+        
+        analysis.innerHTML = `<h4>${analysisIcon} 分析結果</h4><p>${analysisText}</p>`;
+      }, 500);
+    }
+
+    // 重置評估
+    function resetSurvey() {
+      surveyForm.style.display = 'block';
+      result.style.display = 'none';
+      surveyForm.reset();
+      currentPage = 1;
+      showPage(currentPage);
+      updateProgress();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // 監聽選擇變化更新進度
+    document.querySelectorAll('select').forEach(select => {
+      select.addEventListener('change', updateProgress);
+    });
+
+    // 初始化
+    showPage(currentPage);
+    updateProgress();
+  </script>
+</body>
+</html>

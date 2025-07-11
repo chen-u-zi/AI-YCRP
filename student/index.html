@@ -1,27 +1,741 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>學生端 - 青少年詐騙防衛訓練站</title>
-  <link rel="stylesheet" href="../login.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>防詐騙互動學習首頁</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: linear-gradient(135deg, #2C82C9 0%, #1B3B5F 100%);
+      min-height: 100vh;
+      color: #1B3B5F;
+      line-height: 1.6;
+    }
+
+    .top-nav {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(44, 130, 201, 0.2);
+      box-shadow: 0 2px 15px rgba(28, 59, 95, 0.1);
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-size: 2rem;
+      background: linear-gradient(45deg, #2C82C9, #1B3B5F);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .title-section h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1B3B5F;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: #2C82C9;
+      margin-top: 0.25rem;
+    }
+
+    .user-section {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, #2C82C9, #1B3B5F);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 600;
+      font-size: 1.1rem;
+      box-shadow: 0 2px 5px rgba(44, 130, 201, 0.2);
+    }
+
+    .user-name {
+      font-weight: 600;
+      color: #1B3B5F;
+    }
+
+    .user-role {
+      font-size: 0.8rem;
+      color: #2C82C9;
+    }
+
+    .logout-btn {
+      background: linear-gradient(45deg, #E57373, #EF5350);
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .logout-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(229, 115, 115, 0.3);
+    }
+
+    .admin-layout {
+      display: flex;
+      min-height: calc(100vh - 80px);
+      gap: 2rem;
+      padding: 2rem;
+    }
+
+    .sidebar {
+      width: 280px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 1.5rem;
+      box-shadow: 0 5px 20px rgba(28, 59, 95, 0.1);
+    }
+
+    .sidebar-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #1B3B5F;
+      margin-bottom: 0.5rem;
+    }
+
+    .sidebar-subtitle {
+      color: #2C82C9;
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .nav-menu {
+      list-style: none;
+    }
+
+    .nav-item {
+      margin-bottom: 0.5rem;
+    }
+
+    .nav-btn {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1rem;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      text-align: left;
+      color: #1B3B5F;
+    }
+
+    .nav-btn:hover {
+      background: rgba(44, 130, 201, 0.1);
+      transform: translateX(5px);
+    }
+
+    .nav-btn.active {
+      background: linear-gradient(45deg, #2C82C9, #1B3B5F);
+      color: #fff;
+      box-shadow: 0 3px 10px rgba(44, 130, 201, 0.2);
+    }
+
+    .nav-icon {
+      font-size: 1.2rem;
+    }
+
+    .main-content {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 1.5rem;
+      box-shadow: 0 5px 20px rgba(28, 59, 95, 0.1);
+    }
+
+    .content-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(44, 130, 201, 0.1);
+    }
+
+    .content-title {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1B3B5F;
+    }
+
+    .content-actions {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .action-btn {
+      background: linear-gradient(45deg, #2C82C9, #1B3B5F);
+      color: #fff;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      font-weight: 500;
+    }
+
+    .action-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(44, 130, 201, 0.3);
+    }
+
+    .welcome-section {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .welcome-section h2 {
+      color: #2C82C9;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .welcome-section p {
+      color: #1B3B5F;
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .action-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      display: block;
+      padding: 1.5rem;
+      background: linear-gradient(135deg, #2C82C9, #1B3B5F);
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(44, 130, 201, 0.3);
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(44, 130, 201, 0.4);
+    }
+
+    .btn-disabled {
+      background: linear-gradient(135deg, #a0aec0 0%, #718096 100%);
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    .btn-disabled:hover {
+      transform: none;
+      box-shadow: 0 5px 15px rgba(160, 174, 192, 0.3);
+    }
+
+    .btn-icon {
+      font-size: 1.8rem;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .btn-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .btn-desc {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      line-height: 1.4;
+    }
+
+    .summary {
+      background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+      padding: 1.5rem;
+      border-radius: 10px;
+      border-left: 5px solid #2C82C9;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .summary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100px;
+      height: 100px;
+      background: radial-gradient(circle, rgba(44, 130, 201, 0.1) 0%, transparent 70%);
+    }
+
+    .summary h3 {
+      color: #2d3748;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .stat-card {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .stat-number {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #2C82C9;
+      display: block;
+    }
+
+    .stat-label {
+      color: #718096;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+
+    .recommendation {
+      background: rgba(44, 130, 201, 0.1);
+      padding: 1rem;
+      border-radius: 8px;
+      border: 1px solid rgba(44, 130, 201, 0.2);
+    }
+
+    .recommendation h4 {
+      color: #4a5568;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .weak-areas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1rem 0;
+    }
+
+    .weak-area-tag {
+      background: #fed7d7;
+      color: #c53030;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .progress-bar {
+      background: #e2e8f0;
+      height: 8px;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 1rem;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #2C82C9, #1B3B5F);
+      width: 62.5%;
+      transition: width 1s ease;
+      animation: fillProgress 2s ease-in-out;
+    }
+
+    @keyframes fillProgress {
+      from { width: 0%; }
+      to { width: 62.5%; }
+    }
+
+    @media (max-width: 768px) {
+      .admin-layout {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+      }
+
+      .sidebar {
+        width: 100%;
+      }
+
+      .action-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>歡迎，學生！</h1>
-    <a href="../home.html" class="back-btn" aria-label="返回首頁">登出</a>
-  </header>
-
-  <main>
-    <div class="form-container">
-      <h2>學生專屬學習空間</h2>
-      <p>開始你的防詐挑戰，學習辨識網路詐騙！</p>
-      <button onclick="window.location.href='../index.html'" aria-label="開始學習">開始學習</button>
+  <nav class="top-nav">
+    <div class="logo-section">
+      <div class="logo">🛡️</div>
+      <div class="title-section">
+        <h1>青少年防詐互動學習平台</h1>
+        <div class="subtitle">成為網路安全小達人</div>
+      </div>
     </div>
-  </main>
+    <div class="user-section">
+      <div class="user-info">
+        <div class="user-avatar" id="userAvatar">U</div>
+        <div class="user-details">
+          <div class="user-name" id="userName">陳大明，同學您好</div>
+          <div class="user-role" id="userRole">登入中</div>
+        </div>
+      </div>
+      <button class="logout-btn" onclick="logout()" aria-label="登出並返回首頁">
+        <span>🚪</span>
+        登出
+      </button>
+    </nav>
 
-  <footer>
-    <p>© 2025 機器人想放假團隊。保留所有權利。</p>
+  <div class="admin-layout">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2 class="sidebar-title">學習選單</h2>
+        <p class="sidebar-subtitle">選擇您的學習路徑</p>
+      </div>
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <button class="nav-btn active" onclick="loadModule('home')" aria-label="切換到首頁">
+            <span class="nav-icon">🏠</span>
+            首頁
+          </button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-btn" onclick="loadModule('challenge')" aria-label="切換到詐騙模擬挑戰">
+            <span class="nav-icon">🎮</span>
+            詐騙模擬挑戰
+          </button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-btn" onclick="loadModule('assessment')" aria-label="切換到自信心評估">
+            <span class="nav-icon">🧠</span>
+            自信心評估
+          </button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-btn" onclick="loadModule('knowledge')" aria-label="切換到知識庫">
+            <span class="nav-icon">📚</span>
+            知識庫
+          </button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-btn" onclick="loadModule('achievements')" aria-label="切換到成就系統">
+            <span class="nav-icon">🏆</span>
+            成就系統
+          </button>
+        </li>
+      </ul>
+    </aside>
+
+    <main class="main-content">
+      <div class="content-header">
+        <h2 class="content-title">
+          <span id="moduleIcon">🏠</span>
+          <span id="moduleTitle">首頁</span>
+        </h2>
+        <div class="content-actions">
+          <button class="action-btn" onclick="refreshModule()" aria-label="重新整理當前模組">
+            <span>🔄</span>
+            重新整理
+          </button>
+          <button class="action-btn" onclick="showHelp()" aria-label="顯示幫助資訊">
+            <span>❓</span>
+            幫助
+          </button>
+        </div>
+      </div>
+
+      <div class="content-area">
+        <div class="welcome-section">
+          <h2>👋 歡迎回來，小駭客學員！</h2>
+          <p>準備好迎接新的挑戰了嗎？讓我們一起提升防詐騙技能，成為網路世界的守護者！</p>
+        </div>
+
+        <div class="action-grid">
+          <a href="test.html" class="btn" onclick="loadModule('challenge')">
+            <span class="btn-icon">🎮</span>
+            <div class="btn-title">詐騙模擬挑戰</div>
+            <div class="btn-desc">體驗真實詐騙情境，提升識別能力</div>
+          </a>
+
+          <div class="btn btn-disabled" onclick="loadModule('assessment')">
+            <span class="btn-icon">🧠</span>
+            <div class="btn-title">自信心評估</div>
+            <div class="btn-desc">即將推出 - 測試你的防詐信心指數</div>
+          </div>
+
+          <div class="btn btn-disabled" onclick="loadModule('knowledge')">
+            <span class="btn-icon">📚</span>
+            <div class="btn-title">知識庫</div>
+            <div class="btn-desc">即將推出 - 防詐騙知識大全</div>
+          </div>
+
+          <div class="btn btn-disabled" onclick="loadModule('achievements')">
+            <span class="btn-icon">🏆</span>
+            <div class="btn-title">成就系統</div>
+            <div class="btn-desc">即將推出 - 收集徽章展示實力</div>
+          </div>
+        </div>
+
+        <div class="summary">
+          <h3>📊 上次挑戰結果</h3>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <span class="stat-number">8</span>
+              <div class="stat-label">完成題數</div>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">5</span>
+              <div class="stat-label">正確題數</div>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">3</span>
+              <div class="stat-label">錯誤題數</div>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">62.5%</span>
+              <div class="stat-label">正確率</div>
+            </div>
+          </div>
+
+          <div class="progress-bar">
+            <div class="progress-fill"></div>
+          </div>
+
+          <div class="recommendation">
+            <h4>💡 個人化建議</h4>
+            <p><strong>弱點分析：</strong>需要加強以下類型的詐騙識別能力</p>
+            <div class="weak-areas">
+              <span class="weak-area-tag">假購物網站</span>
+              <span class="weak-area-tag">客服詐騙</span>
+              <span class="weak-area-tag">抽獎連結</span>
+            </div>
+            <p><strong>自信度變化：</strong>從高自信調整為中等自信（更符合實際能力）</p>
+            <p><strong>下次挑戰建議：</strong>重點練習假社群對話類型的詐騙識別</p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <p>© 2025 機器人想放假團隊。保留所有權利。系統版本 v2.1.0</p>
   </footer>
+
+  <script>
+    // 全域變數
+    let currentModule = 'home';
+
+    // 模組配置
+    const moduleConfig = {
+      home: { title: '首頁', icon: '🏠', description: '歡迎回來，開始您的學習之旅' },
+      challenge: { title: '詐騙模擬挑戰', icon: '🎮', description: '體驗真實詐騙情境' },
+      assessment: { title: '自信心評估', icon: '🧠', description: '測試您的防詐信心' },
+      knowledge: { title: '知識庫', icon: '📚', description: '探索防詐騙知識' },
+      achievements: { title: '成就系統', icon: '🏆', description: '展示您的學習成果' }
+    };
+
+    // 初始化
+    window.onload = function() {
+      initializeUser();
+      loadModule('home');
+    };
+
+    // 初始化用戶資訊
+    function initializeUser() {
+      const role = localStorage.getItem('role') || 'guest';
+      const name = role === 'guest' ? '訪客' : role === 'admin' ? '系統管理員' : '學員';
+      const userRole = role === 'guest' ? '未登入' : role === 'admin' ? 'Administrator' : '學員';
+
+      document.getElementById('userName').textContent = name;
+      document.getElementById('userRole').textContent = userRole;
+      document.getElementById('userAvatar').textContent = name.charAt(0);
+    }
+
+    // 載入模組
+    function loadModule(moduleName) {
+      if (!moduleConfig[moduleName]) return;
+
+      currentModule = moduleName;
+      const config = moduleConfig[moduleName];
+
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+
+      const currentBtn = Array.from(document.querySelectorAll('.nav-btn')).find(btn => {
+        return btn.textContent.trim().includes(config.title);
+      });
+      if (currentBtn) {
+        currentBtn.classList.add('active');
+      }
+
+      document.getElementById('moduleIcon').textContent = config.icon;
+      document.getElementById('moduleTitle').textContent = config.title;
+
+      // 特定模組跳轉處理
+      if (moduleName === 'challenge') {
+        window.location.href = 'test.html';
+      }
+        // 特定模組跳轉處理
+        if (moduleName === 'assessment') {
+          window.location.href = './confidence.html';
+        }
+          // 特定模組跳轉處理
+      if (moduleName === 'knowledge') {
+        window.location.href = 'test.html';
+      }
+        // 特定模組跳轉處理
+        if (moduleName === 'achievements') {
+          window.location.href = 'test.html';
+        }
+    }
+
+    // 重新整理模組
+    function refreshModule() {
+      loadModule(currentModule);
+      showMessage('模組已重新整理！');
+    }
+
+    // 顯示幫助
+    function showHelp() {
+      showMessage('幫助資訊：點擊側邊欄切換模組，使用按鈕開始學習。如需支持，請聯繫管理團隊。');
+    }
+
+    // 登出
+    function logout() {
+      localStorage.removeItem('role');
+      showMessage('已登出，2秒後返回首頁...');
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 2000);
+    }
+
+    // 顯示訊息
+    function showMessage(message) {
+      alert(message);
+    }
+
+    // 添加一些互動效果
+    document.addEventListener('DOMContentLoaded', function() {
+      // 統計卡片動畫
+      const statCards = document.querySelectorAll('.stat-card');
+      statCards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+
+        setTimeout(() => {
+          card.style.transition = 'all 0.5s ease';
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, index * 100);
+      });
+
+      // 按鈕懸停效果增強
+      const buttons = document.querySelectorAll('.btn:not(.btn-disabled)');
+      buttons.forEach(button => {
+        button.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateY(-5px) scale(1.02)';
+        });
+
+        button.addEventListener('mouseleave', function() {
+          this.style.transform = 'translateY(0) scale(1)';
+        });
+      });
+    });
+  </script>
 </body>
 </html>
