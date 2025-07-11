@@ -804,37 +804,39 @@
     // 載入模組
     function loadModule(moduleName) {
       if (!moduleConfig[moduleName]) return;
-
+    
+      currentModule = moduleName;
       const config = moduleConfig[moduleName];
-
+    
       document.querySelectorAll('.nav-btn').forEach(btn => {
         btn.classList.remove('active');
       });
-
+    
       const currentBtn = Array.from(document.querySelectorAll('.nav-btn')).find(btn => {
         return btn.textContent.trim().includes(config.title);
       });
+      
       if (currentBtn) {
         currentBtn.classList.add('active');
       }
-
+    
       document.getElementById('moduleIcon').textContent = config.icon;
       document.getElementById('moduleTitle').textContent = config.title;
-
-      if (moduleName === 'challenge') {
+    
+      // 確認不是當前頁面才進行跳轉
+      if (moduleName === 'home' && !window.location.href.includes('index.html')) {
+        window.location.href = 'index.html';
+      } else if (moduleName === 'challenge' && !window.location.href.includes('test.html')) {
         window.location.href = 'test.html';
-      }
-      if (moduleName === 'assessment') {
-        window.location.href = './confidence.html';
-      }
-      if (moduleName === 'knowledge') {
-        window.location.href = 'test.html';
-      }
-      if (moduleName === 'achievements') {
-        window.location.href = 'test.html';
+      } else if (moduleName === 'assessment' && !window.location.href.includes('confidence.html')) {
+        window.location.href = 'confidence.html';
+      } else if (moduleName === 'knowledge' && !window.location.href.includes('knowledge.html')) {
+        window.location.href = 'knowledge.html';
+      } else if (moduleName === 'achievements' && !window.location.href.includes('achievements.html')) {
+        window.location.href = 'achievements.html';
       }
     }
-
+    
     // 重新整理模組
     function refreshModule() {
       loadModule('assessment');

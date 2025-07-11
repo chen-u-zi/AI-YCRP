@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -242,7 +243,7 @@
       background-color: #fff;
       padding: 2em;
       border-radius: 15px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     }
 
     .phone-container {
@@ -251,7 +252,7 @@
       background: #1a1a1a;
       border-radius: 30px;
       padding: 20px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
       position: relative;
       overflow: hidden;
     }
@@ -270,7 +271,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 15px;
-      background: rgba(255,255,255,0.1);
+      background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(10px);
     }
 
@@ -320,7 +321,7 @@
     }
 
     .ig-post {
-      background: rgba(255,255,255,0.9);
+      background: rgba(255, 255, 255, 0.9);
       margin: 10px;
       border-radius: 15px;
       overflow: hidden;
@@ -448,21 +449,52 @@
     }
 
     @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.05);
+      }
+
+      100% {
+        transform: scale(1);
+      }
     }
 
     @keyframes slideIn {
-      0% { transform: translateY(20px); opacity: 0; }
-      10% { transform: translateY(0); opacity: 1; }
-      90% { transform: translateY(0); opacity: 1; }
-      100% { transform: translateY(-20px); opacity: 0; }
+      0% {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+
+      10% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      90% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(-20px);
+        opacity: 0;
+      }
     }
 
     @keyframes blink {
-      0%, 50% { opacity: 1; }
-      51%, 100% { opacity: 0; }
+
+      0%,
+      50% {
+        opacity: 1;
+      }
+
+      51%,
+      100% {
+        opacity: 0;
+      }
     }
 
     .floating-hearts {
@@ -482,8 +514,15 @@
     }
 
     @keyframes float {
-      0% { transform: translateY(100px) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+      0% {
+        transform: translateY(100px) rotate(0deg);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+      }
     }
 
     @media (max-width: 768px) {
@@ -514,6 +553,7 @@
     }
   </style>
 </head>
+
 <body>
   <nav class="top-nav">
     <div class="logo-section">
@@ -527,15 +567,15 @@
       <div class="user-info">
         <div class="user-avatar" id="userAvatar">U</div>
         <div class="user-details">
-          <div class="user-name" id="userName">陳大明，同學您好</div>
+          <div class="user-name" id="userName">學員</div>
           <div class="user-role" id="userRole">登入中</div>
         </div>
       </div>
-      <button class="logout-btn" onclick="logout()" aria-label="登出並返回首頁">
+      <button class="logout-btn" onclick="window.location.href='../home.html'" aria-label="登出並返回首頁">
         <span>🚪</span>
         登出
       </button>
-    </nav>
+  </nav>
 
   <div class="admin-layout">
     <aside class="sidebar">
@@ -696,7 +736,7 @@
     };
 
     // 初始化
-    window.onload = function() {
+    window.onload = function () {
       initializeUser();
       loadModule('challenge');
       startPhoneAnimation();
@@ -705,7 +745,7 @@
     // 初始化用戶資訊
     function initializeUser() {
       const role = 'student';
-      const name = '陳大明';
+      const name = '學員';
       const userRole = '學員';
 
       document.getElementById('userName').textContent = name + '，同學您好';
@@ -754,25 +794,39 @@
     // 載入模組
     function loadModule(moduleName) {
       if (!moduleConfig[moduleName]) return;
-
+    
       currentModule = moduleName;
       const config = moduleConfig[moduleName];
-
+    
       document.querySelectorAll('.nav-btn').forEach(btn => {
         btn.classList.remove('active');
       });
-
+    
       const currentBtn = Array.from(document.querySelectorAll('.nav-btn')).find(btn => {
         return btn.textContent.trim().includes(config.title);
       });
+      
       if (currentBtn) {
         currentBtn.classList.add('active');
       }
-
+    
       document.getElementById('moduleIcon').textContent = config.icon;
       document.getElementById('moduleTitle').textContent = config.title;
+    
+      // 確認不是當前頁面才進行跳轉
+      if (moduleName === 'home' && !window.location.href.includes('index.html')) {
+        window.location.href = 'index.html';
+      } else if (moduleName === 'challenge' && !window.location.href.includes('test.html')) {
+        window.location.href = 'test.html';
+      } else if (moduleName === 'assessment' && !window.location.href.includes('confidence.html')) {
+        window.location.href = 'confidence.html';
+      } else if (moduleName === 'knowledge' && !window.location.href.includes('knowledge.html')) {
+        window.location.href = 'knowledge.html';
+      } else if (moduleName === 'achievements' && !window.location.href.includes('achievements.html')) {
+        window.location.href = 'achievements.html';
+      }
     }
-
+    
     // 重新整理模組
     function refreshModule() {
       loadModule(currentModule);
@@ -788,7 +842,7 @@
     function logout() {
       showMessage('已登出，2秒後返回首頁...');
       setTimeout(() => {
-        window.location.href = 'index.html';
+        window.location.href = "../home.html"; // 或 "home.html"
       }, 2000);
     }
 
@@ -841,4 +895,5 @@
     }
   </script>
 </body>
+
 </html>

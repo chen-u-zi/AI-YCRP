@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🛡️ 防詐騙知識庫 - 青少年專用</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: linear-gradient(135deg, #2C82C9 0%, #1B3B5F 100%);
+      min-height: 100vh;
+      color: #1B3B5F;
+      line-height: 1.6;
+    }
+
+    .top-nav {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(44, 130, 201, 0.2);
+      box-shadow: 0 2px 15px rgba(28, 59, 95, 0.1);
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-size: 2rem;
+      background: linear-gradient(45deg, #2C82C9, #1B3B5F);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .title-section h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1B3B5F;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: #2C82C9;
+      margin-top: 0.25rem;
+    }
+
+    .user-section {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, #2C82C9, #1B3B5F);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 600;
+      font-size: 1.1rem;
+      box-shadow: 0 2px 5px rgba(44, 130, 201, 0.2);
+    }
+
+    .user-name {
+      font-weight: 600;
+      color: #1B3B5F;
+    }
+
+    .user-role {
+      font-size: 0.8rem;
+      color: #2C82C9;
+    }
+
+    .logout-btn {
+      background: linear-gradient(45deg, #E57373, #EF5350);
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .logout-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(229, 115, 115, 0.3);
+    }
+
+    .admin-layout {
+      display: flex;
+      min-height: calc(100vh - 80px);
+      gap: 2rem;
+      padding: 2rem;
+    }
+
+    .sidebar {
+      width: 280px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 1.5rem;
+      box-shadow: 0 5px 20px rgba(28, 59, 95, 0.1);
+    }
+
+    .sidebar-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #1B3B5F;
+      margin-bottom: 0.5rem;
+    }
+
+    .sidebar-subtitle {
+      color: #2C82C9;
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .nav-menu {
+      list-style: none;
+    }
+
+    .nav-item {
+      margin-bottom: 0.5rem;
+    }
+
+    .nav-btn {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1rem;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      text-align: left;
+      color: #1B3B5F;
+    }
+
+    .nav-btn:hover {
+      background: rgba(44, 130, 201, 0.1);
+      transform: translateX(5px);
+    }
+
+    .nav-btn.active {
+      background: linear-gradient(45deg, #2C82C9, #1B3B5F);
+      color: #fff;
+      box-shadow: 0 3px 10px rgba(44, 130, 201, 0.2);
+    }
+
+    .nav-icon {
+      font-size: 1.2rem;
+    }
+
+    .main-content {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 1.5rem;
+      box-shadow: 0 5px 20px rgba(28, 59, 95, 0.1);
+    }
+
+    .header {
+      background: linear-gradient(135deg, #2C82C9 0%, #1B3B5F 100%);
+      color: white;
+      padding: 30px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="white" opacity="0.3"/><circle cx="80" cy="40" r="1.5" fill="white" opacity="0.2"/><circle cx="40" cy="80" r="1" fill="white" opacity="0.4"/></svg>');
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .header h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header p {
+      font-size: 1.2em;
+      opacity: 0.9;
+      position: relative;
+      z-index: 1;
+    }
+
+    .search-container {
+      padding: 30px;
+      background: #f8f9fa;
+      border-bottom: 1px solid #e9ecef;
+    }
+
+    .search-box {
+      display: flex;
+      gap: 15px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .search-input {
+      flex: 1;
+      padding: 15px 20px;
+      border: 2px solid #ddd;
+      border-radius: 50px;
+      font-size: 16px;
+      outline: none;
+      transition: all 0.3s;
+    }
+
+    .search-input:focus {
+      border-color: #2C82C9;
+      box-shadow: 0 0 0 3px rgba(44, 130, 201, 0.1);
+    }
+
+    .search-btn {
+      padding: 15px 25px;
+      background: linear-gradient(45deg, #2C82C9, #1B3B5F);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+
+    .search-btn:hover {
+      background: linear-gradient(45deg, #1B3B5F, #2C82C9);
+      transform: translateY(-2px);
+    }
+
+    .categories {
+      padding: 30px;
+      background: white;
+    }
+
+    .categories h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #2C82C9;
+      font-size: 1.8em;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .category-card {
+      background: white;
+      border: 2px solid #e9ecef;
+      border-radius: 15px;
+      padding: 25px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .category-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      border-color: #2C82C9;
+    }
+
+    .category-card.active {
+      border-color: #2C82C9;
+      background: linear-gradient(135deg, #2C82C9, #1B3B5F);
+      color: white;
+    }
+
+    .category-icon {
+      font-size: 3em;
+      margin-bottom: 15px;
+      display: block;
+    }
+
+    .category-title {
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .category-desc {
+      font-size: 0.9em;
+      opacity: 0.7;
+      line-height: 1.4;
+    }
+
+    .articles-container {
+      padding: 30px;
+      background: #f8f9fa;
+    }
+
+    .articles-grid {
+      display: grid;
+      gap: 20px;
+    }
+
+    .article-card {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s;
+    }
+
+    .article-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .article-header {
+      padding: 25px;
+      background: linear-gradient(135deg, #2C82C9, #1B3B5F);
+      color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .article-icon {
+      font-size: 2em;
+      flex-shrink: 0;
+    }
+
+    .article-title {
+      font-size: 1.3em;
+      font-weight: bold;
+      flex: 1;
+    }
+
+    .article-toggle {
+      font-size: 1.5em;
+      transition: transform 0.3s;
+    }
+
+    .article-toggle.active {
+      transform: rotate(180deg);
+    }
+
+    .article-content {
+      padding: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .article-content.show {
+      max-height: 1000px;
+      padding: 25px;
+    }
+
+    .article-body {
+      line-height: 1.6;
+    }
+
+    .article-body h3 {
+      color: #2C82C9;
+      margin: 20px 0 15px 0;
+      font-size: 1.2em;
+    }
+
+    .article-body ul {
+      margin: 15px 0;
+      padding-left: 20px;
+    }
+
+    .article-body li {
+      margin: 8px 0;
+      position: relative;
+    }
+
+    .article-body li::marker {
+      content: "🔍 ";
+    }
+
+    .warning-box {
+      background: linear-gradient(135deg, #E57373, #EF5350);
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 20px 0;
+      border-left: 5px solid #ff4757;
+    }
+
+    .tip-box {
+      background: linear-gradient(135deg, #2ecc71, #27ae60);
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 20px 0;
+      border-left: 5px solid #16a085;
+    }
+
+    .reflection-box {
+      background: linear-gradient(135deg, #9b59b6, #8e44ad);
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 20px 0;
+      border-left: 5px solid #663399;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .stats-container {
+      padding: 30px;
+      background: white;
+      border-top: 1px solid #e9ecef;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      text-align: center;
+    }
+
+    .stat-card {
+      padding: 20px;
+      background: linear-gradient(135deg, #2C82C9, #1B3B5F);
+      color: white;
+      border-radius: 15px;
+    }
+
+    .stat-number {
+      font-size: 2.5em;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .stat-label {
+      font-size: 1.1em;
+      opacity: 0.9;
+    }
+
+    @media (max-width: 768px) {
+      .admin-layout {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+      }
+
+      .sidebar {
+        width: 100%;
+      }
+
+      .search-box {
+        flex-direction: column;
+      }
+
+      .category-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .article-header {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav">
+    <div class="logo-section">
+      <div class="logo">🛡️</div>
+      <div class="title-section">
+        <h1>青少年防詐互動學習平台</h1>
+        <div class="subtitle">成為網路安全小達人</div>
+      </div>
+    </div>
+    <div class="user-section">
+      <div class="user-info">
+        <div class="user-avatar" id="userAvatar">U</div>
+        <div class="user-details">
+          <div class="user-name" id="userName">陳大明，同學您好</div>
+          <div class="user-role" id="userRole">登入中</div>
+        </div>
+      </div>
+      <button class="logout-btn" onclick="logout()" aria-label="登出並返回首頁">
+        <span>🚪</span>
+        登出
+      </button>
+    </div>
+  </nav>
+
+  <div class="admin-layout">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2 class="sidebar-title">學習選單</h2>
+        <p class="sidebar-subtitle">選擇您的學習路徑</p>
+      </div>
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <button class="nav-btn" onclick="loadModule('home')" aria-label="切換到首頁">
+            <span class="nav-icon">🏠</span>
+            首頁
+          </button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-btn" onclick="loadModule('challenge')" aria-label="切換到詐騙模擬挑戰">
+            <span class="nav-icon">🎮</span>
+            詐騙模擬挑戰
+          </button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-btn" onclick="loadModule('assessment')" aria-label="切換到自信心評估">
+            <span class="nav-icon">🧠</span>
+            自信心評估
+          </button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-btn active" onclick="loadModule('knowledge')" aria-label="切換到知識庫">
+            <span class="nav-icon">📚</span>
+            知識庫
+          </button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-btn" onclick="loadModule('achievements')" aria-label="切換到成就系統">
+            <span class="nav-icon">🏆</span>
+            成就系統
+          </button>
+        </li>
+      </ul>
+    </aside>
+
+    <main class="main-content">
+      <div class="container">
+        <div class="header">
+          <h1>🛡️ 防詐騙知識庫</h1>
+          <p>保護青少年免受詐騙，提升網路安全意識</p>
+        </div>
+
+        <div class="search-container">
+          <div class="search-box">
+            <input type="text" class="search-input" placeholder="輸入關鍵字搜尋防詐騙知識..." id="searchInput">
+            <button class="search-btn" onclick="searchArticles()">🔍 搜尋</button>
+          </div>
+        </div>
+
+        <div class="categories">
+          <h2>📚 熱門詐騙情境</h2>
+          <div class="category-grid">
+            <div class="category-card active" onclick="filterArticles('all')">
+              <span class="category-icon">📋</span>
+              <div class="category-title">全部類別</div>
+              <div class="category-desc">瀏覽所有防詐騙知識</div>
+            </div>
+            <div class="category-card" onclick="filterArticles('lottery')">
+              <span class="category-icon">🎁</span>
+              <div class="category-title">假抽獎詐騙</div>
+              <div class="category-desc">識破虛假中獎通知</div>
+            </div>
+            <div class="category-card" onclick="filterArticles('customer-service')">
+              <span class="category-icon">📞</span>
+              <div class="category-title">假客服詐騙</div>
+              <div class="category-desc">辨識冒充客服人員</div>
+            </div>
+            <div class="category-card" onclick="filterArticles('friend-impersonation')">
+              <span class="category-icon">👥</span>
+              <div class="category-title">冒用朋友帳號</div>
+              <div class="category-desc">防範帳號被盜用</div>
+            </div>
+            <div class="category-card" onclick="filterArticles('online-shopping')">
+              <span class="category-icon">🛒</span>
+              <div class="category-title">假網購詐騙</div>
+              <div class="category-desc">安全網路購物指南</div>
+            </div>
+            <div class="category-card" onclick="filterArticles('romance')">
+              <span class="category-icon">💕</span>
+              <div class="category-title">交友詐騙</div>
+              <div class="category-desc">識別網路交友陷阱</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="articles-container">
+          <div class="articles-grid" id="articlesGrid">
+            <div class="article-card" data-category="lottery">
+              <div class="article-header" onclick="toggleArticle(this)">
+                <span class="article-icon">🎁</span>
+                <span class="article-title">假抽獎詐騙完全解析</span>
+                <span class="article-toggle">▼</span>
+              </div>
+              <div class="article-content">
+                <div class="article-body">
+                  <h3>🚨 常見假抽獎手法</h3>
+                  <ul>
+                    <li>聲稱你中了大獎，需要先付手續費才能領獎</li>
+                    <li>要求提供個人資料或銀行帳戶資訊</li>
+                    <li>催促你立即行動，製造緊迫感</li>
+                    <li>透過簡訊或社群媒體私訊通知中獎</li>
+                  </ul>
+
+                  <div class="warning-box">
+                    <strong>⚠️ 警告信號</strong><br>
+                    真正的抽獎活動不會要求你先付費，也不會主動私訊通知中獎！
+                  </div>
+
+                  <h3>✅ 防範方法</h3>
+                  <ul>
+                    <li>確認抽獎活動的官方網站和認證標章</li>
+                    <li>不要點擊可疑連結或下載不明軟體</li>
+                    <li>不要提供個人敏感資訊</li>
+                    <li>詢問身邊朋友或家人的意見</li>
+                  </ul>
+
+                  <div class="tip-box">
+                    <strong>💡 小技巧</strong><br>
+                    遇到中獎通知時，先上網搜尋該公司或活動是否真實存在，查看官方網站公告。
+                  </div>
+
+                  <div class="reflection-box">
+                    <strong>🤔 自我反思</strong><br>
+                    你是否曾經收到過類似的中獎通知？當時你是怎麼處理的？現在回想起來，有什麼地方覺得可疑嗎？
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="article-card" data-category="customer-service">
+              <div class="article-header" onclick="toggleArticle(this)">
+                <span class="article-icon">📞</span>
+                <span class="article-title">假客服詐騙識別指南</span>
+                <span class="article-toggle">▼</span>
+              </div>
+              <div class="article-content">
+                <div class="article-body">
+                  <h3>🎭 假客服常見偽裝</h3>
+                  <ul>
+                    <li>冒充知名電商平台客服（如蝦皮、momo等）</li>
+                    <li>聲稱你的訂單有問題需要處理</li>
+                    <li>要求你提供驗證碼或密碼</li>
+                    <li>催促你立即操作ATM或網路銀行</li>
+                  </ul>
+
+                  <div class="warning-box">
+                    <strong>⚠️ 危險信號</strong><br>
+                    真正的客服絕對不會要求你提供密碼、驗證碼，或要求你操作ATM！
+                  </div>
+
+                  <h3>🛡️ 防護策略</h3>
+                  <ul>
+                    <li>主動撥打官方客服電話確認</li>
+                    <li>不要透露任何個人敏感資訊</li>
+                    <li>不要下載對方提供的軟體</li>
+                    <li>保持冷靜，不要被催促</li>
+                  </ul>
+
+                  <div class="tip-box">
+                    <strong>💡 驗證技巧</strong><br>
+                    真客服會知道你的訂單詳情，假客服通常只能提供模糊資訊。可以反問具體訂單內容來測試。
+                  </div>
+
+                  <div class="reflection-box">
+                    <strong>🤔 思考時間</strong><br>
+                    如果現在有人打電話給你，聲稱是某購物網站客服，你會如何確認對方身份？
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="article-card" data-category="friend-impersonation">
+              <div class="article-header" onclick="toggleArticle(this)">
+                <span class="article-icon">👥</span>
+                <span class="article-title">冒用朋友帳號詐騙防範</span>
+                <span class="article-toggle">▼</span>
+              </div>
+              <div class="article-content">
+                <div class="article-body">
+                  <h3>🕵️ 識別冒用帳號</h3>
+                  <ul>
+                    <li>語氣和平常不一樣，變得很正式或陌生</li>
+                    <li>突然要求借錢或代購商品</li>
+                    <li>催促你不要告訴其他人</li>
+                    <li>無法回答只有你們才知道的問題</li>
+                  </ul>
+
+                  <div class="warning-box">
+                    <strong>⚠️ 紅色警報</strong><br>
+                    真正的朋友不會介意你打電話確認身份，假冒者通常會找藉口避免語音通話！
+                  </div>
+
+                  <h3>🔒 保護措施</h3>
+                  <ul>
+                    <li>設定帳號雙重認證</li>
+                    <li>不要使用簡單密碼</li>
+                    <li>定期更換密碼</li>
+                    <li>不要在公用電腦登入個人帳號</li>
+                  </ul>
+
+                  <div class="tip-box">
+                    <strong>💡 驗證絕招</strong><br>
+                    當朋友向你借錢時，問一些只有你們才知道的事情，或直接打電話確認。
+                  </div>
+
+                  <div class="reflection-box">
+                    <strong>🤔 想想看</strong><br>
+                    你的社群媒體帳號安全嗎？密碼夠複雜嗎？有開啟雙重認證嗎？
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="article-card" data-category="online-shopping">
+              <div class="article-header" onclick="toggleArticle(this)">
+                <span class="article-icon">🛒</span>
+                <span class="article-title">假網購詐騙完全攻略</span>
+                <span class="article-toggle">▼</span>
+              </div>
+              <div class="article-content">
+                <div class="article-body">
+                  <h3>🎪 假購物網站特徵</h3>
+                  <ul>
+                    <li>價格異常便宜，低於市場價很多</li>
+                    <li>網站設計粗糙，有很多錯字</li>
+                    <li>沒有客服聯絡方式或地址</li>
+                    <li>只接受轉帳，不提供安全付款方式</li>
+                  </ul>
+
+                  <div class="warning-box">
+                    <strong>⚠️ 購物陷阱</strong><br>
+                    便宜沒好貨！如果價格低得離譜，很可能是詐騙網站。
+                  </div>
+
+                  <h3>🛡️ 安全購物指南</h3>
+                  <ul>
+                    <li>選擇知名、有信譽的購物平台</li>
+                    <li>使用安全的付款方式（信用卡、第三方支付）</li>
+                    <li>查看賣家評價和商品評論</li>
+                    <li>保留購物紀錄和對話截圖</li>
+                  </ul>
+
+                  <div class="tip-box">
+                    <strong>💡 檢查技巧</strong><br>
+                    購買前可以搜尋「網站名稱 + 評價」或「網站名稱 + 詐騙」來查看其他人的經驗。
+                  </div>
+
+                  <div class="reflection-box">
+                    <strong>🤔 檢視習慣</strong><br>
+                    回想你最近的網購經驗，有沒有遇到過可疑的網站或賣家？
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="article-card" data-category="romance">
+              <div class="article-header" onclick="toggleArticle(this)">
+                <span class="article-icon">💕</span>
+                <span class="article-title">交友詐騙預防指南</span>
+                <span class="article-toggle">▼</span>
+              </div>
+              <div class="article-content">
+                <div class="article-body">
+                  <h3>💔 交友詐騙警訊</h3>
+                  <ul>
+                    <li>照片過於完美，可能是盜用他人照片</li>
+                    <li>很快就表達愛意，感情進展異常迅速</li>
+                    <li>總是找藉口無法視訊或見面</li>
+                    <li>開始要求金錢資助或投資建議</li>
+                  </ul>
+
+                  <div class="warning-box">
+                    <strong>⚠️ 愛情陷阱</strong><br>
+                    真正的愛情需要時間培養，過快的感情表達要特別小心！
+                  </div>
+
+                  <h3>🔍 驗證方法</h3>
+                  <ul>
+                    <li>要求視訊通話或語音通話</li>
+                    <li>用反向圖片搜尋檢查照片真偽</li>
+                    <li>詢問具體的生活細節</li>
+                    <li>提出見面要求觀察反應</li>
+                  </ul>
+
+                  <div class="tip-box">
+                    <strong>💡 防範建議</strong><br>
+                    不要輕易透露個人資訊，包括工作地點、收入狀況、家庭背景等。
+                  </div>
+
+                  <div class="reflection-box">
+                    <strong>🤔 自我提醒</strong><br>
+                    在網路交友時，你是否保持適當的警覺心？有沒有過度分享個人資訊？
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="stats-container">
+          <h2 style="text-align: center; margin-bottom: 30px; color: #2C82C9;">📊 防詐騙知識統計</h2>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <span class="stat-number">5</span>
+              <span class="stat-label">主要詐騙類型</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">30+</span>
+              <span class="stat-label">防範技巧</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">100%</span>
+              <span class="stat-label">真實案例</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">24/7</span>
+              <span class="stat-label">隨時查閱</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // 全域變數
+    let currentModule = 'knowledge';
+
+    // 模組配置
+    const moduleConfig = {
+      home: { title: '首頁', icon: '🏠', description: '歡迎回來，開始您的學習之旅' },
+      challenge: { title: '詐騙模擬挑戰', icon: '🎮', description: '體驗真實詐騙情境' },
+      assessment: { title: '自信心評估', icon: '🧠', description: '測試您的防詐信心' },
+      knowledge: { title: '知識庫', icon: '📚', description: '探索防詐騙知識' },
+      achievements: { title: '成就系統', icon: '🏆', description: '展示您的學習成果' }
+    };
+
+    // 初始化
+    window.onload = function() {
+      initializeUser();
+      loadModule('knowledge');
+    };
+
+    // 初始化用戶資訊
+    function initializeUser() {
+      const role = localStorage.getItem('role') || 'guest';
+      const name = role === 'guest' ? '訪客' : role === 'admin' ? '系統管理員' : '學員';
+      const userRole = role === 'guest' ? '未登入' : role === 'admin' ? 'Administrator' : '學員';
+
+      document.getElementById('userName').textContent = name;
+      document.getElementById('userRole').textContent = userRole;
+      document.getElementById('userAvatar').textContent = name.charAt(0);
+    }
+
+    // 載入模組
+    function loadModule(moduleName) {
+      if (!moduleConfig[moduleName]) return;
+
+      currentModule = moduleName;
+      const config = moduleConfig[moduleName];
+
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+
+      const currentBtn = Array.from(document.querySelectorAll('.nav-btn')).find(btn => {
+        return btn.textContent.trim().includes(config.title);
+      });
+      if (currentBtn) {
+        currentBtn.classList.add('active');
+      }
+
+      // 跳轉模組
+      try {
+        if (moduleName === 'home') {
+          console.log('Redirecting to index.html');
+          window.location.href = 'index.html';
+        } else if (moduleName === 'challenge') {
+          console.log('Redirecting to test.html');
+          window.location.href = 'test.html';
+        } else if (moduleName === 'assessment') {
+          console.log('Redirecting to confidence.html');
+          window.location.href = 'confidence.html';
+        } else if (moduleName === 'achievements') {
+          console.log('Redirecting to achievements.html');
+          window.location.href = 'achievements.html';
+        }
+      } catch (error) {
+        console.error('Navigation error:', error);
+      }
+    }
+
+    // 登出
+    function logout() {
+      localStorage.removeItem('role');
+      showMessage('已登出，2秒後返回首頁...');
+      setTimeout(() => {
+        window.location.href = "../home.html";
+      }, 2000);
+    }
+
+    // 顯示訊息
+    function showMessage(message) {
+      alert(message);
+    }
+
+    function toggleArticle(header) {
+      const content = header.nextElementSibling;
+      const toggle = header.querySelector('.article-toggle');
+
+      if (content.classList.contains('show')) {
+        content.classList.remove('show');
+        toggle.classList.remove('active');
+      } else {
+        content.classList.add('show');
+        toggle.classList.add('active');
+      }
+    }
+
+    function filterArticles(category) {
+      const articles = document.querySelectorAll('.article-card');
+      const categoryCards = document.querySelectorAll('.category-card');
+
+      categoryCards.forEach(card => card.classList.remove('active'));
+      event.target.closest('.category-card').classList.add('active');
+
+      articles.forEach(article => {
+        if (category === 'all' || article.dataset.category === category) {
+          article.classList.remove('hidden');
+        } else {
+          article.classList.add('hidden');
+        }
+      });
+    }
+
+    function searchArticles() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      const articles = document.querySelectorAll('.article-card');
+
+      articles.forEach(article => {
+        const title = article.querySelector('.article-title').textContent.toLowerCase();
+        const content = article.querySelector('.article-body').textContent.toLowerCase();
+
+        if (title.includes(searchTerm) || content.includes(searchTerm)) {
+          article.classList.remove('hidden');
+        } else {
+          article.classList.add('hidden');
+        }
+      });
+    }
+
+    document.getElementById('searchInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        searchArticles();
+      }
+    });
+
+    // 添加互動效果
+    document.addEventListener('DOMContentLoaded', function() {
+      const statCards = document.querySelectorAll('.stat-card');
+      statCards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+          card.style.transition = 'all 0.5s ease';
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, index * 100);
+      });
+    });
+  </script>
+</body>
+</html>

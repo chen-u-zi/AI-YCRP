@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>防詐騙互動學習首頁</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🛡️ 成就系統 - 青少年防詐互動學習平台</title>
   <style>
     * {
       margin: 0;
@@ -231,208 +231,112 @@
       box-shadow: 0 5px 15px rgba(44, 130, 201, 0.3);
     }
 
-    .welcome-section {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-
-    .welcome-section h2 {
-      color: #2C82C9;
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-    }
-
-    .welcome-section p {
-      color: #1B3B5F;
-      font-size: 1.1rem;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .action-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 2rem;
-    }
-
-    .btn {
-      display: block;
-      padding: 1.5rem;
-      background: linear-gradient(135deg, #2C82C9, #1B3B5F);
-      color: white;
-      text-decoration: none;
-      border-radius: 10px;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      text-align: center;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 5px 15px rgba(44, 130, 201, 0.3);
-    }
-
-    .btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: left 0.5s;
-    }
-
-    .btn:hover::before {
-      left: 100%;
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 25px rgba(44, 130, 201, 0.4);
-    }
-
-    .btn-disabled {
-      background: linear-gradient(135deg, #a0aec0 0%, #718096 100%);
-      cursor: not-allowed;
-      opacity: 0.7;
-    }
-
-    .btn-disabled:hover {
-      transform: none;
-      box-shadow: 0 5px 15px rgba(160, 174, 192, 0.3);
-    }
-
-    .btn-icon {
-      font-size: 1.8rem;
-      display: block;
-      margin-bottom: 0.5rem;
-    }
-
-    .btn-title {
-      font-size: 1.2rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-    }
-
-    .btn-desc {
-      font-size: 0.9rem;
-      opacity: 0.9;
-      line-height: 1.4;
-    }
-
-    .summary {
-      background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
-      padding: 1.5rem;
-      border-radius: 10px;
-      border-left: 5px solid #2C82C9;
-      position: relative;
-      overflow: hidden;
-      margin-bottom: 1.5rem;
-    }
-
-    .summary::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 100px;
-      height: 100px;
-      background: radial-gradient(circle, rgba(44, 130, 201, 0.1) 0%, transparent 70%);
-    }
-
-    .summary h3 {
-      color: #2d3748;
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-
-    .stat-card {
+    .achievement-container {
       background: white;
-      padding: 1rem;
-      border-radius: 8px;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
       text-align: center;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease;
     }
 
-    .stat-card:hover {
-      transform: translateY(-2px);
-    }
-
-    .stat-number {
-      font-size: 1.8rem;
-      font-weight: bold;
+    .achievement-container h2 {
       color: #2C82C9;
-      display: block;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
     }
 
-    .stat-label {
-      color: #718096;
-      font-size: 0.9rem;
-      margin-top: 0.5rem;
-    }
-
-    .recommendation {
-      background: rgba(44, 130, 201, 0.1);
-      padding: 1rem;
-      border-radius: 8px;
-      border: 1px solid rgba(44, 130, 201, 0.2);
-    }
-
-    .recommendation h4 {
-      color: #4a5568;
-      margin-bottom: 0.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .weak-areas {
+    .badge-list {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
-      margin: 1rem 0;
+      gap: 1rem;
+      justify-content: center;
+      margin-bottom: 1rem;
     }
 
-    .weak-area-tag {
-      background: #fed7d7;
-      color: #c53030;
-      padding: 0.3rem 0.8rem;
-      border-radius: 20px;
+    .badge {
+      width: 120px;
+      padding: 15px;
+      border-radius: 10px;
+      background: #f0f4ff;
+      opacity: 0.5;
+      transition: opacity 0.3s, transform 0.3s;
+    }
+
+    .badge.earned {
+      opacity: 1;
+      background: linear-gradient(135deg, #2C82C9, #1B3B5F);
+      color: white;
+    }
+
+    .badge:hover {
+      transform: translateY(-5px);
+    }
+
+    .badge-icon {
+      font-size: 2.5rem;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .badge-title {
+      font-weight: bold;
       font-size: 0.9rem;
-      font-weight: 500;
+    }
+
+    .level-progress {
+      margin-top: 1.5rem;
+      text-align: left;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .level-info {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #1B3B5F;
+      margin-bottom: 0.5rem;
     }
 
     .progress-bar {
+      width: 100%;
+      height: 12px;
       background: #e2e8f0;
-      height: 8px;
-      border-radius: 4px;
+      border-radius: 6px;
       overflow: hidden;
-      margin-top: 1rem;
     }
 
     .progress-fill {
       height: 100%;
       background: linear-gradient(90deg, #2C82C9, #1B3B5F);
-      width: 62.5%;
       transition: width 1s ease;
-      animation: fillProgress 2s ease-in-out;
     }
 
-    @keyframes fillProgress {
-      from { width: 0%; }
-      to { width: 62.5%; }
+    .feedback-section {
+      margin-top: 2rem;
+      background: rgba(44, 130, 201, 0.1);
+      padding: 1.5rem;
+      border-radius: 10px;
+      border-left: 5px solid #2C82C9;
+    }
+
+    .feedback-section h3 {
+      color: #2C82C9;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .feedback-item {
+      margin-bottom: 1rem;
+      padding: 1rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .feedback-item strong {
+      color: #1B3B5F;
+      font-weight: 600;
     }
 
     @media (max-width: 768px) {
@@ -446,12 +350,8 @@
         width: 100%;
       }
 
-      .action-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .stats-grid {
-        grid-template-columns: 1fr 1fr;
+      .badge-list {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
       }
     }
   </style>
@@ -473,11 +373,12 @@
           <div class="user-role" id="userRole">登入中</div>
         </div>
       </div>
-      <button class="logout-btn" onclick="window.location.href='../home.html'" aria-label="登出並返回首頁">
+      <button class="logout-btn" onclick="logout()" aria-label="登出並返回首頁">
         <span>🚪</span>
         登出
       </button>
-    </nav>
+    </div>
+  </nav>
 
   <div class="admin-layout">
     <aside class="sidebar">
@@ -487,7 +388,7 @@
       </div>
       <ul class="nav-menu">
         <li class="nav-item">
-          <button class="nav-btn active" onclick="loadModule('home')" aria-label="切換到首頁">
+          <button class="nav-btn" onclick="loadModule('home')" aria-label="切換到首頁">
             <span class="nav-icon">🏠</span>
             首頁
           </button>
@@ -511,7 +412,7 @@
           </button>
         </li>
         <li class="nav-item">
-          <button class="nav-btn" onclick="loadModule('achievements')" aria-label="切換到成就系統">
+          <button class="nav-btn active" onclick="loadModule('achievements')" aria-label="切換到成就系統">
             <span class="nav-icon">🏆</span>
             成就系統
           </button>
@@ -522,8 +423,8 @@
     <main class="main-content">
       <div class="content-header">
         <h2 class="content-title">
-          <span id="moduleIcon">🏠</span>
-          <span id="moduleTitle">首頁</span>
+          <span id="moduleIcon">🏆</span>
+          <span id="moduleTitle">成就系統</span>
         </h2>
         <div class="content-actions">
           <button class="action-btn" onclick="refreshModule()" aria-label="重新整理當前模組">
@@ -537,87 +438,72 @@
         </div>
       </div>
 
-      <div class="content-area">
-        <div class="welcome-section">
-          <h2>👋 歡迎回來，小駭客學員！</h2>
-          <p>準備好迎接新的挑戰了嗎？讓我們一起提升防詐騙技能，成為網路世界的守護者！</p>
+      <div class="achievement-container">
+        <h2>🏆 我的成就</h2>
+        <div class="badge-list">
+          <div class="badge earned">
+            <span class="badge-icon">🌟</span>
+            <span class="badge-title">防詐新星</span>
+          </div>
+          <div class="badge earned">
+            <span class="badge-icon">🔍</span>
+            <span class="badge-title">詐騙識破者</span>
+          </div>
+          <div class="badge locked">
+            <span class="badge-icon">📞</span>
+            <span class="badge-title">假客服專家</span>
+          </div>
+          <div class="badge locked">
+            <span class="badge-icon">🛍️</span>
+            <span class="badge-title">假購物專家</span>
+          </div>
+          <div class="badge locked">
+            <span class="badge-icon">🧐</span>
+            <span class="badge-title">高警覺性</span>
+          </div>
+          <div class="badge earned">
+            <span class="badge-icon">📖</span>
+            <span class="badge-title">認真學習</span>
+          </div>
+          <div class="badge locked">
+            <span class="badge-icon">🗓️</span>
+            <span class="badge-title">堅持到底</span>
+          </div>
+          <div class="badge locked">
+            <span class="badge-icon">💡</span>
+            <span class="badge-title">反思高手</span>
+          </div>
         </div>
 
-        <div class="action-grid">
-          <a href="test.html" class="btn" onclick="loadModule('challenge')">
-            <span class="btn-icon">🎮</span>
-            <div class="btn-title">詐騙模擬挑戰</div>
-            <div class="btn-desc">體驗真實詐騙情境，提升識別能力</div>
-          </a>
-
-          <div class="btn btn-disabled" onclick="loadModule('assessment')">
-            <span class="btn-icon">🧠</span>
-            <div class="btn-title">自信心評估</div>
-            <div class="btn-desc">即將推出 - 測試你的防詐信心指數</div>
-          </div>
-
-          <div class="btn btn-disabled" onclick="loadModule('knowledge')">
-            <span class="btn-icon">📚</span>
-            <div class="btn-title">知識庫</div>
-            <div class="btn-desc">即將推出 - 防詐騙知識大全</div>
-          </div>
-
-          <div class="btn btn-disabled" onclick="loadModule('achievements')">
-            <span class="btn-icon">🏆</span>
-            <div class="btn-title">成就系統</div>
-            <div class="btn-desc">即將推出 - 收集徽章展示實力</div>
-          </div>
-        </div>
-
-        <div class="summary">
-          <h3>📊 上次挑戰結果</h3>
-
-          <div class="stats-grid">
-            <div class="stat-card">
-              <span class="stat-number">8</span>
-              <div class="stat-label">完成題數</div>
-            </div>
-            <div class="stat-card">
-              <span class="stat-number">5</span>
-              <div class="stat-label">正確題數</div>
-            </div>
-            <div class="stat-card">
-              <span class="stat-number">3</span>
-              <div class="stat-label">錯誤題數</div>
-            </div>
-            <div class="stat-card">
-              <span class="stat-number">62.5%</span>
-              <div class="stat-label">正確率</div>
-            </div>
-          </div>
-
+        <div class="level-progress">
+          <div class="level-info">目前等級：Lv.2 防詐新手 (130/250 EXP)</div>
           <div class="progress-bar">
-            <div class="progress-fill"></div>
+            <div class="progress-fill" style="width:52%;"></div>
           </div>
+        </div>
 
-          <div class="recommendation">
-            <h4>💡 個人化建議</h4>
-            <p><strong>弱點分析：</strong>需要加強以下類型的詐騙識別能力</p>
-            <div class="weak-areas">
-              <span class="weak-area-tag">假購物網站</span>
-              <span class="weak-area-tag">客服詐騙</span>
-              <span class="weak-area-tag">抽獎連結</span>
-            </div>
-            <p><strong>自信度變化：</strong>從高自信調整為中等自信（更符合實際能力）</p>
-            <p><strong>下次挑戰建議：</strong>重點練習假社群對話類型的詐騙識別</p>
+        <div class="feedback-section">
+          <h3>💡 個人化回饋</h3>
+          <div class="feedback-item">
+            <p><strong>🌟 「防詐新星」徽章達成！</strong><br>
+            你完成了第一次防詐測驗，踏出了成為網路安全小達人的第一步！繼續探索更多挑戰吧！</p>
+          </div>
+          <div class="feedback-item">
+            <p><strong>🔍 「詐騙識破者」徽章達成！</strong><br>
+            你成功識破所有的詐騙陷阱，繼續保持警覺，保護你自己和朋友吧！</p>
+          </div>
+          <div class="feedback-item">
+            <p><strong>📖 「認真學習」徽章達成！</strong><br>
+            你已經瀏覽知識庫超過5次，持續學習的熱情將讓你成為防詐專家！</p>
           </div>
         </div>
       </div>
     </main>
   </div>
 
-  <footer class="footer">
-    <p>© 2025 機器人想放假團隊。保留所有權利。系統版本 v2.1.0</p>
-  </footer>
-
   <script>
     // 全域變數
-    let currentModule = 'home';
+    let currentModule = 'achievements';
 
     // 模組配置
     const moduleConfig = {
@@ -631,7 +517,7 @@
     // 初始化
     window.onload = function() {
       initializeUser();
-      loadModule('home');
+      loadModule('achievements');
     };
 
     // 初始化用戶資訊
@@ -666,20 +552,19 @@
       document.getElementById('moduleIcon').textContent = config.icon;
       document.getElementById('moduleTitle').textContent = config.title;
 
-      //跳轉模組
       try {
-        if (moduleName === 'challenge') {
+        if (moduleName === 'home') {
+          console.log('Redirecting to index.html');
+          window.location.href = 'index.html';
+        } else if (moduleName === 'challenge') {
           console.log('Redirecting to test.html');
           window.location.href = 'test.html';
         } else if (moduleName === 'assessment') {
           console.log('Redirecting to confidence.html');
-          window.location.href = './confidence.html';
+          window.location.href = 'confidence.html';
         } else if (moduleName === 'knowledge') {
           console.log('Redirecting to knowledge.html');
           window.location.href = 'knowledge.html';
-        } else if (moduleName === 'achievements') {
-          console.log('Redirecting to achievements.html');
-          window.location.href = 'achievements.html';
         }
       } catch (error) {
         console.error('Navigation error:', error);
@@ -694,7 +579,7 @@
 
     // 顯示幫助
     function showHelp() {
-      showMessage('幫助資訊：點擊側邊欄切換模組，使用按鈕開始學習。如需支持，請聯繫管理團隊。');
+      showMessage('幫助資訊：點擊側邊欄切換模組，查看你的成就進度。如需支持，請聯繫管理團隊。');
     }
 
     // 登出
@@ -711,31 +596,28 @@
       alert(message);
     }
 
-    // 添加一些互動效果
+    // 添加互動效果
     document.addEventListener('DOMContentLoaded', function() {
-      // 統計卡片動畫
-      const statCards = document.querySelectorAll('.stat-card');
-      statCards.forEach((card, index) => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(20px)';
-
+      const badges = document.querySelectorAll('.badge');
+      badges.forEach((badge, index) => {
+        badge.style.opacity = '0';
+        badge.style.transform = 'translateY(20px)';
         setTimeout(() => {
-          card.style.transition = 'all 0.5s ease';
-          card.style.opacity = '1';
-          card.style.transform = 'translateY(0)';
+          badge.style.transition = 'all 0.5s ease';
+          badge.style.opacity = '1';
+          badge.style.transform = 'translateY(0)';
         }, index * 100);
       });
 
-      // 按鈕懸停效果增強
-      const buttons = document.querySelectorAll('.btn:not(.btn-disabled)');
-      buttons.forEach(button => {
-        button.addEventListener('mouseenter', function() {
-          this.style.transform = 'translateY(-5px) scale(1.02)';
-        });
-
-        button.addEventListener('mouseleave', function() {
-          this.style.transform = 'translateY(0) scale(1)';
-        });
+      const feedbackItems = document.querySelectorAll('.feedback-item');
+      feedbackItems.forEach((item, index) => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+          item.style.transition = 'all 0.5s ease';
+          item.style.opacity = '1';
+          item.style.transform = 'translateY(0)';
+        }, index * 100 + 200);
       });
     });
   </script>
