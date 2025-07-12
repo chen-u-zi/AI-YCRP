@@ -1,106 +1,134 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>知識庫管理 - 教師端</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .sidebar {
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-hidden {
+            transform: translateX(-100%);
+        }
+
+        .active-link {
+            background-color: #1e40af;
+        }
+    </style>
 </head>
-<body class="bg-gray-100 min-h-screen flex">
-    <!-- 側邊欄 -->
-    <aside class="w-64 bg-white shadow-md h-screen p-4 flex flex-col">
-        <h2 class="text-xl font-bold mb-6 text-blue-800">教師管理選單</h2>
-        <nav class="space-y-2 flex-1">
-            <a href="dashboard.html" class="block px-4 py-2 rounded hover:bg-blue-100">📊 儀表板</a>
-            <a href="student.html" class="block px-4 py-2 rounded hover:bg-blue-100">👥 學生管理</a>
-            <a href="scenario.html" class="block px-4 py-2 rounded hover:bg-blue-100">📚 情境題庫管理</a>
-            <a href="knowledge.html" class="block px-4 py-2 bg-blue-200 text-blue-900 rounded font-semibold">📖 知識庫管理</a>
-            <a href="achievement.html" class="block px-4 py-2 rounded hover:bg-blue-100">🏆 成就系統</a>
-            <a href="notification.html" class="block px-4 py-2 rounded hover:bg-blue-100">📢 公告管理</a>
-            <a href="settings.html" class="block px-4 py-2 rounded hover:bg-blue-100">⚙️ 設定與支援</a>
-        </nav>
-    </aside>
 
-    <!-- 主內容 -->
-    <main class="flex-1 p-6">
-        <header class="bg-white shadow p-4 mb-6 flex justify-between items-center">
-            <div class="flex items-center space-x-4">
-                <h1 class="text-xl font-bold">青少年防詐互動學習平台</h1>
-                <span class="text-sm text-blue-700">知識庫管理</span>
-            </div>
-            <div class="flex items-center space-x-4">
-                <span class="text-sm text-blue-800 font-semibold">👨‍🏫 王老師</span>
-                <a href="index.html" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">登出</a>
-            </div>
-        </header>
+<body class="bg-gray-100 min-h-screen">
+    <!-- 上方標題列（仿學生管理） -->
+    <header class="bg-white shadow p-4 flex justify-between items-center">
+        <div>
+            <h1 class="text-xl font-semibold">青少年防詐互動學習平台</h1>
+            <p class="text-sm text-blue-600">成為網路安全小達人</p>
+        </div>
+        <div class="flex gap-4 items-center">
+            <div class="text-sm text-blue-800 font-semibold">👨‍🏫 教師</div>
+            <a href="../home.html" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">登出</a>
+        </div>
+    </header>
 
-        <!-- 新增文章與上傳資料 -->
-        <section class="bg-white p-6 rounded-lg shadow mb-6">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-lg font-semibold">新增知識項目</h2>
-                <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">新增文章</button>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="p-4 bg-gray-100 rounded">
-                    <h3 class="font-medium mb-2">主題分類</h3>
-                    <select class="w-full px-3 py-2 border rounded">
-                        <option>假購物詐騙</option>
-                        <option>釣魚網站</option>
-                        <option>社群詐騙</option>
-                        <option>網路投資詐騙</option>
-                    </select>
-                </div>
-                <div class="p-4 bg-gray-100 rounded">
-                    <h3 class="font-medium mb-2">上傳多媒體</h3>
-                    <input type="file" accept="image/*,video/*,.pdf" class="w-full px-3 py-2 border rounded">
-                </div>
-                <div class="p-4 bg-gray-100 rounded">
-                    <h3 class="font-medium mb-2">檢閱說明</h3>
-                    <textarea class="w-full px-3 py-2 border rounded" rows="4" placeholder="輸入文章說明..."></textarea>
-                </div>
-            </div>
-        </section>
+    <div class="flex min-h-screen">
+        <!-- 側邊欄（仿學生管理） -->
+        <aside class="w-64 bg-white shadow-md h-screen p-4">
+            <h2 class="text-xl font-bold mb-6 text-blue-800">教師管理選單</h2>
+            <nav class="space-y-2">
+                <a href="index.html" class="block px-4 py-2 rounded hover:bg-blue-100">🧑‍🏫 教師管理模組</a>
+                <a href="dashboard.html" class="block px-4 py-2 rounded hover:bg-blue-100">📊 儀表板</a>
+                <a href="student.html" class="block px-4 py-2 rounded hover:bg-blue-100">👥 學生管理</a>
+                <a href="scenario.html" class="block px-4 py-2 rounded hover:bg-blue-100">📚 情境題庫管理</a>
+                <a href="knowledge.html" class="block px-4 py-2 rounded bg-blue-100 text-blue-900">📖 知識庫管理</a>
+                <a href="achievement.html" class="block px-4 py-2 rounded hover:bg-blue-100">🏆 成就系統</a>
+                <a href="notification.html" class="block px-4 py-2 rounded hover:bg-blue-100">📢 公告管理</a>
+                <a href="settings.html" class="block px-4 py-2 rounded hover:bg-blue-100">⚙️ 設定與支援</a>
+            </nav>
+        </aside>
 
-        <!-- 知識庫項目列表 -->
-        <section class="bg-white p-6 rounded-lg shadow">
-            <h2 class="text-lg font-semibold mb-4">知識文章列表</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- 1. 網路購物詐騙 -->
-                <div class="bg-white shadow-md rounded-lg p-4">
-                  <h3 class="text-lg font-semibold text-blue-800 mb-1">🛒 網路購物詐騙</h3>
-                  <p class="text-sm text-gray-700 mb-2">分類：假網站、假賣家</p>
-                  <p class="text-sm text-gray-600">利用 IG 或蝦皮平台販售虛構商品，吸引青少年轉帳後即封鎖。</p>
+        <!-- 主內容區 -->
+        <div class="flex-1 flex flex-col">
+            <main class="flex-1 p-6 overflow-y-auto">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-blue-900 mb-4">📖 知識庫管理介面</h2>
+                    <div class="flex gap-2">
+                        <button onclick="location.reload()"
+                            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">🔄 重新整理</button>
+                        <button onclick="alert('請點選側欄切換不同模組')" class="bg-blue-200 text-blue-900 px-4 py-2 rounded">❓幫助</button>
+                    </div>
                 </div>
-              
-                <!-- 2. 投資詐騙 -->
-                <div class="bg-white shadow-md rounded-lg p-4">
-                  <h3 class="text-lg font-semibold text-green-700 mb-1">💸 投資詐騙</h3>
-                  <p class="text-sm text-gray-700 mb-2">分類：假投資、高報酬陷阱</p>
-                  <p class="text-sm text-gray-600">以「快速致富」吸引青少年加入虛假群組或平台，誘導匯款。</p>
-                </div>
-              
-                <!-- 3. 手遊點數詐騙 -->
-                <div class="bg-white shadow-md rounded-lg p-4">
-                  <h3 class="text-lg font-semibold text-purple-700 mb-1">🎮 手遊點數詐騙</h3>
-                  <p class="text-sm text-gray-700 mb-2">分類：遊戲充值陷阱</p>
-                  <p class="text-sm text-gray-600">在社群中販賣假點數或假裝打折，實際轉帳後封鎖青少年玩家。</p>
-                </div>
-              
-                <!-- 4. 社群帳號盜用詐騙 -->
-                <div class="bg-white shadow-md rounded-lg p-4">
-                  <h3 class="text-lg font-semibold text-red-700 mb-1">📱 社群帳號盜用詐騙</h3>
-                  <p class="text-sm text-gray-700 mb-2">分類：冒用朋友帳號</p>
-                  <p class="text-sm text-gray-600">入侵朋友 IG/LINE，假冒請求借錢或傳惡意連結。</p>
-                </div>
-              
-                <!-- 5. 假打工詐騙 -->
-                <div class="bg-white shadow-md rounded-lg p-4">
-                  <h3 class="text-lg font-semibold text-yellow-700 mb-1">🧳 假打工詐騙</h3>
-                  <p class="text-sm text-gray-700 mb-2">分類：虛假工作機會</p>
-                  <p class="text-sm text-gray-600">以高薪打工吸引青少年，要求繳費或提供帳戶資料。</p>
-                </div>
-              </div>
-              
-        </section>
-    </main>
+
+                <!-- 新增文章與上傳資料 -->
+                <section class="bg-white p-6 rounded-lg shadow mb-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-lg font-semibold">新增知識項目</h2>
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">新增文章</button>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="p-4 bg-gray-100 rounded">
+                            <h3 class="font-medium mb-2">主題分類</h3>
+                            <select class="w-full px-3 py-2 border rounded">
+                                <option>假購物詐騙</option>
+                                <option>釣魚網站</option>
+                                <option>社群詐騙</option>
+                                <option>網路投資詐騙</option>
+                            </select>
+                        </div>
+                        <div class="p-4 bg-gray-100 rounded">
+                            <h3 class="font-medium mb-2">上傳多媒體</h3>
+                            <input type="file" accept="image/*,video/*,.pdf" class="w-full px-3 py-2 border rounded">
+                        </div>
+                        <div class="p-4 bg-gray-100 rounded">
+                            <h3 class="font-medium mb-2">檢閱說明</h3>
+                            <textarea class="w-full px-3 py-2 border rounded" rows="4" placeholder="輸入文章說明..."></textarea>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 知識庫項目列表 -->
+                <section class="bg-white p-6 rounded-lg shadow">
+                    <h2 class="text-lg font-semibold mb-4">知識文章列表</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- 1. 網路購物詐騙 -->
+                        <div class="bg-white shadow-md rounded-lg p-4">
+                            <h3 class="text-lg font-semibold text-blue-800 mb-1">🛒 網路購物詐騙</h3>
+                            <p class="text-sm text-gray-700 mb-2">分類：假網站、假賣家</p>
+                            <p class="text-sm text-gray-600">利用 IG 或蝦皮平台販售虛構商品，吸引青少年轉帳後即封鎖。</p>
+                        </div>
+                        <!-- 2. 投資詐騙 -->
+                        <div class="bg-white shadow-md rounded-lg p-4">
+                            <h3 class="text-lg font-semibold text-green-700 mb-1">💸 投資詐騙</h3>
+                            <p class="text-sm text-gray-700 mb-2">分類：假投資、高報酬陷阱</p>
+                            <p class="text-sm text-gray-600">以「快速致富」吸引青少年加入虛假群組或平台，誘導匯款。</p>
+                        </div>
+                        <!-- 3. 手遊點數詐騙 -->
+                        <div class="bg-white shadow-md rounded-lg p-4">
+                            <h3 class="text-lg font-semibold text-purple-700 mb-1">🎮 手遊點數詐騙</h3>
+                            <p class="text-sm text-gray-700 mb-2">分類：遊戲充值陷阱</p>
+                            <p class="text-sm text-gray-600">在社群中販賣假點數或假裝打折，實際轉帳後封鎖青少年玩家。</p>
+                        </div>
+                        <!-- 4. 社群帳號盜用詐騙 -->
+                        <div class="bg-white shadow-md rounded-lg p-4">
+                            <h3 class="text-lg font-semibold text-red-700 mb-1">📱 社群帳號盜用詐騙</h3>
+                            <p class="text-sm text-gray-700 mb-2">分類：冒用朋友帳號</p>
+                            <p class="text-sm text-gray-600">入侵朋友 IG/LINE，假冒請求借錢或傳惡意連結。</p>
+                        </div>
+                        <!-- 5. 假打工詐騙 -->
+                        <div class="bg-white shadow-md rounded-lg p-4">
+                            <h3 class="text-lg font-semibold text-yellow-700 mb-1">🧳 假打工詐騙</h3>
+                            <p class="text-sm text-gray-700 mb-2">分類：虛假工作機會</p>
+                            <p class="text-sm text-gray-600">以高薪打工吸引青少年，要求繳費或提供帳戶資料。</p>
+                        </div>
+                    </div>
+                </section>
+            </main>
+            <footer class="text-center p-4 bg-white shadow">© 2025 機器人想放假團隊。保留所有權利。</footer>
+        </div>
+    </div>
 </body>
+
 </html>
