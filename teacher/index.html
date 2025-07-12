@@ -4,24 +4,130 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>teacher端 - 青少年詐騙防衛訓練站</title>
-  <link rel="stylesheet" href="../login.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .feature-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+    .gradient-bg {
+      background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+    }
+  </style>
 </head>
-<body>
-  <header>
-    <h1>歡迎，老師好！</h1>
-    <a href="../home.html" class="back-btn" aria-label="返回首頁">登出</a>
+<body class="bg-gradient-to-br from-blue-300 to-blue-900 min-h-screen text-blue-900">
+  <header class="bg-white shadow p-4 flex justify-between items-center">
+    <div>
+      <h1 class="text-xl font-semibold">青少年防詐互動學習平台</h1>
+      <p class="text-sm text-blue-600">成為網路安全小達人</p>
+    </div>
+    <div class="flex gap-4 items-center">
+      <div class="text-sm text-blue-800 font-semibold">👨‍🏫 教師</div>
+      <a href="../home.html" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">登出</a>
+    </div>
   </header>
 
-  <main>
-    <div class="form-container">
-      <h2>學生專屬學習空間</h2>
-      <p>開始你的防詐挑戰，學習辨識網路詐騙！</p>
-      <button onclick="window.location.href='../index.html'" aria-label="開始學習">開始學習</button>
+  <main class="container mx-auto px-6 py-8">
+    <div class="text-center mb-8">
+      <h2 class="text-3xl font-bold text-white mb-4">🎯 教師管理中心</h2>
+      <p class="text-blue-100 text-lg">選擇您要管理的功能模組</p>
+    </div>
+
+    <!-- 功能卡片網格 -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+      
+      <!-- 儀表板 -->
+      <div class="feature-card bg-white rounded-lg shadow-lg p-6 cursor-pointer" onclick="window.location.href='dashboard.html'">
+        <div class="text-center">
+          <div class="text-4xl mb-4">📊</div>
+          <h3 class="text-xl font-bold text-blue-800 mb-2">儀表板</h3>
+          <p class="text-gray-600 text-sm">查看整體學習進度統計與分析報告</p>
+        </div>
+      </div>
+
+      <!-- 學生管理 -->
+      <div class="feature-card bg-white rounded-lg shadow-lg p-6 cursor-pointer" onclick="window.location.href='student.html'">
+        <div class="text-center">
+          <div class="text-4xl mb-4">👥</div>
+          <h3 class="text-xl font-bold text-blue-800 mb-2">學生管理</h3>
+          <p class="text-gray-600 text-sm">管理學生帳號、查看個人學習記錄</p>
+        </div>
+      </div>
+
+      <!-- 情境題庫管理 -->
+      <div class="feature-card bg-white rounded-lg shadow-lg p-6 cursor-pointer" onclick="window.location.href='scenario.html'">
+        <div class="text-center">
+          <div class="text-4xl mb-4">🧩</div>
+          <h3 class="text-xl font-bold text-blue-800 mb-2">情境題庫管理</h3>
+          <p class="text-gray-600 text-sm">新增、編輯、刪除詐騙情境題目</p>
+        </div>
+      </div>
+
+      <!-- 知識庫管理 -->
+      <div class="feature-card bg-white rounded-lg shadow-lg p-6 cursor-pointer" onclick="window.location.href='knowledge.html'">
+        <div class="text-center">
+          <div class="text-4xl mb-4">📚</div>
+          <h3 class="text-xl font-bold text-blue-800 mb-2">知識庫管理</h3>
+          <p class="text-gray-600 text-sm">管理防詐騙知識文章與教材</p>
+        </div>
+      </div>
+
+      <!-- 成就系統 -->
+      <div class="feature-card bg-white rounded-lg shadow-lg p-6 cursor-pointer" onclick="window.location.href='achievement.html'">
+        <div class="text-center">
+          <div class="text-4xl mb-4">🏆</div>
+          <h3 class="text-xl font-bold text-blue-800 mb-2">成就系統</h3>
+          <p class="text-gray-600 text-sm">設定學習成就與獎勵機制</p>
+        </div>
+      </div>
+
+      <!-- 公告管理 -->
+      <div class="feature-card bg-white rounded-lg shadow-lg p-6 cursor-pointer" onclick="window.location.href='notification.html'">
+        <div class="text-center">
+          <div class="text-4xl mb-4">📢</div>
+          <h3 class="text-xl font-bold text-blue-800 mb-2">公告管理</h3>
+          <p class="text-gray-600 text-sm">發布重要通知與系統公告</p>
+        </div>
+      </div>
+
+      <!-- 設定與支援 -->
+      <div class="feature-card bg-white rounded-lg shadow-lg p-6 cursor-pointer" onclick="window.location.href='settings.html'">
+        <div class="text-center">
+          <div class="text-4xl mb-4">⚙️</div>
+          <h3 class="text-xl font-bold text-blue-800 mb-2">設定與支援</h3>
+          <p class="text-gray-600 text-sm">系統設定、技術支援與幫助</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 快速統計資訊 -->
+    <div class="mt-12 bg-white/10 backdrop-blur-sm rounded-lg p-6 max-w-4xl mx-auto">
+      <h3 class="text-xl font-bold text-white mb-4 text-center">📈 快速統計</h3>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-center">
+        <div class="bg-white/20 rounded-lg p-4">
+          <div class="text-2xl font-bold text-white">156</div>
+          <div class="text-blue-100 text-sm">註冊學生</div>
+        </div>
+        <div class="bg-white/20 rounded-lg p-4">
+          <div class="text-2xl font-bold text-white">23</div>
+          <div class="text-blue-100 text-sm">情境題目</div>
+        </div>
+        <div class="bg-white/20 rounded-lg p-4">
+          <div class="text-2xl font-bold text-white">87%</div>
+          <div class="text-blue-100 text-sm">平均完成率</div>
+        </div>
+        <div class="bg-white/20 rounded-lg p-4">
+          <div class="text-2xl font-bold text-white">12</div>
+          <div class="text-blue-100 text-sm">本月新增</div>
+        </div>
+      </div>
     </div>
   </main>
 
-  <footer>
-    <p>© 2025 機器人想放假團隊。保留所有權利。</p>
-  </footer>
+  <footer class="text-center p-4 bg-white shadow mt-8">© 2025 機器人想放假團隊。保留所有權利。</footer>
 </body>
 </html>

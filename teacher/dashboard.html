@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>teacher端 - 青少年詐騙防衛訓練站</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    .sidebar { transition: transform 0.3s ease; }
+    .sidebar-hidden { transform: translateX(-100%); }
+    .hidden-section { display: none; }
+    .active-link { background-color: #1e40af; }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+  <!-- Header -->
+  <header class="bg-white shadow p-4 flex justify-between items-center">
+    <div class="flex items-center space-x-4">
+      <h1 class="text-xl font-bold">青少年防詐互動學習平台</h1>
+      <span class="text-sm text-blue-700">成為網路安全小達人</span>
+    </div>
+    <div class="flex items-center space-x-4">
+      <span class="text-sm text-blue-800 font-semibold">👨‍🏫 教師</span>
+      <a href="../home.html" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">登出</a>
+    </div>
+  </header>
+  <div class="flex min-h-[calc(100vh-64px)]">
+    <!-- 側邊欄 -->
+    <aside class="w-64 bg-white shadow-md p-4 flex-shrink-0">
+      <h2 class="text-xl font-bold mb-6 text-blue-800">教師管理選單</h2>
+      <nav class="space-y-2">
+        <a href="index.html" class="block px-4 py-2 rounded hover:bg-blue-100">🧑‍🏫 教師管理模組</a>
+        <a href="dashboard.html" class="block px-4 py-2 rounded bg-blue-100 text-blue-900">📊 儀表板</a>
+        <a href="student.html" class="block px-4 py-2 rounded hover:bg-blue-100">👥 學生管理</a>
+        <a href="scenario.html" class="block px-4 py-2 rounded hover:bg-blue-100">📚 情境題庫管理</a>
+        <a href="knowledge.html" class="block px-4 py-2 rounded hover:bg-blue-100">📖 知識庫管理</a>
+        <a href="achievement.html" class="block px-4 py-2 rounded hover:bg-blue-100">🏆 成就系統</a>
+        <a href="notification.html" class="block px-4 py-2 rounded hover:bg-blue-100">📢 公告管理</a>
+        <a href="settings.html" class="block px-4 py-2 rounded hover:bg-blue-100">⚙️ 設定與支援</a>
+      </nav>
+    </aside>
+    <!-- 主內容區 -->
+    <div class="flex-1 flex flex-col">
+      <main class="flex-1 p-6 overflow-y-auto">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-2xl font-bold text-blue-800 flex items-center gap-2">📊 儀表板</h2>
+          <div class="flex gap-2">
+            <button onclick="location.reload()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">🔄 重新整理</button>
+            <button onclick="alert('請點選側欄切換不同模組')" class="bg-blue-200 text-blue-900 px-4 py-2 rounded">❓ 幫助</button>
+          </div>
+        </div>
+
+        <!-- 儀表板內容 -->
+        <section>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-white p-4 rounded-lg shadow">
+              <h3 class="text-lg font-medium">📈 學生進度總覽</h3>
+              <canvas id="progressChart" class="mt-4"></canvas>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow">
+              <h3 class="text-lg font-medium">🧠 自信心評估狀態</h3>
+              <canvas id="confidenceChart" class="mt-4"></canvas>
+            </div>
+          </div>
+        </section>
+      </main>
+      <footer class="text-center p-4 bg-white shadow mt-auto">© 2025 機器人想放假團隊。保留所有權利。</footer>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const progressChart = new Chart(document.getElementById('progressChart'), {
+        type: 'line',
+        data: {
+          labels: ['1月', '2月', '3月', '4月', '5月'],
+          datasets: [{ label: '完成情境數', data: [10, 20, 15, 25, 30], borderColor: '#2563EB', fill: false }]
+        }
+      });
+
+      const confidenceChart = new Chart(document.getElementById('confidenceChart'), {
+        type: 'pie',
+        data: {
+          labels: ['已完成', '未完成'],
+          datasets: [{ data: [70, 30], backgroundColor: ['#2563EB', '#E5E7EB'] }]
+        }
+      });
+    });
+  </script>
+</body>
+</html>

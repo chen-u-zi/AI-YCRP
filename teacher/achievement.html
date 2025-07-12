@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>成就系統 - 教師端</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .modal { display: none; }
+        .modal.active { display: flex; }
+        .badge-icon { width: 64px; height: 64px; object-fit: contain; }
+        .grayscale { filter: grayscale(100%); }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex">
+    <!-- 側邊欄 -->
+    <aside class="w-64 bg-white shadow-md h-screen p-4 flex flex-col">
+        <h2 class="text-xl font-bold mb-6 text-blue-800">教師管理選單</h2>
+        <nav class="space-y-2 flex-1">
+            <a href="dashboard.html" class="block px-4 py-2 rounded hover:bg-blue-100">📊 儀表板</a>
+            <a href="student.html" class="block px-4 py-2 rounded hover:bg-blue-100">👥 學生管理</a>
+            <a href="scenario.html" class="block px-4 py-2 rounded hover:bg-blue-100">📚 情境題庫管理</a>
+            <a href="knowledge.html" class="block px-4 py-2 rounded hover:bg-blue-100">📖 知識庫管理</a>
+            <a href="achievement.html" class="block px-4 py-2 bg-blue-200 text-blue-900 rounded font-semibold">🏆 成就系統</a>
+            <a href="notification.html" class="block px-4 py-2 rounded hover:bg-blue-100">📢 公告管理</a>
+            <a href="settings.html" class="block px-4 py-2 rounded hover:bg-blue-100">⚙️ 設定與支援</a>
+        </nav>
+    </aside>
+
+    <!-- 主內容 -->
+    <div class="flex-1 flex flex-col">
+        <!-- 頂部導覽 -->
+        <header class="bg-white shadow p-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <h1 class="text-xl font-bold">青少年防詐互動學習平台</h1>
+                <span class="text-sm text-blue-700">成就系統</span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <span class="text-sm text-blue-800 font-semibold">👨‍🏫 王老師</span>
+                <a href="index.html" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">登出</a>
+            </div>
+        </header>
+
+        <main class="flex-1 p-8">
+            <!-- 1. 成就徽章管理 -->
+            <section class="bg-white p-6 rounded-lg shadow mb-8">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-semibold">🏆 成就徽章管理</h2>
+                    <button onclick="openBadgeModal()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">新增成就</button>
+                </div>
+                <div id="badgeList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+            </section>
+
+            <!-- 2. 學生成就完成情況 -->
+            <section class="bg-white p-6 rounded-lg shadow mb-8">
+                <h2 class="text-lg font-semibold mb-4">學生成就統計</h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full table-auto">
+                        <thead class="bg-gray-200">
+                            <tr>
+                                <th class="px-4 py-2 text-left">學生姓名</th>
+                                <th class="px-4 py-2 text-left">完成徽章數</th>
+                                <th class="px-4 py-2 text-left">最近獲得</th>
+                                <th class="px-4 py-2 text-left">進度</th>
+                                <th class="px-4 py-2 text-left">詳細</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentStatList">
+                            <!-- 學生成就資料由JS動態填入 -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 3. 學生端徽章預覽（教師檢視） -->
+            <section class="bg-white p-6 rounded-lg shadow">
+                <h2 class="text-lg font-semibold mb-4">徽章預覽（學生視角）</h2>
+                <div id="badgePreview" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
+            </section>
+        </main>
+    </div>
+
+    <!-- 新增/編輯徽章 Modal -->
+    <div id="badgeModal" class="modal fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-40">
+        <div class="bg-white p-6 rounded-lg w-full max-w-2xl mx-auto">
+            <h2 class="text-xl font-bold mb-4" id="badgeModalTitle">新增成就</h2>
+            <form onsubmit="saveBadge(event)">
+                <div class="mb-4">
+                    <label class="block text-sm font-medium mb-1">成就名稱</label>
+                    <input type="text" class="w-full border rounded px-3 py-2" id="badgeName" required>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium mb-1">上傳圖示</label>
+                    <input type="file" class="w-full border rounded px-3 py-2" id="badgeIcon">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium mb-1">解鎖條件</label>
+                    <div class="space-y-2">
+                        <div class="flex items-center">
+                            <input type="checkbox" id="badgeConditionCount" class="mr-2">
+                            <label for="badgeConditionCount" class="text-sm">完成題數</label>
+                            <input type="number" id="badgeConditionCountVal" class="ml-2 w-20 border rounded px-2 py-1" placeholder="題數">
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="badgeConditionAcc" class="mr-2">
+                            <label for="badgeConditionAcc" class="text-sm">正確率</label>
+                            <input type="number" id="badgeConditionAccVal" class="ml-2 w-20 border rounded px-2 py-1" placeholder="%">
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="badgeConditionType" class="mr-2">
+                            <label for="badgeConditionType" class="text-sm">指定主題</label>
+                            <select id="badgeConditionTypeVal" class="ml-2 border rounded px-2 py-1">
+                                <option value="">選擇主題</option>
+                                <option value="phishing">網路釣魚</option>
+                                <option value="investment">假投資</option>
+                                <option value="shopping">購物詐騙</option>
+                                <option value="ai">AI深偽</option>
+                                <option value="game">遊戲詐騙</option>
+                                <option value="social">社群詐騙</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium mb-1">狀態</label>
+                    <select id="badgeStatus" class="w-full border rounded px-3 py-2">
+                        <option value="active">上架中</option>
+                        <option value="inactive">未啟用</option>
+                    </select>
+                </div>
+                <div class="flex justify-end space-x-4">
+                    <button type="button" onclick="closeBadgeModal()" class="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400">取消</button>
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">儲存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 學生成就詳細 Modal -->
+    <div id="studentModal" class="modal fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-40">
+        <div class="bg-white p-6 rounded-lg w-full max-w-2xl mx-auto">
+            <h2 class="text-xl font-bold mb-4">學生成就詳細</h2>
+            <p class="mb-4" id="studentName"></p>
+            <div id="studentBadgeDetail" class="grid grid-cols-2 gap-4"></div>
+            <div class="flex justify-end mt-4">
+                <button type="button" onclick="closeStudentModal()" class="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400">關閉</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- 假資料（主題全面青少年化）---
+        let badges = [
+            {id:1, name:"社群守護者", icon:"social.svg", condition:"參加3次社群詐騙情境且正確率80%以上", status:"active"},
+            {id:2, name:"網購見習生", icon:"shopping.svg", condition:"完成網購詐騙題5題且正確率80%以上", status:"active"},
+            {id:3, name:"電玩騙術剋星", icon:"game.svg", condition:"破解遊戲詐騙題3題且正確率100%", status:"active"},
+            {id:4, name:"網安好奇寶寶", icon:"curious.svg", condition:"首次完成所有主題的情境測驗", status:"active"},
+            {id:5, name:"投資守門員", icon:"investment.svg", condition:"投資詐騙題達90分", status:"inactive"},
+            {id:6, name:"AI知識探索者", icon:"ai.svg", condition:"AI深偽題全對", status:"active"}
+        ];
+        let students = [
+            {name:"許巧芸", badgeNum:4, totalBadge:6, lastBadge:"AI知識探索者", percent:67, badges:[
+                {name:"社群守護者", date:"2025-07-01", unlocked:true, icon:"social.png"},
+                {name:"網購見習生", date:"2025-07-02", unlocked:true, icon:"shopping.svg"},
+                {name:"AI知識探索者", date:"2025-07-03", unlocked:true, icon:"ai.svg"},
+                {name:"網安好奇寶寶", date:"2025-07-04", unlocked:true, icon:"curious.svg"},
+                {name:"投資守門員", date:"", unlocked:false, icon:"investment.svg"},
+                {name:"電玩騙術剋星", date:"", unlocked:false, icon:"game.svg"}
+            ]},
+            {name:"陳宇昊", badgeNum:3, totalBadge:6, lastBadge:"網安好奇寶寶", percent:50, badges:[
+                {name:"社群守護者", date:"2025-07-01", unlocked:true, icon:"social.svg"},
+                {name:"網購見習生", date:"2025-07-03", unlocked:true, icon:"shopping.svg"},
+                {name:"網安好奇寶寶", date:"2025-07-04", unlocked:true, icon:"curious.svg"},
+                {name:"AI知識探索者", date:"", unlocked:false, icon:"ai.svg"},
+                {name:"投資守門員", date:"", unlocked:false, icon:"investment.svg"},
+                {name:"電玩騙術剋星", date:"", unlocked:false, icon:"game.svg"}
+            ]},
+            {name:"蘇偉庭", badgeNum:2, totalBadge:6, lastBadge:"網購見習生", percent:33, badges:[
+                {name:"網購見習生", date:"2025-07-02", unlocked:true, icon:"shopping.svg"},
+                {name:"社群守護者", date:"2025-07-04", unlocked:true, icon:"social.svg"},
+                {name:"AI知識探索者", date:"", unlocked:false, icon:"ai.svg"},
+                {name:"網安好奇寶寶", date:"", unlocked:false, icon:"curious.svg"},
+                {name:"投資守門員", date:"", unlocked:false, icon:"investment.svg"},
+                {name:"電玩騙術剋星", date:"", unlocked:false, icon:"game.svg"}
+            ]},
+            {name:"邱思妤", badgeNum:5, totalBadge:6, lastBadge:"電玩騙術剋星", percent:83, badges:[
+                {name:"社群守護者", date:"2025-07-01", unlocked:true, icon:"social.svg"},
+                {name:"網購見習生", date:"2025-07-02", unlocked:true, icon:"shopping.svg"},
+                {name:"AI知識探索者", date:"2025-07-03", unlocked:true, icon:"ai.svg"},
+                {name:"網安好奇寶寶", date:"2025-07-04", unlocked:true, icon:"curious.svg"},
+                {name:"投資守門員", date:"2025-07-06", unlocked:true, icon:"investment.svg"},
+                {name:"電玩騙術剋星", date:"2025-07-08", unlocked:true, icon:"game.svg"}
+            ]},
+            {name:"劉亭羽", badgeNum:1, totalBadge:6, lastBadge:"網購見習生", percent:17, badges:[
+                {name:"網購見習生", date:"2025-07-02", unlocked:true, icon:"shopping.svg"},
+                {name:"社群守護者", date:"", unlocked:false, icon:"social.svg"},
+                {name:"AI知識探索者", date:"", unlocked:false, icon:"ai.svg"},
+                {name:"網安好奇寶寶", date:"", unlocked:false, icon:"curious.svg"},
+                {name:"投資守門員", date:"", unlocked:false, icon:"investment.svg"},
+                {name:"電玩騙術剋星", date:"", unlocked:false, icon:"game.svg"}
+            ]},
+            {name:"廖政辰", badgeNum:3, totalBadge:6, lastBadge:"網安好奇寶寶", percent:50, badges:[
+                {name:"網安好奇寶寶", date:"2025-07-03", unlocked:true, icon:"curious.svg"},
+                {name:"社群守護者", date:"2025-07-04", unlocked:true, icon:"social.svg"},
+                {name:"電玩騙術剋星", date:"2025-07-05", unlocked:true, icon:"game.svg"},
+                {name:"網購見習生", date:"", unlocked:false, icon:"shopping.svg"},
+                {name:"AI知識探索者", date:"", unlocked:false, icon:"ai.svg"},
+                {name:"投資守門員", date:"", unlocked:false, icon:"investment.svg"}
+            ]},
+            {name:"林辰佑", badgeNum:2, totalBadge:6, lastBadge:"AI知識探索者", percent:33, badges:[
+                {name:"AI知識探索者", date:"2025-07-06", unlocked:true, icon:"ai.svg"},
+                {name:"投資守門員", date:"", unlocked:false, icon:"investment.svg"},
+                {name:"網安好奇寶寶", date:"", unlocked:false, icon:"curious.svg"},
+                {name:"社群守護者", date:"", unlocked:false, icon:"social.svg"},
+                {name:"網購見習生", date:"", unlocked:false, icon:"shopping.svg"},
+                {name:"電玩騙術剋星", date:"", unlocked:false, icon:"game.svg"}
+            ]},
+            {name:"李芷瑄", badgeNum:4, totalBadge:6, lastBadge:"投資守門員", percent:67, badges:[
+                {name:"投資守門員", date:"2025-07-05", unlocked:true, icon:"investment.svg"},
+                {name:"AI知識探索者", date:"2025-07-06", unlocked:true, icon:"ai.svg"},
+                {name:"社群守護者", date:"2025-07-07", unlocked:true, icon:"social.svg"},
+                {name:"電玩騙術剋星", date:"2025-07-08", unlocked:true, icon:"game.svg"},
+                {name:"網安好奇寶寶", date:"", unlocked:false, icon:"curious.svg"},
+                {name:"網購見習生", date:"", unlocked:false, icon:"shopping.svg"}
+            ]},
+            {name:"江宜樺", badgeNum:2, totalBadge:6, lastBadge:"電玩騙術剋星", percent:33, badges:[
+                {name:"電玩騙術剋星", date:"2025-07-08", unlocked:true, icon:"game.svg"},
+                {name:"社群守護者", date:"2025-07-09", unlocked:true, icon:"social.svg"},
+                {name:"網安好奇寶寶", date:"", unlocked:false, icon:"curious.svg"},
+                {name:"網購見習生", date:"", unlocked:false, icon:"shopping.svg"},
+                {name:"AI知識探索者", date:"", unlocked:false, icon:"ai.svg"},
+                {name:"投資守門員", date:"", unlocked:false, icon:"investment.svg"}
+            ]},
+            {name:"趙冠宇", badgeNum:5, totalBadge:6, lastBadge:"AI知識探索者", percent:83, badges:[
+                {name:"社群守護者", date:"2025-07-01", unlocked:true, icon:"social.svg"},
+                {name:"網購見習生", date:"2025-07-02", unlocked:true, icon:"shopping.svg"},
+                {name:"AI知識探索者", date:"2025-07-03", unlocked:true, icon:"ai.svg"},
+                {name:"網安好奇寶寶", date:"2025-07-04", unlocked:true, icon:"curious.svg"},
+                {name:"投資守門員", date:"2025-07-05", unlocked:true, icon:"investment.svg"},
+                {name:"電玩騙術剋星", date:"", unlocked:false, icon:"game.svg"}
+            ]}
+        ];
+
+        // 徽章列表渲染
+        function renderBadgeList() {
+            const el = document.getElementById('badgeList');
+            el.innerHTML = '';
+            badges.forEach(b=>{
+                el.innerHTML += `
+                    <div class="${b.status==='active'?'bg-blue-100':'bg-gray-100'} p-4 rounded shadow flex flex-col items-center">
+                        <img src="${b.icon}" alt="${b.name}" class="badge-icon mb-2 ${b.status!=='active'?'grayscale':''}">
+                        <h3 class="text-md font-bold">${b.name}</h3>
+                        <p class="text-sm text-gray-600 mb-1">${b.condition}</p>
+                        <p class="text-sm"><span class="inline-block px-2 py-1 rounded ${b.status==='active'?'bg-green-200 text-green-800':'bg-gray-300 text-gray-800'}">${b.status==='active'?'上架中':'未啟用'}</span></p>
+                        <div class="mt-2 space-x-2">
+                            <button onclick="editBadge(${b.id})" class="text-blue-500 hover:underline">編輯</button>
+                            <button onclick="delBadge(${b.id})" class="text-red-500 hover:underline">刪除</button>
+                            <button onclick="previewBadge('${b.icon}','${b.name}')" class="text-blue-500 hover:underline">預覽</button>
+                        </div>
+                    </div>`;
+            });
+        }
+        // 學生成就統計
+        function renderStudentStat() {
+            const el = document.getElementById('studentStatList');
+            el.innerHTML = '';
+            students.forEach((s,idx)=>{
+                el.innerHTML += `
+                    <tr class="border-t">
+                        <td class="px-4 py-2">${s.name}</td>
+                        <td class="px-4 py-2">${s.badgeNum}/${s.totalBadge}</td>
+                        <td class="px-4 py-2">${s.lastBadge}</td>
+                        <td class="px-4 py-2">
+                            <div class="w-full bg-gray-300 rounded-full h-2.5">
+                                <div class="bg-blue-600 h-2.5 rounded-full" style="width: ${s.percent}%"></div>
+                            </div>
+                        </td>
+                        <td class="px-4 py-2">
+                            <button onclick="openStudentModal(${idx})" class="text-blue-500 hover:underline">查看</button>
+                        </td>
+                    </tr>`;
+            });
+        }
+        // 徽章學生視角預覽
+        function renderBadgePreview(){
+            const el = document.getElementById('badgePreview');
+            el.innerHTML = '';
+            badges.forEach(b=>{
+                el.innerHTML += `
+                    <div class="text-center">
+                        <img src="${b.icon}" alt="${b.name}" class="badge-icon mx-auto ${b.status!=='active'?'grayscale':''}">
+                        <p class="text-sm font-semibold">${b.name}</p>
+                        <p class="text-xs text-gray-600">${b.status==='active'?'已解鎖':'未解鎖'}</p>
+                    </div>
+                `;
+            });
+        }
+        // 編輯/新增徽章
+        let editBadgeId = null;
+        function openBadgeModal(edit=false) {
+            document.getElementById('badgeModal').classList.add('active');
+            if(edit && editBadgeId){
+                let b = badges.find(x=>x.id===editBadgeId);
+                document.getElementById('badgeModalTitle').innerText = "編輯成就";
+                document.getElementById('badgeName').value = b.name;
+                document.getElementById('badgeStatus').value = b.status;
+                // 不做條件細節和icon編輯demo
+            }else{
+                editBadgeId=null;
+                document.getElementById('badgeModalTitle').innerText = "新增成就";
+                document.getElementById('badgeName').value = '';
+                document.getElementById('badgeStatus').value = 'active';
+            }
+        }
+        function closeBadgeModal() {
+            document.getElementById('badgeModal').classList.remove('active');
+            editBadgeId=null;
+        }
+        function saveBadge(e){
+            e.preventDefault();
+            // 實作略，僅重繪
+            closeBadgeModal();
+            renderBadgeList();renderBadgePreview();
+        }
+        function editBadge(id){
+            editBadgeId=id;
+            openBadgeModal(true);
+        }
+        function delBadge(id){
+            if(confirm("確定刪除？")){
+                badges = badges.filter(b=>b.id!==id);
+                renderBadgeList();renderBadgePreview();
+            }
+        }
+        function previewBadge(icon,name){
+            alert(`預覽徽章：${name}`);
+        }
+        // 學生Modal
+        function openStudentModal(idx){
+            document.getElementById('studentModal').classList.add('active');
+            let s = students[idx];
+            document.getElementById('studentName').innerText = '學生姓名：'+s.name;
+            let html = '';
+            s.badges.forEach(b=>{
+                html += `
+                    <div class="text-center">
+                        <img src="${b.icon}" alt="${b.name}" class="badge-icon mx-auto ${!b.unlocked?'grayscale':''}">
+                        <p class="text-sm font-semibold">${b.name}</p>
+                        <p class="text-xs text-gray-600">${b.unlocked?'已解鎖：'+b.date:'未解鎖'}</p>
+                    </div>`;
+            });
+            document.getElementById('studentBadgeDetail').innerHTML = html;
+        }
+        function closeStudentModal(){
+            document.getElementById('studentModal').classList.remove('active');
+        }
+        // 初始化
+        document.addEventListener('DOMContentLoaded',()=>{
+            renderBadgeList();
+            renderStudentStat();
+            renderBadgePreview();
+        });
+    </script>
+</body>
+</html>

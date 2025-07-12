@@ -1,0 +1,42 @@
+AI-YCRP/
+├── admin/
+│   ├── index.html
+│   ├── reports.html
+│   ├── script.js
+│   └── styles.css
+├── data/
+│   └── scams.json
+├── parent/
+│   └── index.html
+├── student/
+│   ├── achievements.html
+│   ├── confidence.html
+│   ├── index.html
+│   ├── knowledge.html
+│   ├── styles.css
+│   └── test.html
+├── teacher/
+│   ├── index.html
+│   └── style.css
+├── home.html
+├── login.html
+├── login.css
+├── styles.css
+├── script.js
+└── index.html
+
+✅ 已完成！我為你建立了以下 7 個獨立模組頁面，每個都具備基本的排版與導覽列，方便後續擴充功能：
+
+dashboard.html（儀表板）
+
+student.html（學生管理）
+
+scenario.html（情境題庫管理）
+
+knowledge.html（知識庫管理）
+
+achievement.html（成就系統）
+
+notification.html（公告管理）
+
+settings.html（設定與支援）

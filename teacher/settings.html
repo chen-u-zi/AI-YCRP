@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>設定與支援 - 教師端</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen flex">
+    <!-- 側邊欄 -->
+    <aside class="w-64 bg-white shadow-md h-screen p-4 flex flex-col">
+        <h2 class="text-xl font-bold mb-6 text-blue-800">教師管理選單</h2>
+        <nav class="space-y-2 flex-1">
+            <a href="dashboard.html" class="block px-4 py-2 rounded hover:bg-blue-100">📊 儀表板</a>
+            <a href="student.html" class="block px-4 py-2 rounded hover:bg-blue-100">👥 學生管理</a>
+            <a href="scenario.html" class="block px-4 py-2 rounded hover:bg-blue-100">📚 情境題庫管理</a>
+            <a href="knowledge.html" class="block px-4 py-2 rounded hover:bg-blue-100">📖 知識庫管理</a>
+            <a href="achievement.html" class="block px-4 py-2 rounded hover:bg-blue-100">🏆 成就系統</a>
+            <a href="notification.html" class="block px-4 py-2 rounded hover:bg-blue-100">📢 公告管理</a>
+            <a href="settings.html" class="block px-4 py-2 bg-blue-200 text-blue-900 rounded font-semibold">⚙️ 設定與支援</a>
+        </nav>
+    </aside>
+
+    <!-- 主內容 -->
+    <div class="flex-1 flex flex-col">
+        <!-- 頂部導覽 -->
+        <header class="bg-white shadow p-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <h1 class="text-xl font-bold">青少年防詐互動學習平台</h1>
+                <span class="text-sm text-blue-700">設定與支援</span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <span class="text-sm text-blue-800 font-semibold">👨‍🏫 王老師</span>
+                <a href="index.html" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">登出</a>
+            </div>
+        </header>
+
+        <main class="flex-1 p-8">
+            <!-- 個人資料 -->
+            <section class="bg-white p-6 rounded-lg shadow mb-6">
+                <h2 class="text-xl font-semibold mb-4">👤 個人資料設定</h2>
+                <form class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">教師姓名</label>
+                        <input type="text" value="王小明" class="mt-1 w-full border px-3 py-2 rounded" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Email</label>
+                        <input type="email" value="teacher@example.com" class="mt-1 w-full border px-3 py-2 rounded" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">新密碼</label>
+                        <input type="password" placeholder="輸入新密碼" class="mt-1 w-full border px-3 py-2 rounded" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">語言偏好</label>
+                        <select class="mt-1 w-full border px-3 py-2 rounded">
+                            <option>繁體中文</option>
+                            <option>English</option>
+                        </select>
+                    </div>
+                </form>
+            </section>
+
+            <!-- 通知與主題 -->
+            <section class="bg-white p-6 rounded-lg shadow mb-6">
+                <h2 class="text-xl font-semibold mb-4">🔔 通知與偏好設定</h2>
+                <div class="space-y-4">
+                    <div class="flex justify-between">
+                        <span>接收系統公告通知</span>
+                        <input type="checkbox" class="form-checkbox w-5 h-5 text-blue-600" checked />
+                    </div>
+                    <div class="flex justify-between">
+                        <span>高風險學生提醒</span>
+                        <input type="checkbox" class="form-checkbox w-5 h-5 text-blue-600" />
+                    </div>
+                    <div class="flex justify-between">
+                        <span>介面模式</span>
+                        <select class="border px-2 py-1 rounded">
+                            <option>亮色</option>
+                            <option>暗色</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 客服與 FAQ -->
+            <section class="bg-white p-6 rounded-lg shadow">
+                <h2 class="text-xl font-semibold mb-4">📬 客服支援 & 常見問題</h2>
+                <p class="mb-2">如有疑問可聯繫：<a href="mailto:support@ai-ycrp.org" class="text-blue-600">support@ai-ycrp.org</a></p>
+                <ul class="list-disc pl-5 text-sm text-gray-700 space-y-1">
+                    <li>如何新增學生帳號？</li>
+                    <li>成就系統怎麼設定條件？</li>
+                    <li>學生遺失密碼如何處理？</li>
+                </ul>
+                <p class="mt-4 text-xs text-gray-400">系統版本：v1.0.2｜更新日期：2025/07/12</p>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
