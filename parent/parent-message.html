@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>親師聯絡 - AI詐騙防護系統</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="background-animation"></div>
+<header class="header">
+    <div class="header-logo" onclick="window.location.href='index.html'">AI詐騙防護系統</div>
+    <div class="header-actions">
+        <span class="role-badge">👨‍👩‍👧‍👦 家長</span>
+        <button class="header-btn" onclick="window.location.href='parent-settings.html'">⚙️ 帳號設定</button>
+        <button class="header-btn" onclick="logout()">🚪 登出</button>
+    </div>
+</header>
+<nav class="sidebar">
+    <div class="nav-section">
+        <div class="nav-title">主要功能</div>
+        <div class="nav-item">
+            <a href="index.html" class="nav-link"><span class="nav-icon">🏠</span>首頁總覽</a>
+        </div>
+        <div class="nav-item">
+            <a href="parent-progress.html" class="nav-link"><span class="nav-icon">📊</span>子女學習狀況</a>
+        </div>
+        <div class="nav-item">
+            <a href="parent-achievements.html" class="nav-link"><span class="nav-icon">🎖️</span>成就徽章一覽</a>
+        </div>
+    </div>
+    <div class="nav-section">
+        <div class="nav-title">學習資源</div>
+        <div class="nav-item">
+            <a href="parent-knowledge.html" class="nav-link"><span class="nav-icon">📚</span>知識庫共學空間</a>
+        </div>
+        <div class="nav-item">
+            <a href="parent-task.html" class="nav-link"><span class="nav-icon">🤝</span>家庭共學任務</a>
+        </div>
+    </div>
+    <div class="nav-section">
+        <div class="nav-title">溝通管理</div>
+        <div class="nav-item">
+            <a href="parent-message.html" class="nav-link active"><span class="nav-icon">📬</span>親師聯絡</a>
+        </div>
+        <div class="nav-item">
+            <a href="parent-notifications.html" class="nav-link"><span class="nav-icon">🔔</span>通知中心</a>
+        </div>
+        <div class="nav-item">
+            <a href="parent-settings.html" class="nav-link"><span class="nav-icon">⚙️</span>帳號與設定</a>
+        </div>
+    </div>
+    <div class="student-switch">
+        <h4>🎓 子帳號切換</h4>
+        <select class="student-select">
+            <option>王小明（國中二年級）</option>
+            <option>王小美（國小五年級）</option>
+        </select>
+    </div>
+</nav>
+<main class="main-content">
+    <h1 class="page-title">親師聯絡</h1>
+    <section class="dashboard-card">
+        <div class="card-header"><h3 class="card-title">選擇教師</h3></div>
+        <div class="card-content">
+            <select class="student-select" style="width:auto;display:inline-block;">
+                <option>王老師（導師）</option>
+                <option>張老師（社會科）</option>
+            </select>
+        </div>
+    </section>
+    <section class="dashboard-card" style="margin-top:1.5rem;">
+        <div class="card-header"><h3 class="card-title">對話紀錄</h3></div>
+        <div class="card-content" style="max-height:220px;overflow-y:auto;">
+            <div style="color:var(--text-secondary);margin-bottom:.6rem;">
+                [2025-07-12 09:10] <b>王老師：</b>小明最近自信高於表現，建議多陪伴。
+                <span class="role-badge" style="background:var(--accent-gradient);font-size:.91rem;">AI自動建議</span>
+            </div>
+            <div style="color:var(--text-secondary);margin-bottom:.6rem;">
+                [2025-07-12 09:22] <b>家長：</b>謝謝提醒，我會與他討論。
+            </div>
+            <div style="color:var(--text-secondary);margin-bottom:.6rem;">
+                [2025-07-12 10:00] <b>王老師：</b>小美網購詐騙單元需補強。
+                <span class="role-badge" style="background:var(--warning-gradient);font-size:.91rem;">老師主動通知</span>
+            </div>
+            <div style="color:var(--text-secondary);margin-bottom:.6rem;">
+                [2025-07-12 10:02] <b>家長：</b>請問她主要困難在哪？
+            </div>
+        </div>
+    </section>
+    <section class="dashboard-card" style="margin-top:1.5rem;">
+        <div class="card-header"><h3 class="card-title">快速回應模板</h3></div>
+        <div class="card-content">
+            <button class="btn-primary" style="margin:6px 10px 6px 0;">收到！我們會和孩子討論</button>
+            <button class="btn-primary" style="margin:6px 10px 6px 0;">請問孩子的具體狀況是哪方面？</button>
+            <button class="btn-primary" style="margin:6px 10px 6px 0;">謝謝提醒，我們會與他安排補強學習</button>
+        </div>
+    </section>
+    <section class="dashboard-card" style="margin-top:1.5rem;">
+        <div class="card-header"><h3 class="card-title">AI建議支援</h3></div>
+        <div class="card-content">
+            <ul style="color:var(--text-secondary);line-height:2;">
+                <li>建議溝通語：「相信你會進步，爸媽都支持你！」</li>
+                <li>心理輔導資源：<a href="#" style="color:var(--text-accent);">學校輔導室連結</a></li>
+            </ul>
+        </div>
+    </section>
+</main>
+<script>
+function logout() {
+    document.body.style.opacity = '0.5';
+    setTimeout(() => { window.location.href = "login.html"; }, 500);
+}
+document.addEventListener('DOMContentLoaded', () => {
+    const path = window.location.pathname;
+    document.querySelectorAll('.nav-link').forEach(link => {
+        if(path.includes(link.getAttribute('href'))) link.classList.add('active');
+    });
+});
+</script>
+</body>
+</html>

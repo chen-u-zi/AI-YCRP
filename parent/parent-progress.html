@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>子女學習狀況 - AI詐騙防護系統</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="background-animation"></div>
+<header class="header">
+    <div class="header-logo" onclick="window.location.href='index.html'">AI詐騙防護系統</div>
+    <div class="header-actions">
+        <span class="role-badge">👨‍👩‍👧‍👦 家長</span>
+        <button class="header-btn" onclick="window.location.href='parent-settings.html'">⚙️ 帳號設定</button>
+        <button class="header-btn" onclick="logout()">🚪 登出</button>
+    </div>
+</header>
+<nav class="sidebar">
+    <div class="nav-section">
+        <div class="nav-title">主要功能</div>
+        <div class="nav-item">
+            <a href="index.html" class="nav-link"><span class="nav-icon">🏠</span>首頁總覽</a>
+        </div>
+        <div class="nav-item">
+            <a href="parent-progress.html" class="nav-link active"><span class="nav-icon">📊</span>子女學習狀況</a>
+        </div>
+        <div class="nav-item">
+            <a href="parent-achievements.html" class="nav-link"><span class="nav-icon">🎖️</span>成就徽章一覽</a>
+        </div>
+    </div>
+    <div class="nav-section">
+        <div class="nav-title">學習資源</div>
+        <div class="nav-item">
+            <a href="parent-knowledge.html" class="nav-link"><span class="nav-icon">📚</span>知識庫共學空間</a>
+        </div>
+        <div class="nav-item">
+            <a href="parent-task.html" class="nav-link"><span class="nav-icon">🤝</span>家庭共學任務</a>
+        </div>
+    </div>
+    <div class="nav-section">
+        <div class="nav-title">溝通管理</div>
+        <div class="nav-item">
+            <a href="parent-message.html" class="nav-link"><span class="nav-icon">📬</span>親師聯絡</a>
+        </div>
+        <div class="nav-item">
+            <a href="parent-notifications.html" class="nav-link"><span class="nav-icon">🔔</span>通知中心</a>
+        </div>
+        <div class="nav-item">
+            <a href="parent-settings.html" class="nav-link"><span class="nav-icon">⚙️</span>帳號與設定</a>
+        </div>
+    </div>
+    <div class="student-switch">
+        <h4>🎓 子帳號切換</h4>
+        <select class="student-select">
+            <option>王小明（國中二年級）</option>
+            <option>王小美（國小五年級）</option>
+        </select>
+    </div>
+</nav>
+<main class="main-content">
+    <h1 class="page-title">子女學習狀況</h1>
+    <section class="dashboard-grid">
+        <div class="dashboard-card">
+            <div class="card-header"><h3 class="card-title">🧪 自信與表現對照</h3></div>
+            <div class="card-content">
+                <img src="https://fakeimg.pl/320x180/?text=雷達圖" alt="雷達圖" style="width:100%;border-radius:12px;">
+            </div>
+        </div>
+        <div class="dashboard-card alert-card">
+            <div class="card-header"><h3 class="card-title">❗ 認知偏差偵測</h3></div>
+            <div class="card-content">
+                <div class="stat-label" style="font-size:1.08rem;color:#fff;">
+                    偵測結果：認知失調<br>
+                    <span style="color:#b91c1c;font-weight:bold;">建議：多互動共學</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="dashboard-card" style="margin-top:1.5rem;">
+        <div class="card-header"><h3 class="card-title">📝 測驗完成紀錄表</h3></div>
+        <div class="card-content">
+            <table style="width:100%;color:var(--text-secondary);background:transparent;border-collapse:collapse;">
+                <thead>
+                    <tr style="background:rgba(102,126,234,0.08);">
+                        <th>單元</th>
+                        <th>完成日期</th>
+                        <th>成績</th>
+                        <th>補強狀態</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>AI詐騙辨識</td>
+                        <td>2025-07-12</td>
+                        <td>85</td>
+                        <td><span class="role-badge" style="background:var(--success-gradient);font-size:0.92rem;">已補強</span></td>
+                    </tr>
+                    <tr>
+                        <td>網購詐騙</td>
+                        <td>2025-07-10</td>
+                        <td>65</td>
+                        <td><span class="role-badge" style="background:var(--warning-gradient);font-size:0.92rem;">需補強</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section class="dashboard-card" style="margin-top:1.5rem;">
+        <div class="card-header"><h3 class="card-title">🧠 個人化建議摘要</h3></div>
+        <div class="card-content">
+            <ul style="color:var(--text-secondary);line-height:1.9;">
+                <li>建議多練習網購詐騙主題題庫</li>
+                <li>推薦共學影片：<a href="#" style="color:var(--text-accent);">「詐騙LINE訊息辨識」</a></li>
+            </ul>
+        </div>
+    </section>
+</main>
+<script>
+function logout() {
+    document.body.style.opacity = '0.5';
+    setTimeout(() => { window.location.href = "login.html"; }, 500);
+}
+document.addEventListener('DOMContentLoaded', () => {
+    const path = window.location.pathname;
+    document.querySelectorAll('.nav-link').forEach(link => {
+        if(path.includes(link.getAttribute('href'))) link.classList.add('active');
+    });
+});
+</script>
+</body>
+</html>
