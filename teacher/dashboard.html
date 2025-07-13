@@ -1,27 +1,40 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>teacher端 - 青少年詐騙防衛訓練站</title>
+  <title>儀表板 - 教師端</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    .sidebar { transition: transform 0.3s ease; }
-    .sidebar-hidden { transform: translateX(-100%); }
-    .hidden-section { display: none; }
-    .active-link { background-color: #1e40af; }
+    .sidebar {
+      transition: transform 0.3s ease;
+    }
+
+    .sidebar-hidden {
+      transform: translateX(-100%);
+    }
+
+    .hidden-section {
+      display: none;
+    }
+
+    .active-link {
+      background-color: #1e40af;
+    }
   </style>
 </head>
+
 <body class="bg-gray-100 min-h-screen">
-  <!-- Header -->
+  <!-- Header：和學生管理一致 -->
   <header class="bg-white shadow p-4 flex justify-between items-center">
-    <div class="flex items-center space-x-4">
-      <h1 class="text-xl font-bold">青少年防詐互動學習平台</h1>
-      <span class="text-sm text-blue-700">成為網路安全小達人</span>
+    <div>
+      <h1 class="text-xl font-semibold">青少年防詐互動學習平台</h1>
+      <p class="text-sm text-blue-600">成為網路安全小達人</p>
     </div>
-    <div class="flex items-center space-x-4">
-      <span class="text-sm text-blue-800 font-semibold">👨‍🏫 教師</span>
+    <div class="flex gap-4 items-center">
+      <div class="text-sm text-blue-800 font-semibold">👨‍🏫 教師</div>
       <a href="../home.html" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">登出</a>
     </div>
   </header>
@@ -46,21 +59,39 @@
         <div class="flex justify-between items-center mb-6">
           <h2 class="text-2xl font-bold text-blue-800 flex items-center gap-2">📊 儀表板</h2>
           <div class="flex gap-2">
-            <button onclick="location.reload()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">🔄 重新整理</button>
+            <button onclick="location.reload()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">🔄
+              重新整理</button>
             <button onclick="alert('請點選側欄切換不同模組')" class="bg-blue-200 text-blue-900 px-4 py-2 rounded">❓ 幫助</button>
           </div>
         </div>
-
         <!-- 儀表板內容 -->
         <section>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="bg-white p-4 rounded-lg shadow">
+            <div class="bg-white p-4 rounded-lg shadow" style="height: 350px;">
               <h3 class="text-lg font-medium">📈 學生進度總覽</h3>
-              <canvas id="progressChart" class="mt-4"></canvas>
+              <canvas id="progressChart" class="w-48 h-48 md:w-64 md:h-64 mx-auto mt-4"
+                style="max-height: 300px; width: 75%;"></canvas>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow" style="height: 350px;">
+              <h3 class="text-lg font-medium">🧠 自信心評估狀態</h3>
+              <canvas id="confidenceChart" class="w-48 h-48 md:w-64 md:h-64 mx-auto mt-4"></canvas>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+            <div class="bg-white p-4 rounded-lg shadow">
+              <h3 class="text-lg font-medium">👥 各班級學生數</h3>
+              <canvas id="classBarChart" class="w-48 h-72 md:w-64 md:h-96 mx-auto"
+                style="max-height: 400px; width: 90%; "></canvas>
             </div>
             <div class="bg-white p-4 rounded-lg shadow">
-              <h3 class="text-lg font-medium">🧠 自信心評估狀態</h3>
-              <canvas id="confidenceChart" class="mt-4"></canvas>
+              <h3 class="text-lg font-medium">📦 意識風險值（散點圖）</h3>
+              <div class="flex gap-4 items-center mb-2">
+                <span class="inline-block w-4 h-4 rounded-full" style="background:#2563EB"></span> 不用太擔心
+                <span class="inline-block w-4 h-4 rounded-full" style="background:#FACC15"></span> 要注意學生
+                <span class="inline-block w-4 h-4 rounded-full" style="background:#F87171"></span> 需關注對象
+              </div>
+              <canvas id="scoreBoxChart" class="w-48 h-72 md:w-64 md:h-96 mx-auto"
+                style="max-height: 280px; width: 100%;"></canvas>
             </div>
           </div>
         </section>
@@ -68,7 +99,6 @@
       <footer class="text-center p-4 bg-white shadow mt-auto">© 2025 機器人想放假團隊。保留所有權利。</footer>
     </div>
   </div>
-
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const progressChart = new Chart(document.getElementById('progressChart'), {
@@ -78,7 +108,6 @@
           datasets: [{ label: '完成情境數', data: [10, 20, 15, 25, 30], borderColor: '#2563EB', fill: false }]
         }
       });
-
       const confidenceChart = new Chart(document.getElementById('confidenceChart'), {
         type: 'pie',
         data: {
@@ -86,7 +115,94 @@
           datasets: [{ data: [70, 30], backgroundColor: ['#2563EB', '#E5E7EB'] }]
         }
       });
+
+      // 各班級學生數長條圖
+      const classBarChart = new Chart(document.getElementById('classBarChart'), {
+        type: 'bar',
+        data: {
+          labels: ['A班', 'B班', 'C班'],
+          datasets: [{
+            label: '學生數',
+            data: [12, 10, 8],
+            backgroundColor: ['#2563EB', '#38BDF8', '#A5B4FC']
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { display: false } }
+        }
+      });
+
+      // 學生資料
+      const students = [
+        { name: "王小明", score: 55 },
+        { name: "陳小美", score: 92 },
+        { name: "李大仁", score: 68 },
+        { name: "張小華", score: 77 },
+        { name: "林小安", score: 88 },
+        { name: "周子瑜", score: 45 },
+        { name: "吳宗憲", score: 99 },
+        { name: "林志玲", score: 73 },
+        { name: "蔡依林", score: 60 },
+        { name: "周杰倫", score: 81 },
+        { name: "林書豪", score: 52 },
+        { name: "柯文哲", score: 95 },
+        { name: "侯友宜", score: 67 },
+        { name: "賴清德", score: 84 },
+        { name: "韓國瑜", score: 59 },
+        { name: "郭台銘", score: 78 },
+        { name: "江啟臣", score: 62 },
+        { name: "朱立倫", score: 90 },
+        { name: "鄭文燦", score: 58 },
+        { name: "蘇貞昌", score: 100 }
+      ];
+
+      const scatterData = students.map((stu, idx) => {
+        let color;
+        if (stu.score >= 80) color = '#2563EB';      // 藍色
+        else if (stu.score >= 60) color = '#FACC15'; // 黃色
+        else color = '#F87171';                      // 紅色
+        return { x: idx + 1, y: stu.score, pointBackgroundColor: color, name: stu.name };
+      });
+
+      const scoreScatterChart = new Chart(document.getElementById('scoreBoxChart'), {
+        type: 'scatter',
+        data: {
+          datasets: [{
+            label: '學生分數',
+            data: scatterData,
+            pointBackgroundColor: scatterData.map(d => d.pointBackgroundColor),
+            pointRadius: 7
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: function (context) {
+                  const d = context.raw;
+                  return `姓名: ${d.name}，分數: ${d.y}`;
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              title: { display: true, text: '學生編號' },
+              ticks: { stepSize: 1 }
+            },
+            y: {
+              title: { display: true, text: '分數' },
+              min: 0,
+              max: 100
+            }
+          }
+        }
+      });
     });
   </script>
 </body>
+
 </html>
