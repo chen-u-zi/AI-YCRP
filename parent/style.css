@@ -135,11 +135,12 @@
         .role-badge {
             background: var(--accent-gradient);
             color: white;
-            padding: 0.5rem 1rem;
+            padding: 2px 16px;
             border-radius: 20px;
             font-weight: 500;
             font-size: 0.9rem;
             box-shadow: var(--shadow-glass);
+            margin: 10px 10px;
         }
 
         .header-btn {
@@ -367,7 +368,7 @@
 
         .stat-label {
             color: var(--text-secondary);
-            font-size: 0.9rem;
+            font-size: 1rem;
         }
 
         .progress-bar {
