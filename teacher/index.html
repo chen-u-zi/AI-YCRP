@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,15 +10,18 @@
     .feature-card {
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
+
     .feature-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
     }
+
     .gradient-bg {
       background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
     }
   </style>
 </head>
+
 <body class="bg-gradient-to-br from-blue-300 to-blue-900 min-h-screen text-blue-900">
   <header class="bg-white shadow p-4 flex justify-between items-center">
     <div>
@@ -38,9 +42,10 @@
 
     <!-- 功能卡片網格 -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-      
+
       <!-- 儀表板 -->
-      <div class="feature-card bg-white rounded-lg shadow-lg p-6 cursor-pointer" onclick="window.location.href='dashboard.html'">
+      <div class="feature-card bg-white rounded-lg shadow-lg p-6 cursor-pointer"
+        onclick="window.location.href='dashboard.html'">
         <div class="text-center">
           <div class="text-4xl mb-4">📊</div>
           <h3 class="text-xl font-bold text-blue-800 mb-2">儀表板</h3>
@@ -49,7 +54,8 @@
       </div>
 
       <!-- 學生管理 -->
-      <div class="feature-card bg-white rounded-lg shadow-lg p-6 cursor-pointer" onclick="window.location.href='student.html'">
+      <div class="feature-card bg-white rounded-lg shadow-lg p-6 cursor-pointer"
+        onclick="window.location.href='student.html'">
         <div class="text-center">
           <div class="text-4xl mb-4">👥</div>
           <h3 class="text-xl font-bold text-blue-800 mb-2">學生管理</h3>
@@ -58,7 +64,8 @@
       </div>
 
       <!-- 情境題庫管理 -->
-      <div class="feature-card bg-white rounded-lg shadow-lg p-6 cursor-pointer" onclick="window.location.href='scenario.html'">
+      <div class="feature-card bg-white rounded-lg shadow-lg p-6 cursor-pointer"
+        onclick="window.location.href='scenario.html'">
         <div class="text-center">
           <div class="text-4xl mb-4">🧩</div>
           <h3 class="text-xl font-bold text-blue-800 mb-2">情境題庫管理</h3>
@@ -67,7 +74,8 @@
       </div>
 
       <!-- 知識庫管理 -->
-      <div class="feature-card bg-white rounded-lg shadow-lg p-6 cursor-pointer" onclick="window.location.href='knowledge.html'">
+      <div class="feature-card bg-white rounded-lg shadow-lg p-6 cursor-pointer"
+        onclick="window.location.href='knowledge.html'">
         <div class="text-center">
           <div class="text-4xl mb-4">📚</div>
           <h3 class="text-xl font-bold text-blue-800 mb-2">知識庫管理</h3>
@@ -76,7 +84,8 @@
       </div>
 
       <!-- 成就系統 -->
-      <div class="feature-card bg-white rounded-lg shadow-lg p-6 cursor-pointer" onclick="window.location.href='achievement.html'">
+      <div class="feature-card bg-white rounded-lg shadow-lg p-6 cursor-pointer"
+        onclick="window.location.href='achievement.html'">
         <div class="text-center">
           <div class="text-4xl mb-4">🏆</div>
           <h3 class="text-xl font-bold text-blue-800 mb-2">成就系統</h3>
@@ -85,23 +94,32 @@
       </div>
 
       <!-- 公告管理 -->
-      <div class="feature-card bg-white rounded-lg shadow-lg p-6 cursor-pointer" onclick="window.location.href='notification.html'">
+      <div class="feature-card bg-white rounded-lg shadow-lg p-6 cursor-pointer"
+        onclick="window.location.href='notification.html'">
         <div class="text-center">
           <div class="text-4xl mb-4">📢</div>
           <h3 class="text-xl font-bold text-blue-800 mb-2">公告管理</h3>
           <p class="text-gray-600 text-sm">發布重要通知與系統公告</p>
         </div>
       </div>
-
+      <!-- 親師聯絡 
+      <div class="feature-card bg-white rounded-lg shadow-lg p-6 cursor-pointer"
+        onclick="window.location.href='settings.html'">
+        <div class="text-center">
+          <div class="text-4xl mb-4">？</div>
+          <h3 class="text-xl font-bold text-blue-800 mb-2">親師即時聯絡</h3>
+          <p class="text-gray-600 text-sm">家長溝通</p>
+        </div>
+      </div>-->
       <!-- 設定與支援 -->
-      <div class="feature-card bg-white rounded-lg shadow-lg p-6 cursor-pointer" onclick="window.location.href='settings.html'">
+      <div class="feature-card bg-white rounded-lg shadow-lg p-6 cursor-pointer"
+        onclick="window.location.href='settings.html'">
         <div class="text-center">
           <div class="text-4xl mb-4">⚙️</div>
           <h3 class="text-xl font-bold text-blue-800 mb-2">設定與支援</h3>
           <p class="text-gray-600 text-sm">系統設定、技術支援與幫助</p>
         </div>
       </div>
-
     </div>
 
     <!-- 快速統計資訊 -->
@@ -130,4 +148,5 @@
 
   <footer class="text-center p-4 bg-white shadow mt-8">© 2025 機器人想放假團隊。保留所有權利。</footer>
 </body>
+
 </html>

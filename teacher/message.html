@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>親師聯絡 - 教師端</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .chat-bubble { border-radius: 1rem; padding: .6em 1.2em; max-width: 75%; }
+        .chat-right { background: #dbeafe; color: #1e3a8a; align-self: flex-end;}
+        .chat-left { background: #f1f5f9; color: #334155; align-self: flex-start;}
+        .chat-meta { font-size:.75em; color:#64748b;}
+        .sidebar-link-active { background: #e0e7ff; color: #3730a3; font-weight: bold;}
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex">
+    <!-- 側邊欄（參照你的教師端模組） -->
+    <aside class="w-64 bg-white shadow-md h-screen p-4 flex flex-col">
+        <h2 class="text-xl font-bold mb-6 text-blue-800">教師管理選單</h2>
+        <nav class="space-y-2 flex-1">
+            <a href="dashboard.html" class="block px-4 py-2 rounded hover:bg-blue-100">📊 儀表板</a>
+            <a href="student.html" class="block px-4 py-2 rounded hover:bg-blue-100">👥 學生管理</a>
+            <a href="scenario.html" class="block px-4 py-2 rounded hover:bg-blue-100">📚 情境題庫管理</a>
+            <a href="knowledge.html" class="block px-4 py-2 rounded hover:bg-blue-100">📖 知識庫管理</a>
+            <a href="achievement.html" class="block px-4 py-2 rounded hover:bg-blue-100">🏆 成就系統</a>
+            <a href="notification.html" class="block px-4 py-2 rounded hover:bg-blue-100">📢 公告管理</a>
+            <a href="message.html" class="block px-4 py-2 sidebar-link-active rounded">💬 親師聯絡</a>
+            <a href="settings.html" class="block px-4 py-2 rounded hover:bg-blue-100">⚙️ 設定與支援</a>
+        </nav>
+    </aside>
+    <!-- 主內容 -->
+    <div class="flex-1 flex flex-col">
+        <!-- 頂部導覽 -->
+        <header class="bg-white shadow p-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <h1 class="text-xl font-bold">青少年防詐互動學習平台</h1>
+                <span class="text-sm text-blue-700">親師即時聯絡</span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <span class="text-sm text-blue-800 font-semibold">👨‍🏫 王老師</span>
+                <a href="index.html" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">登出</a>
+            </div>
+        </header>
+
+        <!-- 聊天主體 -->
+        <main class="flex-1 p-6 flex gap-6">
+            <!-- 家長列表 -->
+            <aside class="w-72 bg-white rounded shadow-md flex flex-col">
+                <h2 class="p-4 font-semibold border-b">家長列表</h2>
+                <div id="parentList" class="flex-1 overflow-y-auto">
+                    <!-- JS動態產生家長清單 -->
+                </div>
+                <div class="p-3 border-t">
+                    <button onclick="newGroupMsg()" class="w-full bg-blue-500 text-white rounded py-2 hover:bg-blue-600">✉️ 群發訊息</button>
+                </div>
+            </aside>
+            <!-- 對話區 -->
+            <section class="flex-1 flex flex-col bg-white rounded shadow-md">
+                <div class="flex items-center px-6 py-3 border-b gap-2">
+                    <span class="text-blue-600 font-semibold" id="chatTarget">請選擇家長</span>
+                </div>
+                <div id="chatBox" class="flex-1 flex flex-col gap-2 p-6 overflow-y-auto" style="min-height:340px;">
+                    <!-- JS動態產生訊息 -->
+                </div>
+                <div class="px-6 py-4 border-t flex items-center gap-2">
+                    <input type="text" id="msgInput" class="flex-1 border rounded px-3 py-2" placeholder="輸入訊息（Enter送出）" onkeydown="if(event.key==='Enter'){sendMsg()}">
+                    <button onclick="sendMsg()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">送出</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // ===== 模擬資料區 =====
+        let parents = [
+            {id:1, name:"陳小明家長", lastMsg:"老師您好～", unread:2, child:"陳小明", online:true},
+            {id:2, name:"林小芳家長", lastMsg:"收到，謝謝老師", unread:0, child:"林小芳", online:false},
+            {id:3, name:"李大衛家長", lastMsg:"我家孩子最近...", unread:0, child:"李大衛", online:true}
+        ];
+        let messages = {
+            1: [
+                {from:'parent', name:"陳小明家長", time:"09:01", text:"老師您好～"},
+                {from:'teacher', name:"王老師", time:"09:02", text:"您好，有任何學習問題都歡迎聯絡！"},
+                {from:'parent', name:"陳小明家長", time:"09:05", text:"想請問這次模擬測驗有弱點分析報告嗎？"}
+            ],
+            2: [
+                {from:'parent', name:"林小芳家長", time:"09:10", text:"收到，謝謝老師"}
+            ],
+            3: [
+                {from:'parent', name:"李大衛家長", time:"08:35", text:"我家孩子最近網路時間增加很多..."}
+            ]
+        };
+        let currentParentId = null;
+
+        // ===== JS互動區 =====
+        function renderParentList(){
+            const el = document.getElementById('parentList');
+            el.innerHTML = '';
+            parents.forEach(p=>{
+                el.innerHTML += `
+                    <div onclick="selectParent(${p.id})" class="cursor-pointer flex items-center px-4 py-3 gap-3 hover:bg-blue-50 border-b ${currentParentId===p.id?'bg-blue-100':''}">
+                        <div class="rounded-full bg-blue-200 w-10 h-10 flex items-center justify-center font-bold text-blue-700">${p.name.charAt(0)}</div>
+                        <div class="flex-1">
+                            <div class="font-semibold">${p.name} <span class="text-xs text-gray-400">${p.online?'🟢':'⚪'}</span></div>
+                            <div class="text-xs text-gray-500">${p.lastMsg}</div>
+                        </div>
+                        ${p.unread>0?`<div class="ml-1 bg-red-500 text-white rounded-full px-2 text-xs">${p.unread}</div>`:''}
+                    </div>
+                `;
+            });
+        }
+        function selectParent(pid){
+            currentParentId = pid;
+            // 已讀處理
+            parents.forEach(p=>{if(p.id===pid) p.unread=0;});
+            renderParentList();
+            // 顯示對話
+            document.getElementById('chatTarget').innerText = parents.find(p=>p.id===pid).name + "（" + parents.find(p=>p.id===pid).child + "）";
+            renderChat();
+        }
+        function renderChat(){
+            const el = document.getElementById('chatBox');
+            el.innerHTML = '';
+            if(!currentParentId){ el.innerHTML = '<div class="text-gray-400 text-center mt-12">請先選擇家長開始對話</div>'; return;}
+            (messages[currentParentId]||[]).forEach(msg=>{
+                el.innerHTML += `
+                <div class="flex flex-col ${msg.from==='teacher'?'items-end':'items-start'}">
+                    <div class="chat-bubble ${msg.from==='teacher'?'chat-right':'chat-left'}">${msg.text}</div>
+                    <span class="chat-meta">${msg.from==='teacher'?'我':msg.name} ${msg.time}</span>
+                </div>
+                `;
+            });
+            el.scrollTop = el.scrollHeight;
+        }
+        function sendMsg(){
+            const input = document.getElementById('msgInput');
+            let txt = input.value.trim();
+            if(!currentParentId || !txt) return;
+            if(!messages[currentParentId]) messages[currentParentId]=[];
+            let now = new Date();
+            let time = now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0');
+            messages[currentParentId].push({from:'teacher', name:"王老師", time, text:txt});
+            input.value = '';
+            renderChat();
+        }
+        function newGroupMsg(){
+            alert("群發功能開發中，將可一鍵傳送訊息給全部家長。");
+        }
+        // ===== 初始化 =====
+        document.addEventListener('DOMContentLoaded', ()=>{
+            renderParentList();
+            renderChat();
+        });
+    </script>
+</body>
+</html>
