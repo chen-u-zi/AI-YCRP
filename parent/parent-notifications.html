@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
     <title>通知中心 - AI詐騙防護系統</title>
@@ -7,106 +8,115 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<div class="background-animation"></div>
-<header class="header">
-    <div class="header-logo" onclick="window.location.href='index.html'">AI詐騙防護系統</div>
-    <div class="header-actions">
-        <span class="role-badge">👨‍👩‍👧‍👦 家長</span>
-        <button class="header-btn" onclick="window.location.href='parent-settings.html'">⚙️ 帳號設定</button>
-        <button class="header-btn" onclick="logout()">🚪 登出</button>
-    </div>
-</header>
-<nav class="sidebar">
-    <div class="nav-section">
-        <div class="nav-title">主要功能</div>
-        <div class="nav-item">
-            <a href="index.html" class="nav-link"><span class="nav-icon">🏠</span>首頁總覽</a>
+    <div class="background-animation"></div>
+    <header class="header">
+        <div class="header-logo" onclick="window.location.href='index.html'">AI詐騙防護系統</div>
+        <div class="header-actions">
+            <span class="role-badge">👨‍👩‍👧‍👦 家長</span>
+            <button class="header-btn" onclick="window.location.href='parent-settings.html'">⚙️ 帳號設定</button>
+            <button class="header-btn" onclick="logout()">🚪 登出</button>
         </div>
-        <div class="nav-item">
-            <a href="parent-progress.html" class="nav-link"><span class="nav-icon">📊</span>子女學習狀況</a>
+    </header>
+    <nav class="sidebar">
+        <div class="nav-section">
+            <div class="nav-title">主要功能</div>
+            <div class="nav-item">
+                <a href="index.html" class="nav-link"><span class="nav-icon">🏠</span>首頁總覽</a>
+            </div>
+            <div class="nav-item">
+                <a href="parent-progress.html" class="nav-link"><span class="nav-icon">📊</span>子女學習狀況</a>
+            </div>
         </div>
-        <div class="nav-item">
-            <a href="parent-achievements.html" class="nav-link"><span class="nav-icon">🎖️</span>成就徽章一覽</a>
+        <div class="nav-section">
+            <div class="nav-title">學習資源</div>
+            <div class="nav-item">
+                <a href="parent-knowledge.html" class="nav-link"><span class="nav-icon">📚</span>知識庫共學空間</a>
+            </div>
+            <div class="nav-item">
+                <a href="parent-task.html" class="nav-link"><span class="nav-icon">🤝</span>家庭共學任務</a>
+            </div>
         </div>
-    </div>
-    <div class="nav-section">
-        <div class="nav-title">學習資源</div>
-        <div class="nav-item">
-            <a href="parent-knowledge.html" class="nav-link"><span class="nav-icon">📚</span>知識庫共學空間</a>
+        <div class="nav-section">
+            <div class="nav-title">溝通管理</div>
+            <div class="nav-item">
+                <a href="parent-message.html" class="nav-link"><span class="nav-icon">📬</span>親師聯絡</a>
+            </div>
+            <div class="nav-item">
+                <a href="parent-notifications.html" class="nav-link active"><span class="nav-icon">🔔</span>通知中心</a>
+            </div>
+            <div class="nav-item">
+                <a href="parent-settings.html" class="nav-link"><span class="nav-icon">⚙️</span>帳號與設定</a>
+            </div>
         </div>
-        <div class="nav-item">
-            <a href="parent-task.html" class="nav-link"><span class="nav-icon">🤝</span>家庭共學任務</a>
-        </div>
-    </div>
-    <div class="nav-section">
-        <div class="nav-title">溝通管理</div>
-        <div class="nav-item">
-            <a href="parent-message.html" class="nav-link"><span class="nav-icon">📬</span>親師聯絡</a>
-        </div>
-        <div class="nav-item">
-            <a href="parent-notifications.html" class="nav-link active"><span class="nav-icon">🔔</span>通知中心</a>
-        </div>
-        <div class="nav-item">
-            <a href="parent-settings.html" class="nav-link"><span class="nav-icon">⚙️</span>帳號與設定</a>
-        </div>
-    </div>
-    <div class="student-switch">
-        <h4>🎓 子帳號切換</h4>
-        <select class="student-select">
-            <option>王小明（國中二年級）</option>
-            <option>王小美（國小五年級）</option>
-        </select>
-    </div>
-</nav>
-<main class="main-content">
-    <h1 class="page-title">通知中心</h1>
-    <section class="dashboard-card">
-        <div class="card-header"><h3 class="card-title">公告類別</h3></div>
-        <div class="card-content">
-            <select class="student-select" style="width:auto;display:inline-block;">
-                <option>全部</option>
-                <option>系統通知</option>
-                <option>老師訊息</option>
-                <option>風險警示</option>
+        <div class="student-switch">
+            <h4>🎓 子帳號切換</h4>
+            <select class="student-select">
+                <option>王小明（國中二年級）</option>
+                <option>王小美（國小五年級）</option>
             </select>
-            <table width="100%" border="0" cellpadding="7" style="margin-top:18px;width:100%;color:var(--text-secondary);background:transparent;border-collapse:collapse;">
-                <tr style="background:rgba(243,244,246,0.04);">
-                    <th>時間</th><th>類型</th><th>標題/摘要</th><th>狀態</th>
-                </tr>
-                <tr>
-                    <td>2025-07-12 11:23</td>
-                    <td><span class="role-badge" style="background:var(--warning-gradient);font-size:.93rem;">風險警示</span></td>
-                    <td><b>王小美出現高風險行為</b><br>建議家長主動溝通</td>
-                    <td><span class="role-badge" style="background:var(--accent-gradient);font-size:.93rem;">未讀</span></td>
-                </tr>
-                <tr>
-                    <td>2025-07-12 10:02</td>
-                    <td><span class="role-badge" style="background:var(--primary-gradient);font-size:.93rem;">老師訊息</span></td>
-                    <td>小明需補強自信與實作</td>
-                    <td>已讀</td>
-                </tr>
-                <tr>
-                    <td>2025-07-11 19:45</td>
-                    <td><span class="role-badge" style="background:var(--success-gradient);font-size:.93rem;">系統通知</span></td>
-                    <td>本週更新：新增AI詐騙主題</td>
-                    <td>已讀</td>
-                </tr>
-            </table>
         </div>
-    </section>
-</main>
-<script>
-function logout() {
-    document.body.style.opacity = '0.5';
-    setTimeout(() => { window.location.href = "login.html"; }, 500);
-}
-document.addEventListener('DOMContentLoaded', () => {
-    const path = window.location.pathname;
-    document.querySelectorAll('.nav-link').forEach(link => {
-        if(path.includes(link.getAttribute('href'))) link.classList.add('active');
-    });
-});
-</script>
+    </nav>
+    <main class="main-content">
+        <h1 class="page-title">通知中心</h1>
+        <section class="dashboard-card">
+            <div class="card-header">
+                <h3 class="card-title">公告類別</h3>
+            </div>
+            <div class="card-content">
+                <select class="student-select" style="width:auto;display:inline-block;">
+                    <option>全部</option>
+                    <option>系統通知</option>
+                    <option>老師訊息</option>
+                    <option>風險警示</option>
+                </select>
+                <table width="100%" border="0" cellpadding="7"
+                    style="margin-top:18px;width:100%;color:var(--text-secondary);background:transparent;border-collapse:collapse;">
+                    <tr style="background:rgba(243,244,246,0.04);">
+                        <th>時間</th>
+                        <th>類型</th>
+                        <th>標題/摘要</th>
+                        <th>狀態</th>
+                    </tr>
+                    <tr>
+                        <td>2025-07-12 11:23</td>
+                        <td><span class="role-badge"
+                                style="background:var(--warning-gradient);font-size:.93rem;">風險警示</span></td>
+                        <td><b>王小美出現高風險行為</b><br>建議家長主動溝通</td>
+                        <td><span class="role-badge"
+                                style="background:var(--accent-gradient);font-size:.93rem;">未讀</span></td>
+                    </tr>
+                    <tr>
+                        <td>2025-07-12 10:02</td>
+                        <td><span class="role-badge"
+                                style="background:var(--primary-gradient);font-size:.93rem;">老師訊息</span></td>
+                        <td>小明需補強自信與實作</td>
+                        <td>已讀</td>
+                    </tr>
+                    <tr>
+                        <td>2025-07-11 19:45</td>
+                        <td><span class="role-badge"
+                                style="background:var(--success-gradient);font-size:.93rem;">系統通知</span></td>
+                        <td>本週更新：新增AI詐騙主題</td>
+                        <td>已讀</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+    </main>
+    <script>
+        function logout() {
+            document.body.style.opacity = '0.5';
+            setTimeout(() => { window.location.href = "login.html"; }, 500);
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            const path = window.location.pathname;
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (path.includes(link.getAttribute('href'))) link.classList.add('active');
+            });
+        });
+    </script>
 </body>
+
 </html>

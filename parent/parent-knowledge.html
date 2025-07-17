@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
     <title>知識庫共學空間 - AI詐騙防護系統</title>
@@ -7,109 +8,114 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<div class="background-animation"></div>
-<header class="header">
-    <div class="header-logo" onclick="window.location.href='index.html'">AI詐騙防護系統</div>
-    <div class="header-actions">
-        <span class="role-badge">👨‍👩‍👧‍👦 家長</span>
-        <button class="header-btn" onclick="window.location.href='parent-settings.html'">⚙️ 帳號設定</button>
-        <button class="header-btn" onclick="logout()">🚪 登出</button>
-    </div>
-</header>
-<nav class="sidebar">
-    <div class="nav-section">
-        <div class="nav-title">主要功能</div>
-        <div class="nav-item">
-            <a href="index.html" class="nav-link"><span class="nav-icon">🏠</span>首頁總覽</a>
+    <div class="background-animation"></div>
+    <header class="header">
+        <div class="header-logo" onclick="window.location.href='index.html'">AI詐騙防護系統</div>
+        <div class="header-actions">
+            <span class="role-badge">👨‍👩‍👧‍👦 家長</span>
+            <button class="header-btn" onclick="window.location.href='parent-settings.html'">⚙️ 帳號設定</button>
+            <button class="header-btn" onclick="logout()">🚪 登出</button>
         </div>
-        <div class="nav-item">
-            <a href="parent-progress.html" class="nav-link"><span class="nav-icon">📊</span>子女學習狀況</a>
+    </header>
+    <nav class="sidebar">
+        <div class="nav-section">
+            <div class="nav-title">主要功能</div>
+            <div class="nav-item">
+                <a href="index.html" class="nav-link"><span class="nav-icon">🏠</span>首頁總覽</a>
+            </div>
+            <div class="nav-item">
+                <a href="parent-progress.html" class="nav-link"><span class="nav-icon">📊</span>子女學習狀況</a>
+            </div>
         </div>
-        <div class="nav-item">
-            <a href="parent-achievements.html" class="nav-link"><span class="nav-icon">🎖️</span>成就徽章一覽</a>
+        <div class="nav-section">
+            <div class="nav-title">學習資源</div>
+            <div class="nav-item">
+                <a href="parent-knowledge.html" class="nav-link active"><span class="nav-icon">📚</span>知識庫共學空間</a>
+            </div>
+            <div class="nav-item">
+                <a href="parent-task.html" class="nav-link"><span class="nav-icon">🤝</span>家庭共學任務</a>
+            </div>
         </div>
-    </div>
-    <div class="nav-section">
-        <div class="nav-title">學習資源</div>
-        <div class="nav-item">
-            <a href="parent-knowledge.html" class="nav-link active"><span class="nav-icon">📚</span>知識庫共學空間</a>
+        <div class="nav-section">
+            <div class="nav-title">溝通管理</div>
+            <div class="nav-item">
+                <a href="parent-message.html" class="nav-link"><span class="nav-icon">📬</span>親師聯絡</a>
+            </div>
+            <div class="nav-item">
+                <a href="parent-notifications.html" class="nav-link"><span class="nav-icon">🔔</span>通知中心</a>
+            </div>
+            <div class="nav-item">
+                <a href="parent-settings.html" class="nav-link"><span class="nav-icon">⚙️</span>帳號與設定</a>
+            </div>
         </div>
-        <div class="nav-item">
-            <a href="parent-task.html" class="nav-link"><span class="nav-icon">🤝</span>家庭共學任務</a>
-        </div>
-    </div>
-    <div class="nav-section">
-        <div class="nav-title">溝通管理</div>
-        <div class="nav-item">
-            <a href="parent-message.html" class="nav-link"><span class="nav-icon">📬</span>親師聯絡</a>
-        </div>
-        <div class="nav-item">
-            <a href="parent-notifications.html" class="nav-link"><span class="nav-icon">🔔</span>通知中心</a>
-        </div>
-        <div class="nav-item">
-            <a href="parent-settings.html" class="nav-link"><span class="nav-icon">⚙️</span>帳號與設定</a>
-        </div>
-    </div>
-    <div class="student-switch">
-        <h4>🎓 子帳號切換</h4>
-        <select class="student-select">
-            <option>王小明（國中二年級）</option>
-            <option>王小美（國小五年級）</option>
-        </select>
-    </div>
-</nav>
-<main class="main-content">
-    <h1 class="page-title">知識庫共學空間</h1>
-    <section class="dashboard-card">
-        <div class="card-header"><h3 class="card-title">主題分類</h3></div>
-        <div class="card-content">
-            <select class="student-select" style="width:auto;display:inline-block;">
-                <option>全部</option>
-                <option>社群詐騙</option>
-                <option>網購詐騙</option>
-                <option>AI詐騙</option>
+        <div class="student-switch">
+            <h4>🎓 子帳號切換</h4>
+            <select class="student-select">
+                <option>王小明（國中二年級）</option>
+                <option>王小美（國小五年級）</option>
             </select>
-            <span class="role-badge" style="background:var(--accent-gradient);margin-left:10px;font-size:.92rem;">
-                共學推薦：國中生適用
-            </span>
         </div>
-    </section>
-    <section class="dashboard-grid" style="margin-top:1.5rem;">
-        <div class="dashboard-card">
-            <div class="card-header"><h3 class="card-title">🔍 AI詐騙防範</h3></div>
+    </nav>
+    <main class="main-content">
+        <h1 class="page-title">知識庫共學空間</h1>
+        <section class="dashboard-card">
+            <div class="card-header">
+                <h3 class="card-title">主題分類</h3>
+            </div>
             <div class="card-content">
-                <video src="video-demo.mp4" controls width="100%" style="border-radius:12px;"></video>
-                <div style="margin-top:1rem;">
-                    <b>家長引導問題：</b>
-                    你覺得這種情境你可能會上當嗎？<br>
-                    <span style="color:var(--text-secondary);font-size:.93rem;">（鼓勵孩子討論想法）</span>
+                <select class="student-select" style="width:auto;display:inline-block;">
+                    <option>全部</option>
+                    <option>社群詐騙</option>
+                    <option>網購詐騙</option>
+                    <option>AI詐騙</option>
+                </select>
+                <span class="role-badge" style="background:var(--accent-gradient);margin-left:10px;font-size:.92rem;">
+                    共學推薦：國中生適用
+                </span>
+            </div>
+        </section>
+        <section class="dashboard-grid" style="margin-top:1.5rem;">
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h3 class="card-title">🔍 AI詐騙防範</h3>
+                </div>
+                <div class="card-content">
+                    <video src="video-demo.mp4" controls width="100%" style="border-radius:12px;"></video>
+                    <div style="margin-top:1rem;">
+                        <b>家長引導問題：</b>
+                        你覺得這種情境你可能會上當嗎？<br>
+                        <span style="color:var(--text-secondary);font-size:.93rem;">（鼓勵孩子討論想法）</span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="dashboard-card">
-            <div class="card-header"><h3 class="card-title">▶️ 近期熱門主題</h3></div>
-            <div class="card-content">
-                <ul style="color:var(--text-secondary);line-height:2;">
-                    <li><a href="#" style="color:var(--text-accent);">網購詐騙五大警訊</a></li>
-                    <li><a href="#" style="color:var(--text-accent);">社群帳號冒用案例</a></li>
-                    <li><a href="#" style="color:var(--text-accent);">假冒AI客服識別法</a></li>
-                </ul>
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h3 class="card-title">▶️ 近期熱門主題</h3>
+                </div>
+                <div class="card-content">
+                    <ul style="color:var(--text-secondary);line-height:2;">
+                        <li><a href="#" style="color:var(--text-accent);">網購詐騙五大警訊</a></li>
+                        <li><a href="#" style="color:var(--text-accent);">社群帳號冒用案例</a></li>
+                        <li><a href="#" style="color:var(--text-accent);">假冒AI客服識別法</a></li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </section>
-</main>
-<script>
-function logout() {
-    document.body.style.opacity = '0.5';
-    setTimeout(() => { window.location.href = "login.html"; }, 500);
-}
-document.addEventListener('DOMContentLoaded', () => {
-    const path = window.location.pathname;
-    document.querySelectorAll('.nav-link').forEach(link => {
-        if(path.includes(link.getAttribute('href'))) link.classList.add('active');
-    });
-});
-</script>
+        </section>
+    </main>
+    <script>
+        function logout() {
+            document.body.style.opacity = '0.5';
+            setTimeout(() => { window.location.href = "login.html"; }, 500);
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            const path = window.location.pathname;
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (path.includes(link.getAttribute('href'))) link.classList.add('active');
+            });
+        });
+    </script>
 </body>
+
 </html>

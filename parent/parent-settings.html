@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
     <title>帳號與設定 - AI詐騙防護系統</title>
@@ -7,102 +8,109 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<div class="background-animation"></div>
-<header class="header">
-    <div class="header-logo" onclick="window.location.href='index.html'">AI詐騙防護系統</div>
-    <div class="header-actions">
-        <span class="role-badge">👨‍👩‍👧‍👦 家長</span>
-        <button class="header-btn" onclick="window.location.href='parent-settings.html'">⚙️ 帳號設定</button>
-        <button class="header-btn" onclick="logout()">🚪 登出</button>
-    </div>
-</header>
-<nav class="sidebar">
-    <div class="nav-section">
-        <div class="nav-title">主要功能</div>
-        <div class="nav-item">
-            <a href="index.html" class="nav-link"><span class="nav-icon">🏠</span>首頁總覽</a>
+    <div class="background-animation"></div>
+    <header class="header">
+        <div class="header-logo" onclick="window.location.href='index.html'">AI詐騙防護系統</div>
+        <div class="header-actions">
+            <span class="role-badge">👨‍👩‍👧‍👦 家長</span>
+            <button class="header-btn" onclick="window.location.href='parent-settings.html'">⚙️ 帳號設定</button>
+            <button class="header-btn" onclick="logout()">🚪 登出</button>
         </div>
-        <div class="nav-item">
-            <a href="parent-progress.html" class="nav-link"><span class="nav-icon">📊</span>子女學習狀況</a>
-        </div>
-        <div class="nav-item">
-            <a href="parent-achievements.html" class="nav-link"><span class="nav-icon">🎖️</span>成就徽章一覽</a>
-        </div>
-    </div>
-    <div class="nav-section">
-        <div class="nav-title">學習資源</div>
-        <div class="nav-item">
-            <a href="parent-knowledge.html" class="nav-link"><span class="nav-icon">📚</span>知識庫共學空間</a>
-        </div>
-        <div class="nav-item">
-            <a href="parent-task.html" class="nav-link"><span class="nav-icon">🤝</span>家庭共學任務</a>
-        </div>
-    </div>
-    <div class="nav-section">
-        <div class="nav-title">溝通管理</div>
-        <div class="nav-item">
-            <a href="parent-message.html" class="nav-link"><span class="nav-icon">📬</span>親師聯絡</a>
-        </div>
-        <div class="nav-item">
-            <a href="parent-notifications.html" class="nav-link"><span class="nav-icon">🔔</span>通知中心</a>
-        </div>
-        <div class="nav-item">
-            <a href="parent-settings.html" class="nav-link active"><span class="nav-icon">⚙️</span>帳號與設定</a>
-        </div>
-    </div>
-    <div class="student-switch">
-        <h4>🎓 子帳號切換</h4>
-        <select class="student-select">
-            <option>王小明（國中二年級）</option>
-            <option>王小美（國小五年級）</option>
-        </select>
-    </div>
-</nav>
-<main class="main-content">
-    <h1 class="page-title">帳號與設定</h1>
-    <div class="dashboard-grid">
-        <div class="dashboard-card">
-            <div class="card-header"><h3 class="card-title">👤 個人資訊管理</h3></div>
-            <div class="card-content">
-                <label>姓名</label><br>
-                <input type="text" value="王媽媽" style="padding:6px;width:90%;margin-bottom:10px;border-radius:8px;border:1px solid var(--border-glass);background:var(--bg-glass);color:var(--text-primary);"><br>
-                <label>Email</label><br>
-                <input type="email" value="mom@example.com" style="padding:6px;width:90%;margin-bottom:10px;border-radius:8px;border:1px solid var(--border-glass);background:var(--bg-glass);color:var(--text-primary);"><br>
-                <label>聯絡電話</label><br>
-                <input type="tel" value="0912-xxx-xxx" style="padding:6px;width:90%;margin-bottom:10px;border-radius:8px;border:1px solid var(--border-glass);background:var(--bg-glass);color:var(--text-primary);"><br>
+    </header>
+    <nav class="sidebar">
+        <div class="nav-section">
+            <div class="nav-title">主要功能</div>
+            <div class="nav-item">
+                <a href="index.html" class="nav-link"><span class="nav-icon">🏠</span>首頁總覽</a>
+            </div>
+            <div class="nav-item">
+                <a href="parent-progress.html" class="nav-link"><span class="nav-icon">📊</span>子女學習狀況</a>
             </div>
         </div>
-        <div class="dashboard-card">
-            <div class="card-header"><h3 class="card-title">🔒 密碼與安全選項</h3></div>
-            <div class="card-content">
-                <input type="password" value="password" style="padding:6px;width:90%;margin-bottom:10px;border-radius:8px;border:1px solid var(--border-glass);background:var(--bg-glass);color:var(--text-primary);">
-                <button class="btn-primary" style="margin-bottom:10px;">變更密碼</button>
-                <hr style="border:0;border-top:1px solid var(--border-glass);margin:12px 0;">
-                <h3 style="font-size:1.09rem;margin:8px 0 6px;">🔔 通知偏好設定</h3>
-                <label><input type="checkbox" checked> 子女風險提醒簡訊</label><br>
-                <label><input type="checkbox"> 子女風險提醒 Email</label>
-                <hr style="border:0;border-top:1px solid var(--border-glass);margin:12px 0;">
-                <h3 style="font-size:1.09rem;margin:8px 0 6px;">🌐 語言切換</h3>
-                <select class="student-select" style="width:70%;">
-                    <option>繁體中文</option>
-                    <option>English</option>
-                </select>
+        <div class="nav-section">
+            <div class="nav-title">學習資源</div>
+            <div class="nav-item">
+                <a href="parent-knowledge.html" class="nav-link"><span class="nav-icon">📚</span>知識庫共學空間</a>
+            </div>
+            <div class="nav-item">
+                <a href="parent-task.html" class="nav-link"><span class="nav-icon">🤝</span>家庭共學任務</a>
             </div>
         </div>
-    </div>
-</main>
-<script>
-function logout() {
-    document.body.style.opacity = '0.5';
-    setTimeout(() => { window.location.href = "login.html"; }, 500);
-}
-document.addEventListener('DOMContentLoaded', () => {
-    const path = window.location.pathname;
-    document.querySelectorAll('.nav-link').forEach(link => {
-        if(path.includes(link.getAttribute('href'))) link.classList.add('active');
-    });
-});
-</script>
+        <div class="nav-section">
+            <div class="nav-title">溝通管理</div>
+            <div class="nav-item">
+                <a href="parent-message.html" class="nav-link"><span class="nav-icon">📬</span>親師聯絡</a>
+            </div>
+            <div class="nav-item">
+                <a href="parent-notifications.html" class="nav-link"><span class="nav-icon">🔔</span>通知中心</a>
+            </div>
+            <div class="nav-item">
+                <a href="parent-settings.html" class="nav-link active"><span class="nav-icon">⚙️</span>帳號與設定</a>
+            </div>
+        </div>
+        <div class="student-switch">
+            <h4>🎓 子帳號切換</h4>
+            <select class="student-select">
+                <option>王小明（國中二年級）</option>
+                <option>王小美（國小五年級）</option>
+            </select>
+        </div>
+    </nav>
+    <main class="main-content">
+        <h1 class="page-title">帳號與設定</h1>
+        <div class="dashboard-grid">
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h3 class="card-title">👤 個人資訊管理</h3>
+                </div>
+                <div class="card-content">
+                    <label>姓名</label><br>
+                    <input type="text" value="王媽媽"
+                        style="padding:6px;width:90%;margin-bottom:10px;border-radius:8px;border:1px solid var(--border-glass);background:var(--bg-glass);color:var(--text-primary);"><br>
+                    <label>Email</label><br>
+                    <input type="email" value="mom@example.com"
+                        style="padding:6px;width:90%;margin-bottom:10px;border-radius:8px;border:1px solid var(--border-glass);background:var(--bg-glass);color:var(--text-primary);"><br>
+                    <label>聯絡電話</label><br>
+                    <input type="tel" value="0912-xxx-xxx"
+                        style="padding:6px;width:90%;margin-bottom:10px;border-radius:8px;border:1px solid var(--border-glass);background:var(--bg-glass);color:var(--text-primary);"><br>
+                </div>
+            </div>
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h3 class="card-title">🔒 密碼與安全選項</h3>
+                </div>
+                <div class="card-content">
+                    <input type="password" value="password"
+                        style="padding:6px;width:90%;margin-bottom:10px;border-radius:8px;border:1px solid var(--border-glass);background:var(--bg-glass);color:var(--text-primary);">
+                    <button class="btn-primary" style="margin-bottom:10px;">變更密碼</button>
+                    <hr style="border:0;border-top:1px solid var(--border-glass);margin:12px 0;">
+                    <h3 style="font-size:1.09rem;margin:8px 0 6px;">🔔 通知偏好設定</h3>
+                    <label><input type="checkbox" checked> 子女風險提醒簡訊</label><br>
+                    <label><input type="checkbox"> 子女風險提醒 Email</label>
+                    <hr style="border:0;border-top:1px solid var(--border-glass);margin:12px 0;">
+                    <h3 style="font-size:1.09rem;margin:8px 0 6px;">🌐 語言切換</h3>
+                    <select class="student-select" style="width:70%;">
+                        <option>繁體中文</option>
+                        <option>English</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+        function logout() {
+            document.body.style.opacity = '0.5';
+            setTimeout(() => { window.location.href = "login.html"; }, 500);
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            const path = window.location.pathname;
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (path.includes(link.getAttribute('href'))) link.classList.add('active');
+            });
+        });
+    </script>
 </body>
+
 </html>
