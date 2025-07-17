@@ -23,10 +23,83 @@
             background-color: #1e40af;
         }
     </style>
+    <style>
+        :root {
+            --header-height: 64px;
+            --sidebar-width: 256px;
+            /* 16rem = 256px */
+        }
+
+        body {
+            background: #f3f4f6;
+            min-height: 100vh;
+            font-family: 'Noto Sans TC', 'sans-serif';
+        }
+
+        header.header-fixed {
+            position: fixed;
+            left: 0;
+            top: 0;
+            right: 0;
+            z-index: 40;
+            height: var(--header-height);
+            background: #fff;
+            box-shadow: 0 2px 8px #0001;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1.5rem;
+        }
+
+        aside.sidebar-fixed {
+            position: fixed;
+            left: 0;
+            top: var(--header-height);
+            bottom: 0;
+            width: var(--sidebar-width);
+            z-index: 30;
+            background: #fff;
+            box-shadow: 2px 0 8px #0001;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .main-content {
+            margin-top: var(--header-height);
+            margin-left: var(--sidebar-width);
+            padding: 2rem;
+            min-height: calc(100vh - var(--header-height));
+            /* 確保內容不被遮住 */
+            transition: margin .2s;
+        }
+
+        @media (max-width: 900px) {
+            aside.sidebar-fixed {
+                width: 13rem;
+            }
+
+            .main-content {
+                margin-left: 13rem;
+            }
+        }
+
+        @media (max-width: 700px) {
+            aside.sidebar-fixed {
+                width: 100vw;
+                position: static;
+                box-shadow: none;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
 </head>
 
 <body class="bg-gray-100 min-h-screen">
-    <header class="bg-white shadow p-4 flex justify-between items-center">
+    <!-- 固定 Header -->
+    <header class="header-fixed">
         <div>
             <h1 class="text-xl font-semibold">青少年防詐互動學習平台</h1>
             <p class="text-sm text-blue-600">成為網路安全小達人</p>
@@ -36,195 +109,201 @@
             <a href="../home.html" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">登出</a>
         </div>
     </header>
+    <!-- 固定側邊欄 -->
+  <aside class="sidebar-fixed">
+    <h2 class="text-xl font-bold mb-6 text-blue-800">教師管理選單</h2>
+    <nav class="space-y-2">
+      <a href="index.html" class="block px-4 py-2 rounded hover:bg-blue-100">🧑‍🏫 教師管理模組</a>
+      <a href="dashboard.html" class="block px-4 py-2 rounded hover:bg-blue-100">📊 儀表板</a>
+      <a href="student.html" class="block px-4 py-2 rounded bg-blue-100 text-blue-900">👥 學生管理</a>      
+      <a href="scenario.html" class="block px-4 py-2 rounded hover:bg-blue-100">📚 情境題庫管理</a>
+      <a href="knowledge.html" class="block px-4 py-2 rounded hover:bg-blue-100">📖 知識庫管理</a>
+      <a href="achievement.html" class="block px-4 py-2 rounded hover:bg-blue-100">🏆 成就系統</a>
+      <a href="notification.html" class="block px-4 py-2 rounded hover:bg-blue-100">📢 公告管理</a>
+      <a href="settings.html" class="block px-4 py-2 rounded hover:bg-blue-100">⚙️ 設定與支援</a>
+    </nav>
+  </aside>
 
-    <div class="flex min-h-screen">
-      <!-- 側邊欄 -->
-      <aside class="w-64 bg-white shadow-md h-screen p-4">
-          <h2 class="text-xl font-bold mb-6 text-blue-800">教師管理選單</h2>
-          <nav class="space-y-2">
-              <a href="index.html" class="block px-4 py-2 rounded hover:bg-blue-100">🧑‍🏫 教師管理模組</a>
-              <a href="dashboard.html" class="block px-4 py-2 rounded hover:bg-blue-100">📊 儀表板</a>
-              <a href="student.html" class="block px-4 py-2 rounded bg-blue-100 text-blue-900">👥 學生管理</a>
-              <a href="scenario.html" class="block px-4 py-2 rounded hover:bg-blue-100">📚 情境題庫管理</a>
-              <a href="knowledge.html" class="block px-4 py-2 rounded hover:bg-blue-100">📖 知識庫管理</a>
-              <a href="achievement.html" class="block px-4 py-2 rounded hover:bg-blue-100">🏆 成就系統</a>
-              <a href="notification.html" class="block px-4 py-2 rounded hover:bg-blue-100">📢 公告管理</a>
-              <a href="settings.html" class="block px-4 py-2 rounded hover:bg-blue-100">⚙️ 設定與支援</a>
-          </nav>
-        </aside>
-      <!-- 主內容區 -->
-      <div class="flex-1 flex flex-col">
-        <main class="flex-1 p-6 overflow-y-auto">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold text-blue-900 mb-4">👥 學生管理介面</h2>
-                <div class="flex gap-2">
-                    <button onclick="openTeamInviteModal()"
-                        class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">➕ 團隊邀請</button>
-                    <button onclick="alert('請點選側欄切換不同模組')" class="bg-blue-200 text-blue-900 px-4 py-2 rounded">❓
-                        幫助</button>
+    <!-- 主內容區 -->
+    <div class="main-content">
+        <div class="flex-1 flex flex-col">
+            <main class="flex-1 p-6 overflow-y-auto">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-blue-900 mb-4">👥 學生管理介面</h2>
+                    <div class="flex gap-2">
+                        <button onclick="openTeamInviteModal()"
+                            class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">➕ 團隊邀請</button>
+                        <button onclick="alert('請點選側欄切換不同模組')" class="bg-blue-200 text-blue-900 px-4 py-2 rounded">❓
+                            幫助</button>
+                    </div>
                 </div>
-            </div>
-            <!-- 團隊邀請 Modal -->
-            <div id="teamInviteModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
-              <div class="bg-white p-6 rounded-lg w-full max-w-md">
-                <h2 class="text-xl font-bold mb-4">團隊邀請</h2>
-                <form onsubmit="sendTeamInvite(event)">
-                  <div class="mb-4">
-                    <label class="block mb-1 text-blue-800">團隊名稱</label>
-                    <input type="text" class="w-full border rounded px-3 py-2" placeholder="輸入團隊名稱" required>
-                  </div>
-                  <div class="mb-4">
-                    <label class="block mb-1 text-blue-800">學生帳號（可多個，以逗號分隔）</label>
-                    <input type="text" class="w-full border rounded px-3 py-2" placeholder="如：S001,S002" required>
-                  </div>
-                  <div class="flex justify-end space-x-2">
-                    <button type="button" onclick="closeTeamInviteModal()" class="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400">取消</button>
-                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">送出邀請</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-            <!-- 儀表板 -->
-
-            <div class="px-6 py-8">
-                <section class="mb-8">
-
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div class="bg-white p-4 rounded shadow">
-                            <p class="text-gray-500">總學生數</p>
-                            <p class="text-2xl font-bold text-blue-700">32</p>
-                        </div>
-                        <div class="bg-white p-4 rounded shadow">
-                            <p class="text-gray-500">已完成測驗</p>
-                            <p class="text-2xl font-bold text-green-600">28</p>
-                        </div>
-                        <div class="bg-white p-4 rounded shadow">
-                            <p class="text-gray-500">認知失調</p>
-                            <p class="text-2xl font-bold text-yellow-500">8</p>
-                        </div>
-                        <div class="bg-white p-4 rounded shadow">
-                            <p class="text-gray-500">高風險學生</p>
-                            <p class="text-2xl font-bold text-red-600">5</p>
-                        </div>
+                <!-- 團隊邀請 Modal -->
+                <div id="teamInviteModal"
+                    class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
+                    <div class="bg-white p-6 rounded-lg w-full max-w-md">
+                        <h2 class="text-xl font-bold mb-4">團隊邀請</h2>
+                        <form onsubmit="sendTeamInvite(event)">
+                            <div class="mb-4">
+                                <label class="block mb-1 text-blue-800">團隊名稱</label>
+                                <input type="text" class="w-full border rounded px-3 py-2" placeholder="輸入團隊名稱"
+                                    required>
+                            </div>
+                            <div class="mb-4">
+                                <label class="block mb-1 text-blue-800">學生帳號（可多個，以逗號分隔）</label>
+                                <input type="text" class="w-full border rounded px-3 py-2" placeholder="如：S001,S002"
+                                    required>
+                            </div>
+                            <div class="flex justify-end space-x-2">
+                                <button type="button" onclick="closeTeamInviteModal()"
+                                    class="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400">取消</button>
+                                <button type="submit"
+                                    class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">送出邀請</button>
+                            </div>
+                        </form>
                     </div>
-                </section>
+                </div>
+                <!-- 儀表板 -->
 
-                <section class="bg-white p-6 rounded shadow mb-8">
-                    <h3 class="text-lg font-semibold mb-4">🔍 學生搜尋與篩選</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                        <input type="text" placeholder="搜尋學生..." class="p-2 border rounded">
-                        <select class="p-2 border rounded">
-                            <option>全部班級</option>
-                            <option>A班</option>
-                            <option>B班</option>
-                        </select>
-                        <select class="p-2 border rounded">
-                            <option>全部風險</option>
-                            <option>高</option>
-                            <option>中</option>
-                            <option>低</option>
-                        </select>
-                        <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">📊 匯出報告</button>
-                    </div>
-                </section>
+                <div class="px-6 py-8">
+                    <section class="mb-8">
 
-                <section class="bg-white rounded shadow">
-                    <h3 class="text-lg font-semibold p-6 border-b">📋 學生列表</h3>
-                    <table class="w-full text-left">
-                        <thead class="bg-blue-100">
-                            <tr>
-                                <th class="p-4">姓名</th>
-                                <th class="p-4">帳號</th>
-                                <th class="p-4">班級</th>
-                                <th class="p-4">自信評估</th>
-                                <th class="p-4">測驗分數</th>
-                                <th class="p-4">認知狀態</th>
-                                <th class="p-4">操作</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="border-t">
-                                <td class="p-4">王小明</td>
-                                <td class="p-4">S001</td>
-                                <td class="p-4">A班</td>
-                                <td class="p-4">85</td>
-                                <td class="p-4">60</td>
-                                <td class="p-4"><span class="text-yellow-600 font-semibold">⚠️ 認知失調</span></td>
-                                <td class="p-4">
-                                    <button class="text-blue-600 hover:underline">查看</button>
-                                    <button class="text-red-600 hover:underline ml-4">刪除</button>
-                                </td>
-                            </tr>
-                            <tr class="border-t">
-                                <td class="p-4">陳小美</td>
-                                <td class="p-4">S002</td>
-                                <td class="p-4">A班</td>
-                                <td class="p-4">92</td>
-                                <td class="p-4">88</td>
-                                <td class="p-4"><span class="text-green-600 font-semibold">✔️ 正常</span></td>
-                                <td class="p-4">
-                                    <button class="text-blue-600 hover:underline">查看</button>
-                                    <button class="text-red-600 hover:underline ml-4">刪除</button>
-                                </td>
-                            </tr>
-                            <tr class="border-t">
-                                <td class="p-4">李大仁</td>
-                                <td class="p-4">S003</td>
-                                <td class="p-4">B班</td>
-                                <td class="p-4">70</td>
-                                <td class="p-4">55</td>
-                                <td class="p-4"><span class="text-red-600 font-semibold">❗ 高風險</span></td>
-                                <td class="p-4">
-                                    <button class="text-blue-600 hover:underline">查看</button>
-                                    <button class="text-red-600 hover:underline ml-4">刪除</button>
-                                </td>
-                            </tr>
-                            <tr class="border-t">
-                                <td class="p-4">張小華</td>
-                                <td class="p-4">S004</td>
-                                <td class="p-4">B班</td>
-                                <td class="p-4">78</td>
-                                <td class="p-4">80</td>
-                                <td class="p-4"><span class="text-green-600 font-semibold">✔️ 正常</span></td>
-                                <td class="p-4">
-                                    <button class="text-blue-600 hover:underline">查看</button>
-                                    <button class="text-red-600 hover:underline ml-4">刪除</button>
-                                </td>
-                            </tr>
-                            <tr class="border-t">
-                                <td class="p-4">林小安</td>
-                                <td class="p-4">S005</td>
-                                <td class="p-4">C班</td>
-                                <td class="p-4">65</td>
-                                <td class="p-4">50</td>
-                                <td class="p-4"><span class="text-yellow-600 font-semibold">⚠️ 認知失調</span></td>
-                                <td class="p-4">
-                                    <button class="text-blue-600 hover:underline">查看</button>
-                                    <button class="text-red-600 hover:underline ml-4">刪除</button>
-                                </td>
-                            </tr>
-                            <!-- 你可以依需求繼續增加更多學生 -->
-                        </tbody>
-                    </table>
-                </section>
-            </div>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div class="bg-white p-4 rounded shadow">
+                                <p class="text-gray-500">總學生數</p>
+                                <p class="text-2xl font-bold text-blue-700">32</p>
+                            </div>
+                            <div class="bg-white p-4 rounded shadow">
+                                <p class="text-gray-500">已完成測驗</p>
+                                <p class="text-2xl font-bold text-green-600">28</p>
+                            </div>
+                            <div class="bg-white p-4 rounded shadow">
+                                <p class="text-gray-500">認知失調</p>
+                                <p class="text-2xl font-bold text-yellow-500">8</p>
+                            </div>
+                            <div class="bg-white p-4 rounded shadow">
+                                <p class="text-gray-500">高風險學生</p>
+                                <p class="text-2xl font-bold text-red-600">5</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="bg-white p-6 rounded shadow mb-8">
+                        <h3 class="text-lg font-semibold mb-4">🔍 學生搜尋與篩選</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                            <input type="text" placeholder="搜尋學生..." class="p-2 border rounded">
+                            <select class="p-2 border rounded">
+                                <option>全部班級</option>
+                                <option>A班</option>
+                                <option>B班</option>
+                            </select>
+                            <select class="p-2 border rounded">
+                                <option>全部風險</option>
+                                <option>高</option>
+                                <option>中</option>
+                                <option>低</option>
+                            </select>
+                            <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">📊
+                                匯出報告</button>
+                        </div>
+                    </section>
+
+                    <section class="bg-white rounded shadow">
+                        <h3 class="text-lg font-semibold p-6 border-b">📋 學生列表</h3>
+                        <table class="w-full text-left">
+                            <thead class="bg-blue-100">
+                                <tr>
+                                    <th class="p-4">姓名</th>
+                                    <th class="p-4">帳號</th>
+                                    <th class="p-4">班級</th>
+                                    <th class="p-4">自信評估</th>
+                                    <th class="p-4">測驗分數</th>
+                                    <th class="p-4">認知狀態</th>
+                                    <th class="p-4">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-t">
+                                    <td class="p-4">王小明</td>
+                                    <td class="p-4">S001</td>
+                                    <td class="p-4">A班</td>
+                                    <td class="p-4">85</td>
+                                    <td class="p-4">60</td>
+                                    <td class="p-4"><span class="text-yellow-600 font-semibold">⚠️ 認知失調</span></td>
+                                    <td class="p-4">
+                                        <button class="text-blue-600 hover:underline">查看</button>
+                                        <button class="text-red-600 hover:underline ml-4">刪除</button>
+                                    </td>
+                                </tr>
+                                <tr class="border-t">
+                                    <td class="p-4">陳小美</td>
+                                    <td class="p-4">S002</td>
+                                    <td class="p-4">A班</td>
+                                    <td class="p-4">92</td>
+                                    <td class="p-4">88</td>
+                                    <td class="p-4"><span class="text-green-600 font-semibold">✔️ 正常</span></td>
+                                    <td class="p-4">
+                                        <button class="text-blue-600 hover:underline">查看</button>
+                                        <button class="text-red-600 hover:underline ml-4">刪除</button>
+                                    </td>
+                                </tr>
+                                <tr class="border-t">
+                                    <td class="p-4">李大仁</td>
+                                    <td class="p-4">S003</td>
+                                    <td class="p-4">B班</td>
+                                    <td class="p-4">70</td>
+                                    <td class="p-4">55</td>
+                                    <td class="p-4"><span class="text-red-600 font-semibold">❗ 高風險</span></td>
+                                    <td class="p-4">
+                                        <button class="text-blue-600 hover:underline">查看</button>
+                                        <button class="text-red-600 hover:underline ml-4">刪除</button>
+                                    </td>
+                                </tr>
+                                <tr class="border-t">
+                                    <td class="p-4">張小華</td>
+                                    <td class="p-4">S004</td>
+                                    <td class="p-4">B班</td>
+                                    <td class="p-4">78</td>
+                                    <td class="p-4">80</td>
+                                    <td class="p-4"><span class="text-green-600 font-semibold">✔️ 正常</span></td>
+                                    <td class="p-4">
+                                        <button class="text-blue-600 hover:underline">查看</button>
+                                        <button class="text-red-600 hover:underline ml-4">刪除</button>
+                                    </td>
+                                </tr>
+                                <tr class="border-t">
+                                    <td class="p-4">林小安</td>
+                                    <td class="p-4">S005</td>
+                                    <td class="p-4">C班</td>
+                                    <td class="p-4">65</td>
+                                    <td class="p-4">50</td>
+                                    <td class="p-4"><span class="text-yellow-600 font-semibold">⚠️ 認知失調</span></td>
+                                    <td class="p-4">
+                                        <button class="text-blue-600 hover:underline">查看</button>
+                                        <button class="text-red-600 hover:underline ml-4">刪除</button>
+                                    </td>
+                                </tr>
+                                <!-- 你可以依需求繼續增加更多學生 -->
+                            </tbody>
+                        </table>
+                    </section>
+                </div>
             </main>
             <footer class="text-center p-4 bg-white shadow">© 2025 機器人想放假團隊。保留所有權利。</footer>
-      </div>
+        </div>
     </div>
-<script>
-function openTeamInviteModal() {
-  document.getElementById('teamInviteModal').classList.remove('hidden');
-}
-function closeTeamInviteModal() {
-  document.getElementById('teamInviteModal').classList.add('hidden');
-}
-function sendTeamInvite(e) {
-  e.preventDefault();
-  alert('邀請已送出！');
-  closeTeamInviteModal();
-}
-</script>
+    <script>
+        function openTeamInviteModal() {
+            document.getElementById('teamInviteModal').classList.remove('hidden');
+        }
+        function closeTeamInviteModal() {
+            document.getElementById('teamInviteModal').classList.add('hidden');
+        }
+        function sendTeamInvite(e) {
+            e.preventDefault();
+            alert('邀請已送出！');
+            closeTeamInviteModal();
+        }
+    </script>
 </body>
 
 </html>

@@ -1,13 +1,120 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
   <meta charset="UTF-8">
   <title>情境題庫管理</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com"></script>Ｆ
+  <style>
+    .badge {
+      display: inline-block;
+      border-radius: 1rem;
+      font-size: 0.85em;
+      padding: 0.2em 0.8em;
+      margin-right: 0.5em;
+    }
+
+    .badge-hot {
+      background: #fde047;
+      color: #92400e;
+    }
+
+    .badge-risk-high {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .badge-risk-medium {
+      background: #fef9c3;
+      color: #ca8a04;
+    }
+
+    .badge-risk-low {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .selected {
+      border: 2px solid #2563eb;
+    }
+  </style>
+  <style>
+    :root {
+      --header-height: 64px;
+      --sidebar-width: 256px;
+      /* 16rem = 256px */
+    }
+
+    body {
+      background: #f3f4f6;
+      min-height: 100vh;
+      font-family: 'Noto Sans TC', 'sans-serif';
+    }
+
+    header.header-fixed {
+      position: fixed;
+      left: 0;
+      top: 0;
+      right: 0;
+      z-index: 40;
+      height: var(--header-height);
+      background: #fff;
+      box-shadow: 0 2px 8px #0001;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 1.5rem;
+    }
+
+    aside.sidebar-fixed {
+      position: fixed;
+      left: 0;
+      top: var(--header-height);
+      bottom: 0;
+      width: var(--sidebar-width);
+      z-index: 30;
+      background: #fff;
+      box-shadow: 2px 0 8px #0001;
+      padding: 1rem;
+      overflow-y: auto;
+    }
+
+    .main-content {
+      margin-top: var(--header-height);
+      margin-left: var(--sidebar-width);
+      padding: 2rem;
+      min-height: calc(100vh - var(--header-height));
+      /* 確保內容不被遮住 */
+      transition: margin .2s;
+    }
+
+    @media (max-width: 900px) {
+      aside.sidebar-fixed {
+        width: 13rem;
+      }
+
+      .main-content {
+        margin-left: 13rem;
+      }
+    }
+
+    @media (max-width: 700px) {
+      aside.sidebar-fixed {
+        width: 100vw;
+        position: static;
+        box-shadow: none;
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+    }
+  </style>
 </head>
+
 <body class="bg-gray-100 min-h-screen">
-  <!-- Header -->
-  <header class="bg-white shadow p-4 flex justify-between items-center">
+  <!-- 固定 Header -->
+  <header class="header-fixed">
     <div>
       <h1 class="text-xl font-semibold">青少年防詐互動學習平台</h1>
       <p class="text-sm text-blue-600">成為網路安全小達人</p>
@@ -16,55 +123,48 @@
       <div class="text-sm text-blue-800 font-semibold">👨‍🏫 教師</div>
       <a href="../home.html" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">登出</a>
     </div>
-    <style>
-      .badge { display:inline-block; border-radius:1rem; font-size:0.85em; padding:0.2em 0.8em; margin-right:0.5em;}
-      .badge-hot { background:#fde047; color:#92400e;}
-      .badge-risk-high { background:#fee2e2; color:#b91c1c;}
-      .badge-risk-medium { background:#fef9c3; color:#ca8a04;}
-      .badge-risk-low { background:#d1fae5; color:#065f46;}
-      .selected { border:2px solid #2563eb; }
-    </style>
   </header>
-  <div class="flex min-h-[calc(100vh-64px)]">
-    <!-- 側邊欄 -->
-    <aside class="w-64 bg-white shadow-md p-4 flex-shrink-0">
-      <h2 class="text-xl font-bold mb-6 text-blue-800">教師管理選單</h2>
-      <nav class="space-y-2">
-        <a href="index.html" class="block px-4 py-2 rounded hover:bg-blue-100">🧑‍🏫 教師管理模組</a>
-        <a href="dashboard.html" class="block px-4 py-2 rounded hover:bg-blue-100">📊 儀表板</a>
-        <a href="student.html" class="block px-4 py-2 rounded hover:bg-blue-100">👥 學生管理</a>
-        <a href="scenario.html" class="block px-4 py-2 rounded bg-blue-100 text-blue-900">📚 情境題庫管理</a>
-        <a href="knowledge.html" class="block px-4 py-2 rounded hover:bg-blue-100">📖 知識庫管理</a>
-        <a href="achievement.html" class="block px-4 py-2 rounded hover:bg-blue-100">🏆 成就系統</a>
-        <a href="notification.html" class="block px-4 py-2 rounded hover:bg-blue-100">�� 公告管理</a>
-        <a href="settings.html" class="block px-4 py-2 rounded hover:bg-blue-100">⚙️ 設定與支援</a>
-      </nav>
-    </aside>
-    <!-- 主內容區 -->
+  <!-- 固定側邊欄 -->
+  <aside class="sidebar-fixed">
+    <h2 class="text-xl font-bold mb-6 text-blue-800">教師管理選單</h2>
+    <nav class="space-y-2">
+      <a href="index.html" class="block px-4 py-2 rounded hover:bg-blue-100">🧑‍🏫 教師管理模組</a>
+      <a href="dashboard.html" class="block px-4 py-2 rounded hover:bg-blue-100">📊 儀表板</a>
+      <a href="student.html" class="block px-4 py-2 rounded hover:bg-blue-100">👥 學生管理</a>
+      <a href="scenario.html" class="block px-4 py-2 rounded bg-blue-100 text-blue-900">📚 情境題庫管理</a>
+      <a href="knowledge.html" class="block px-4 py-2 rounded hover:bg-blue-100">📖 知識庫管理</a>
+      <a href="achievement.html" class="block px-4 py-2 rounded hover:bg-blue-100">🏆 成就系統</a>
+      <a href="notification.html" class="block px-4 py-2 rounded hover:bg-blue-100">📢 公告管理</a>
+      <a href="settings.html" class="block px-4 py-2 rounded hover:bg-blue-100">⚙️ 設定與支援</a>
+    </nav>
+  </aside>
+  <!-- 主內容區 -->
   <!-- 主內容 -->
-  <main class="flex-1 p-8">
+  <div class="main-content">
+    <main class="flex-1 p-8">
       <h1 class="text-2xl font-bold mb-6">情境題庫管理</h1>
       <!-- 篩選與操作 -->
       <div class="flex flex-wrap gap-4 items-end mb-6">
-          <div>
-              <label class="block text-sm font-semibold mb-1">風險等級</label>
-              <select id="riskFilter" class="border rounded px-3 py-2">
-                  <option value="">全部</option>
-                  <option value="high">高風險</option>
-                  <option value="medium">中風險</option>
-                  <option value="low">低風險</option>
-              </select>
-          </div>
-          <div>
-              <label class="block text-sm font-semibold mb-1">熱門度</label>
-              <select id="popularityFilter" class="border rounded px-3 py-2">
-                  <option value="">不限</option>
-                  <option value="80">80↑</option>
-                  <option value="60">60↑</option>
-              </select>
-          </div>
-          <button onclick="selectAll()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">全選</button>
-          <button onclick="addToModule()" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">加入課程題組</button>
+        <div>
+          <label class="block text-sm font-semibold mb-1">風險等級</label>
+          <select id="riskFilter" class="border rounded px-3 py-2">
+            <option value="">全部</option>
+            <option value="high">高風險</option>
+            <option value="medium">中風險</option>
+            <option value="low">低風險</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-semibold mb-1">熱門度</label>
+          <select id="popularityFilter" class="border rounded px-3 py-2">
+            <option value="">不限</option>
+            <option value="80">80↑</option>
+            <option value="60">60↑</option>
+          </select>
+        </div>
+        <button onclick="selectAll()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">全選</button>
+        <button onclick="addToModule()"
+          class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">加入課程題組</button>
       </div>
 
       <!-- 題庫列表 -->
@@ -72,38 +172,38 @@
 
       <!-- 本次課程題組 -->
       <div class="mt-8 bg-blue-50 p-6 rounded">
-          <h2 class="font-bold mb-4">本次課程題組</h2>
-          <div id="moduleList" class="space-y-2"></div>
+        <h2 class="font-bold mb-4">本次課程題組</h2>
+        <div id="moduleList" class="space-y-2"></div>
       </div>
-  </main>
+    </main>
+    <footer class="text-center p-4 bg-white shadow">© 2025 機器人想放假團隊。保留所有權利。</footer>
+    <script>
+      // 假設後端API: /api/questions 或 data/scams.json
+      // 假資料範例
+      const questions = [
+        { id: 1, title: "IG假帳號抽獎", topic: "社群詐騙", risk: "high", popularity: 92, desc: "假冒名人帳號傳送抽獎訊息...", },
+        { id: 2, title: "購物網站低價陷阱", topic: "網購詐騙", risk: "medium", popularity: 81, desc: "偽造購物平台...", },
+        { id: 3, title: "AI深偽語音騙家長", topic: "AI詐騙", risk: "high", popularity: 75, desc: "詐騙集團用AI變聲...", },
+        { id: 4, title: "投資暴利廣告", topic: "假投資", risk: "high", popularity: 90, desc: "社群出現投資高報酬連結...", },
+        { id: 5, title: "Steam遊戲點數詐騙", topic: "遊戲詐騙", risk: "medium", popularity: 69, desc: "假裝是朋友索取點數序號...", },
+        { id: 6, title: "帳號釣魚郵件", topic: "釣魚詐騙", risk: "low", popularity: 55, desc: "收到偽造官方通知...", },
+      ];
 
-  <script>
-  // 假設後端API: /api/questions 或 data/scams.json
-  // 假資料範例
-  const questions = [
-      { id:1, title:"IG假帳號抽獎", topic:"社群詐騙", risk:"high", popularity:92, desc:"假冒名人帳號傳送抽獎訊息...", },
-      { id:2, title:"購物網站低價陷阱", topic:"網購詐騙", risk:"medium", popularity:81, desc:"偽造購物平台...", },
-      { id:3, title:"AI深偽語音騙家長", topic:"AI詐騙", risk:"high", popularity:75, desc:"詐騙集團用AI變聲...", },
-      { id:4, title:"投資暴利廣告", topic:"假投資", risk:"high", popularity:90, desc:"社群出現投資高報酬連結...", },
-      { id:5, title:"Steam遊戲點數詐騙", topic:"遊戲詐騙", risk:"medium", popularity:69, desc:"假裝是朋友索取點數序號...", },
-      { id:6, title:"帳號釣魚郵件", topic:"釣魚詐騙", risk:"low", popularity:55, desc:"收到偽造官方通知...", },
-  ];
+      let moduleQuestions = []; // 課程模組
 
-  let moduleQuestions = []; // 課程模組
-
-  function renderQuestions() {
-      const riskMap = { high: "badge-risk-high", medium: "badge-risk-medium", low: "badge-risk-low" };
-      const riskName = { high: "高風險", medium: "中風險", low: "低風險" };
-      const list = document.getElementById('questionList');
-      list.innerHTML = '';
-      // 篩選
-      const rf = document.getElementById('riskFilter').value;
-      const pf = document.getElementById('popularityFilter').value;
-      let filtered = questions.filter(q=>
-          (!rf || q.risk===rf) && (!pf || q.popularity>=parseInt(pf))
-      );
-      // 列表
-      filtered.forEach(q=>{
+      function renderQuestions() {
+        const riskMap = { high: "badge-risk-high", medium: "badge-risk-medium", low: "badge-risk-low" };
+        const riskName = { high: "高風險", medium: "中風險", low: "低風險" };
+        const list = document.getElementById('questionList');
+        list.innerHTML = '';
+        // 篩選
+        const rf = document.getElementById('riskFilter').value;
+        const pf = document.getElementById('popularityFilter').value;
+        let filtered = questions.filter(q =>
+          (!rf || q.risk === rf) && (!pf || q.popularity >= parseInt(pf))
+        );
+        // 列表
+        filtered.forEach(q => {
           const checked = moduleQuestions.includes(q.id) ? 'checked disabled' : '';
           list.innerHTML += `
           <div class="bg-white p-4 rounded shadow flex flex-col border border-gray-200">
@@ -123,60 +223,61 @@
                   <button onclick="delQ(${q.id})" class="text-red-600 hover:underline text-sm">刪除</button>
               </div>
           </div>`;
-      });
-  }
+        });
+      }
 
-  function selectAll() {
-      document.querySelectorAll('.q-select:not(:disabled)').forEach(cb=>cb.checked=true);
-  }
-  function addToModule() {
-      document.querySelectorAll('.q-select:checked').forEach(cb=>{
+      function selectAll() {
+        document.querySelectorAll('.q-select:not(:disabled)').forEach(cb => cb.checked = true);
+      }
+      function addToModule() {
+        document.querySelectorAll('.q-select:checked').forEach(cb => {
           const id = parseInt(cb.value);
-          if(!moduleQuestions.includes(id)) moduleQuestions.push(id);
-      });
-      renderQuestions();
-      renderModule();
-  }
-  function renderModule() {
-      const el = document.getElementById('moduleList');
-      el.innerHTML = '';
-      moduleQuestions.forEach(id=>{
-          const q = questions.find(x=>x.id===id);
+          if (!moduleQuestions.includes(id)) moduleQuestions.push(id);
+        });
+        renderQuestions();
+        renderModule();
+      }
+      function renderModule() {
+        const el = document.getElementById('moduleList');
+        el.innerHTML = '';
+        moduleQuestions.forEach(id => {
+          const q = questions.find(x => x.id === id);
           el.innerHTML += `
               <div class="bg-white rounded shadow p-3 flex justify-between items-center">
                   <div>
                       <span class="badge badge-hot">🔥${q.popularity}</span>
                       <span class="font-bold">${q.title}</span>
                       <span class="text-sm text-gray-500 ml-2">#${q.topic}</span>
-                      <span class="badge ${q.risk==='high'?'badge-risk-high':q.risk==='medium'?'badge-risk-medium':'badge-risk-low'} ml-2">${q.risk==='high'?'高風險':q.risk==='medium'?'中風險':'低風險'}</span>
+                      <span class="badge ${q.risk === 'high' ? 'badge-risk-high' : q.risk === 'medium' ? 'badge-risk-medium' : 'badge-risk-low'} ml-2">${q.risk === 'high' ? '高風險' : q.risk === 'medium' ? '中風險' : '低風險'}</span>
                   </div>
                   <button onclick="removeFromModule(${id})" class="text-red-500 hover:underline">移除</button>
               </div>`;
-      });
-  }
-  function removeFromModule(id){
-      moduleQuestions = moduleQuestions.filter(qid=>qid!==id);
-      renderQuestions();
-      renderModule();
-  }
-  // 編輯/刪除（僅DEMO）
-  function editQ(id) { alert("編輯題目："+id); }
-  function delQ(id) { 
-      if(confirm("確定刪除？")) {
+        });
+      }
+      function removeFromModule(id) {
+        moduleQuestions = moduleQuestions.filter(qid => qid !== id);
+        renderQuestions();
+        renderModule();
+      }
+      // 編輯/刪除（僅DEMO）
+      function editQ(id) { alert("編輯題目：" + id); }
+      function delQ(id) {
+        if (confirm("確定刪除？")) {
           // 若想同步後端請寫API
-          let idx = questions.findIndex(q=>q.id===id);
-          if(idx>-1) questions.splice(idx,1);
+          let idx = questions.findIndex(q => q.id === id);
+          if (idx > -1) questions.splice(idx, 1);
           renderQuestions();
           renderModule();
+        }
       }
-  }
 
-  // 篩選事件
-  document.addEventListener('DOMContentLoaded', ()=>{
-      renderQuestions();
-      document.getElementById('riskFilter').addEventListener('change', renderQuestions);
-      document.getElementById('popularityFilter').addEventListener('change', renderQuestions);
-  });
-  </script>
+      // 篩選事件
+      document.addEventListener('DOMContentLoaded', () => {
+        renderQuestions();
+        document.getElementById('riskFilter').addEventListener('change', renderQuestions);
+        document.getElementById('popularityFilter').addEventListener('change', renderQuestions);
+      });
+    </script>
 </body>
+
 </html>

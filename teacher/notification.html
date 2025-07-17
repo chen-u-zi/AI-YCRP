@@ -15,11 +15,83 @@
             display: flex;
         }
     </style>
+    <style>
+        :root {
+            --header-height: 64px;
+            --sidebar-width: 256px;
+            /* 16rem = 256px */
+        }
+
+        body {
+            background: #f3f4f6;
+            min-height: 100vh;
+            font-family: 'Noto Sans TC', 'sans-serif';
+        }
+
+        header.header-fixed {
+            position: fixed;
+            left: 0;
+            top: 0;
+            right: 0;
+            z-index: 40;
+            height: var(--header-height);
+            background: #fff;
+            box-shadow: 0 2px 8px #0001;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1.5rem;
+        }
+
+        aside.sidebar-fixed {
+            position: fixed;
+            left: 0;
+            top: var(--header-height);
+            bottom: 0;
+            width: var(--sidebar-width);
+            z-index: 30;
+            background: #fff;
+            box-shadow: 2px 0 8px #0001;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .main-content {
+            margin-top: var(--header-height);
+            margin-left: var(--sidebar-width);
+            padding: 2rem;
+            min-height: calc(100vh - var(--header-height));
+            /* 確保內容不被遮住 */
+            transition: margin .2s;
+        }
+
+        @media (max-width: 900px) {
+            aside.sidebar-fixed {
+                width: 13rem;
+            }
+
+            .main-content {
+                margin-left: 13rem;
+            }
+        }
+
+        @media (max-width: 700px) {
+            aside.sidebar-fixed {
+                width: 100vw;
+                position: static;
+                box-shadow: none;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
 </head>
 
 <body class="bg-gray-100 min-h-screen">
-    <!-- Header -->
-    <header class="bg-white shadow p-4 flex justify-between items-center">
+    <!-- 固定 Header -->
+    <header class="header-fixed">
         <div>
             <h1 class="text-xl font-semibold">青少年防詐互動學習平台</h1>
             <p class="text-sm text-blue-600">成為網路安全小達人</p>
@@ -29,22 +101,22 @@
             <a href="../home.html" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">登出</a>
         </div>
     </header>
-    <div class="flex min-h-screen">
-        <!-- 側邊欄 -->
-        <aside class="w-64 bg-white shadow-md h-screen p-4">
-            <h2 class="text-xl font-bold mb-6 text-blue-800">教師管理選單</h2>
-            <nav class="space-y-2">
-                <a href="index.html" class="block px-4 py-2 rounded hover:bg-blue-100">🧑‍🏫 教師管理模組</a>
-                <a href="dashboard.html" class="block px-4 py-2 rounded hover:bg-blue-100">📊 儀表板</a>
-                <a href="student.html" class="block px-4 py-2 rounded hover:bg-blue-100">👥 學生管理</a>
-                <a href="scenario.html" class="block px-4 py-2 rounded hover:bg-blue-100">📚 情境題庫管理</a>
-                <a href="knowledge.html" class="block px-4 py-2 rounded hover:bg-blue-100">📖 知識庫管理</a>
-                <a href="achievement.html" class="block px-4 py-2 rounded hover:bg-blue-100">🏆 成就系統</a>
-                <a href="notification.html" class="block px-4 py-2 rounded bg-blue-100 text-blue-900">📢 公告管理</a>
-                <a href="settings.html" class="block px-4 py-2 rounded hover:bg-blue-100">⚙️ 設定與支援</a>
-            </nav>
-        </aside>
-        <!-- 主內容 -->
+    <!-- 固定側邊欄 -->
+    <aside class="sidebar-fixed">
+        <h2 class="text-xl font-bold mb-6 text-blue-800">教師管理選單</h2>
+        <nav class="space-y-2">
+            <a href="index.html" class="block px-4 py-2 rounded hover:bg-blue-100">🧑‍🏫 教師管理模組</a>
+            <a href="dashboard.html" class="block px-4 py-2 rounded hover:bg-blue-100">📊 儀表板</a>
+            <a href="student.html" class="block px-4 py-2 rounded hover:bg-blue-100">👥 學生管理</a>
+            <a href="scenario.html" class="block px-4 py-2 rounded hover:bg-blue-100">📚 情境題庫管理</a>
+            <a href="knowledge.html" class="block px-4 py-2 rounded hover:bg-blue-100">📖 知識庫管理</a>
+            <a href="achievement.html" class="block px-4 py-2 rounded hover:bg-blue-100">🏆 成就系統</a>
+            <a href="notification.html" class="block px-4 py-2 rounded bg-blue-100 text-blue-900">📢 公告管理</a>
+            <a href="settings.html" class="block px-4 py-2 rounded hover:bg-blue-100">⚙️ 設定與支援</a>
+        </nav>
+    </aside>
+    <!-- 主內容 -->
+    <div class="main-content">
         <div class="flex-1 flex flex-col">
             <main class="flex-1 p-8">
                 <!-- 公告管理內容 -->
@@ -63,11 +135,16 @@
                         <table class="min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-50">
                                 <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">重要</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">標題</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">日期</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">狀態</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">操作</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">重要
+                                    </th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">標題
+                                    </th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">日期
+                                    </th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">狀態
+                                    </th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">操作
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody id="announceList" class="bg-white divide-y divide-gray-200">

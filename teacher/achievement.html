@@ -24,12 +24,83 @@
         .grayscale {
             filter: grayscale(100%);
         }
+
+        :root {
+            --header-height: 64px;
+            --sidebar-width: 256px;
+            /* 16rem = 256px */
+        }
+
+        body {
+            background: #f3f4f6;
+            min-height: 100vh;
+            font-family: 'Noto Sans TC', 'sans-serif';
+        }
+
+        header.header-fixed {
+            position: fixed;
+            left: 0;
+            top: 0;
+            right: 0;
+            z-index: 40;
+            height: var(--header-height);
+            background: #fff;
+            box-shadow: 0 2px 8px #0001;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1.5rem;
+        }
+
+        aside.sidebar-fixed {
+            position: fixed;
+            left: 0;
+            top: var(--header-height);
+            bottom: 0;
+            width: var(--sidebar-width);
+            z-index: 30;
+            background: #fff;
+            box-shadow: 2px 0 8px #0001;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .main-content {
+            margin-top: var(--header-height);
+            margin-left: var(--sidebar-width);
+            padding: 2rem;
+            min-height: calc(100vh - var(--header-height));
+            /* 確保內容不被遮住 */
+            transition: margin .2s;
+        }
+
+        @media (max-width: 900px) {
+            aside.sidebar-fixed {
+                width: 13rem;
+            }
+
+            .main-content {
+                margin-left: 13rem;
+            }
+        }
+
+        @media (max-width: 700px) {
+            aside.sidebar-fixed {
+                width: 100vw;
+                position: static;
+                box-shadow: none;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+        }
     </style>
 </head>
 
 <body class="bg-gray-100 min-h-screen">
-    <!-- Header -->
-    <header class="bg-white shadow p-4 flex justify-between items-center">
+    <!-- 固定 Header -->
+    <header class="header-fixed">
         <div>
             <h1 class="text-xl font-semibold">青少年防詐互動學習平台</h1>
             <p class="text-sm text-blue-600">成為網路安全小達人</p>
@@ -39,22 +110,22 @@
             <a href="../home.html" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">登出</a>
         </div>
     </header>
-    <div class="flex min-h-screen">
-        <!-- 側邊欄 -->
-        <aside class="w-64 bg-white shadow-md h-screen p-4">
-            <h2 class="text-xl font-bold mb-6 text-blue-800">教師管理選單</h2>
-            <nav class="space-y-2">
-                <a href="index.html" class="block px-4 py-2 rounded hover:bg-blue-100">🧑‍🏫 教師管理模組</a>
-                <a href="dashboard.html" class="block px-4 py-2 rounded hover:bg-blue-100">📊 儀表板</a>
-                <a href="student.html" class="block px-4 py-2 rounded hover:bg-blue-100">👥 學生管理</a>
-                <a href="scenario.html" class="block px-4 py-2 rounded hover:bg-blue-100">📚 情境題庫管理</a>
-                <a href="knowledge.html" class="block px-4 py-2 rounded hover:bg-blue-100">📖 知識庫管理</a>
-                <a href="achievement.html" class="block px-4 py-2 rounded bg-blue-100 text-blue-900">🏆 成就系統</a>
-                <a href="notification.html" class="block px-4 py-2 rounded hover:bg-blue-100">📢 公告管理</a>
-                <a href="settings.html" class="block px-4 py-2 rounded hover:bg-blue-100">⚙️ 設定與支援</a>
-            </nav>
-        </aside>
-        <!-- 主內容 -->
+    <!-- 固定側邊欄 -->
+    <aside class="sidebar-fixed">
+        <h2 class="text-xl font-bold mb-6 text-blue-800">教師管理選單</h2>
+        <nav class="space-y-2">
+            <a href="index.html" class="block px-4 py-2 rounded hover:bg-blue-100">🧑‍🏫 教師管理模組</a>
+            <a href="dashboard.html" class="block px-4 py-2 rounded hover:bg-blue-100">📊 儀表板</a>
+            <a href="student.html" class="block px-4 py-2 rounded hover:bg-blue-100">👥 學生管理</a>
+            <a href="scenario.html" class="block px-4 py-2 rounded hover:bg-blue-100">📚 情境題庫管理</a>
+            <a href="knowledge.html" class="block px-4 py-2 rounded hover:bg-blue-100">📖 知識庫管理</a>
+            <a href="achievement.html" class="block px-4 py-2 rounded bg-blue-100 text-blue-900">🏆 成就系統</a>
+            <a href="notification.html" class="block px-4 py-2 rounded hover:bg-blue-100">📢 公告管理</a>
+            <a href="settings.html" class="block px-4 py-2 rounded hover:bg-blue-100">⚙️ 設定與支援</a>
+        </nav>
+    </aside>
+    <!-- 主內容區 -->
+    <div class="main-content">
         <div class="flex-1 flex flex-col">
             <main class="flex-1 p-8">
                 <!-- 1. 成就徽章管理 -->
@@ -87,161 +158,169 @@
                     </div>
                 </section>
 
-    <!-- 學生成就詳細 Modal -->
-    <div id="studentModal" class="modal fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-40">
-        <div class="bg-white p-6 rounded-lg w-full max-w-2xl mx-auto">
-            <h2 class="text-xl font-bold mb-4">學生成就詳細</h2>
-            <p class="mb-4" id="studentName"></p>
-            <div id="studentBadgeDetail" class="grid grid-cols-2 gap-4"></div>
-            <div class="flex justify-end mt-4">
-                <button type="button" onclick="closeStudentModal()"
-                    class="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400">關閉</button>
-            </div>
-        </div>
-    </div>
+                <!-- 學生成就詳細 Modal -->
+                <div id="studentModal"
+                    class="modal fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-40">
+                    <div class="bg-white p-6 rounded-lg w-full max-w-2xl mx-auto">
+                        <h2 class="text-xl font-bold mb-4">學生成就詳細</h2>
+                        <p class="mb-4" id="studentName"></p>
+                        <div id="studentBadgeDetail" class="grid grid-cols-2 gap-4"></div>
+                        <div class="flex justify-end mt-4">
+                            <button type="button" onclick="closeStudentModal()"
+                                class="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400">關閉</button>
+                        </div>
+                    </div>
+                </div>
 
-    
 
-    <!-- 團隊邀請 Modal -->
-    <div id="teamInviteModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
-      <div class="bg-white p-6 rounded-lg w-full max-w-md">
-        <h2 class="text-xl font-bold mb-4">團隊邀請</h2>
-        <form onsubmit="sendTeamInvite(event)">
-          <div class="mb-4">
-            <label class="block mb-1 text-blue-800">團隊名稱</label>
-            <input type="text" class="w-full border rounded px-3 py-2" placeholder="輸入團隊名稱" required>
-          </div>
-          <div class="mb-4">
-            <label class="block mb-1 text-blue-800">學生帳號（可多個，以逗號分隔）</label>
-            <input type="text" class="w-full border rounded px-3 py-2" placeholder="如：S001,S002" required>
-          </div>
-          <div class="flex justify-end space-x-2">
-            <button type="button" onclick="closeTeamInviteModal()" class="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400">取消</button>
-            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">送出邀請</button>
-          </div>
-        </form>
-      </div>
-    </div>
 
-    <script>
-        // --- 假資料（主題全面青少年化）---
-        let badges = [
-            { id: 1, name: "社群守護者", icon: "social.png", condition: "參加3次社群詐騙情境且正確率80%以上", status: "active" },
-            { id: 2, name: "網購見習生", icon: "shopping.jpg", condition: "完成網購詐騙題5題且正確率80%以上", status: "active" },
-            { id: 3, name: "電玩騙術剋星", icon: "game.jpg", condition: "破解遊戲詐騙題3題且正確率100%", status: "active" },
-            { id: 4, name: "網安好奇寶寶", icon: "curious.png", condition: "首次完成所有主題的情境測驗", status: "active" },
-            { id: 5, name: "投資守門員", icon: "investment.png", condition: "投資詐騙題達90分", status: "inactive" },
-            { id: 6, name: "AI知識探索者", icon: "ai.jpg", condition: "AI深偽題全對", status: "active" }
-        ];
-        let students = [
-            {
-                name: "許巧芸", badgeNum: 4, totalBadge: 6, lastBadge: "AI知識探索者", percent: 67, badges: [
-                    { name: "社群守護者", date: "2025-07-01", unlocked: true, icon: "social.png" },
-                    { name: "網購見習生", date: "2025-07-02", unlocked: true, icon: "shopping.jpg" },
-                    { name: "AI知識探索者", date: "2025-07-03", unlocked: true, icon: "ai.jpg" },
-                    { name: "網安好奇寶寶", date: "2025-07-04", unlocked: true, icon: "curious.png" },
-                    { name: "投資守門員", date: "", unlocked: false, icon: "investment.png" },
-                    { name: "電玩騙術剋星", date: "", unlocked: false, icon: "game.jpg" }
-                ]
-            },
-            {
-                name: "陳宇昊", badgeNum: 3, totalBadge: 6, lastBadge: "網安好奇寶寶", percent: 50, badges: [
-                    { name: "社群守護者", date: "2025-07-01", unlocked: true, icon: "social.png" },
-                    { name: "網購見習生", date: "2025-07-03", unlocked: true, icon: "shopping.jpg" },
-                    { name: "網安好奇寶寶", date: "2025-07-04", unlocked: true, icon: "curious.png" },
-                    { name: "AI知識探索者", date: "", unlocked: false, icon: "ai.jpg" },
-                    { name: "投資守門員", date: "", unlocked: false, icon: "investment.png" },
-                    { name: "電玩騙術剋星", date: "", unlocked: false, icon: "game.jpg" }
-                ]
-            },
-            {
-                name: "蘇偉庭", badgeNum: 2, totalBadge: 6, lastBadge: "網購見習生", percent: 33, badges: [
-                    { name: "網購見習生", date: "2025-07-02", unlocked: true, icon: "shopping.jpg" },
-                    { name: "社群守護者", date: "2025-07-04", unlocked: true, icon: "social.png" },
-                    { name: "AI知識探索者", date: "", unlocked: false, icon: "ai.jpg" },
-                    { name: "網安好奇寶寶", date: "", unlocked: false, icon: "curious.png" },
-                    { name: "投資守門員", date: "", unlocked: false, icon: "investment.png" },
-                    { name: "電玩騙術剋星", date: "", unlocked: false, icon: "game.jpg" }
-                ]
-            },
-            {
-                name: "邱思妤", badgeNum: 5, totalBadge: 6, lastBadge: "電玩騙術剋星", percent: 83, badges: [
-                    { name: "社群守護者", date: "2025-07-01", unlocked: true, icon: "social.png" },
-                    { name: "網購見習生", date: "2025-07-02", unlocked: true, icon: "shopping.jpg" },
-                    { name: "AI知識探索者", date: "2025-07-03", unlocked: true, icon: "ai.jpg" },
-                    { name: "網安好奇寶寶", date: "2025-07-04", unlocked: true, icon: "curious.png" },
-                    { name: "投資守門員", date: "2025-07-06", unlocked: true, icon: "investment.png" },
-                    { name: "電玩騙術剋星", date: "2025-07-08", unlocked: true, icon: "game.jpg" }
-                ]
-            },
-            {
-                name: "劉亭羽", badgeNum: 1, totalBadge: 6, lastBadge: "網購見習生", percent: 17, badges: [
-                    { name: "網購見習生", date: "2025-07-02", unlocked: true, icon: "shopping.jpg" },
-                    { name: "社群守護者", date: "", unlocked: false, icon: "social.png" },
-                    { name: "AI知識探索者", date: "", unlocked: false, icon: "ai.jpg" },
-                    { name: "網安好奇寶寶", date: "", unlocked: false, icon: "curious.png" },
-                    { name: "投資守門員", date: "", unlocked: false, icon: "investment.png" },
-                    { name: "電玩騙術剋星", date: "", unlocked: false, icon: "game.jpg" }
-                ]
-            },
-            {
-                name: "廖政辰", badgeNum: 3, totalBadge: 6, lastBadge: "網安好奇寶寶", percent: 50, badges: [
-                    { name: "網安好奇寶寶", date: "2025-07-03", unlocked: true, icon: "curious.png" },
-                    { name: "社群守護者", date: "2025-07-04", unlocked: true, icon: "social.png" },
-                    { name: "電玩騙術剋星", date: "2025-07-05", unlocked: true, icon: "game.jpg" },
-                    { name: "網購見習生", date: "", unlocked: false, icon: "shopping.jpg" },
-                    { name: "AI知識探索者", date: "", unlocked: false, icon: "ai.jpg" },
-                    { name: "投資守門員", date: "", unlocked: false, icon: "investment.png" }
-                ]
-            },
-            {
-                name: "林辰佑", badgeNum: 2, totalBadge: 6, lastBadge: "AI知識探索者", percent: 33, badges: [
-                    { name: "AI知識探索者", date: "2025-07-06", unlocked: true, icon: "ai.jpg" },
-                    { name: "投資守門員", date: "", unlocked: false, icon: "investment.png" },
-                    { name: "網安好奇寶寶", date: "", unlocked: false, icon: "curious.png" },
-                    { name: "社群守護者", date: "", unlocked: false, icon: "social.png" },
-                    { name: "網購見習生", date: "", unlocked: false, icon: "shopping.jpg" },
-                    { name: "電玩騙術剋星", date: "", unlocked: false, icon: "game.jpg" }
-                ]
-            },
-            {
-                name: "李芷瑄", badgeNum: 4, totalBadge: 6, lastBadge: "投資守門員", percent: 67, badges: [
-                    { name: "投資守門員", date: "2025-07-05", unlocked: true, icon: "investment.png" },
-                    { name: "AI知識探索者", date: "2025-07-06", unlocked: true, icon: "ai.jpg" },
-                    { name: "社群守護者", date: "2025-07-07", unlocked: true, icon: "social.png" },
-                    { name: "電玩騙術剋星", date: "2025-07-08", unlocked: true, icon: "game.jpg" },
-                    { name: "網安好奇寶寶", date: "", unlocked: false, icon: "curious.png" },
-                    { name: "網購見習生", date: "", unlocked: false, icon: "shopping.jpg" }
-                ]
-            },
-            {
-                name: "江宜樺", badgeNum: 2, totalBadge: 6, lastBadge: "電玩騙術剋星", percent: 33, badges: [
-                    { name: "電玩騙術剋星", date: "2025-07-08", unlocked: true, icon: "game.jpg" },
-                    { name: "社群守護者", date: "2025-07-09", unlocked: true, icon: "social.png" },
-                    { name: "網安好奇寶寶", date: "", unlocked: false, icon: "curious.png" },
-                    { name: "網購見習生", date: "", unlocked: false, icon: "shopping.jpg" },
-                    { name: "AI知識探索者", date: "", unlocked: false, icon: "ai.jpg" },
-                    { name: "投資守門員", date: "", unlocked: false, icon: "investment.png" }
-                ]
-            },
-            {
-                name: "趙冠宇", badgeNum: 5, totalBadge: 6, lastBadge: "AI知識探索者", percent: 83, badges: [
-                    { name: "社群守護者", date: "2025-07-01", unlocked: true, icon: "social.png" },
-                    { name: "網購見習生", date: "2025-07-02", unlocked: true, icon: "shopping.jpg" },
-                    { name: "AI知識探索者", date: "2025-07-03", unlocked: true, icon: "ai.jpg" },
-                    { name: "網安好奇寶寶", date: "2025-07-04", unlocked: true, icon: "curious.png" },
-                    { name: "投資守門員", date: "2025-07-05", unlocked: true, icon: "investment.png" },
-                    { name: "電玩騙術剋星", date: "", unlocked: false, icon: "game.jpg" }  
-                ]
-            }
-        ];
+                <!-- 團隊邀請 Modal -->
+                <div id="teamInviteModal"
+                    class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
+                    <div class="bg-white p-6 rounded-lg w-full max-w-md">
+                        <h2 class="text-xl font-bold mb-4">團隊邀請</h2>
+                        <form onsubmit="sendTeamInvite(event)">
+                            <div class="mb-4">
+                                <label class="block mb-1 text-blue-800">團隊名稱</label>
+                                <input type="text" class="w-full border rounded px-3 py-2" placeholder="輸入團隊名稱"
+                                    required>
+                            </div>
+                            <div class="mb-4">
+                                <label class="block mb-1 text-blue-800">學生帳號（可多個，以逗號分隔）</label>
+                                <input type="text" class="w-full border rounded px-3 py-2" placeholder="如：S001,S002"
+                                    required>
+                            </div>
+                            <div class="flex justify-end space-x-2">
+                                <button type="button" onclick="closeTeamInviteModal()"
+                                    class="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400">取消</button>
+                                <button type="submit"
+                                    class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">送出邀請</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </main>
+            <footer class="text-center p-4 bg-white shadow">© 2025 機器人想放假團隊。保留所有權利。</footer>
 
-        // 徽章列表渲染
-        function renderBadgeList() {
-            const el = document.getElementById('badgeList');
-            el.innerHTML = '';
-            badges.forEach(b => {
-                el.innerHTML += `
+            <script>
+                // --- 假資料（主題全面青少年化）---
+                let badges = [
+                    { id: 1, name: "社群守護者", icon: "social.png", condition: "參加3次社群詐騙情境且正確率80%以上", status: "active" },
+                    { id: 2, name: "網購見習生", icon: "shopping.jpg", condition: "完成網購詐騙題5題且正確率80%以上", status: "active" },
+                    { id: 3, name: "電玩騙術剋星", icon: "game.jpg", condition: "破解遊戲詐騙題3題且正確率100%", status: "active" },
+                    { id: 4, name: "網安好奇寶寶", icon: "curious.png", condition: "首次完成所有主題的情境測驗", status: "active" },
+                    { id: 5, name: "投資守門員", icon: "investment.png", condition: "投資詐騙題達90分", status: "inactive" },
+                    { id: 6, name: "AI知識探索者", icon: "ai.jpg", condition: "AI深偽題全對", status: "active" }
+                ];
+                let students = [
+                    {
+                        name: "許巧芸", badgeNum: 4, totalBadge: 6, lastBadge: "AI知識探索者", percent: 67, badges: [
+                            { name: "社群守護者", date: "2025-07-01", unlocked: true, icon: "social.png" },
+                            { name: "網購見習生", date: "2025-07-02", unlocked: true, icon: "shopping.jpg" },
+                            { name: "AI知識探索者", date: "2025-07-03", unlocked: true, icon: "ai.jpg" },
+                            { name: "網安好奇寶寶", date: "2025-07-04", unlocked: true, icon: "curious.png" },
+                            { name: "投資守門員", date: "", unlocked: false, icon: "investment.png" },
+                            { name: "電玩騙術剋星", date: "", unlocked: false, icon: "game.jpg" }
+                        ]
+                    },
+                    {
+                        name: "陳宇昊", badgeNum: 3, totalBadge: 6, lastBadge: "網安好奇寶寶", percent: 50, badges: [
+                            { name: "社群守護者", date: "2025-07-01", unlocked: true, icon: "social.png" },
+                            { name: "網購見習生", date: "2025-07-03", unlocked: true, icon: "shopping.jpg" },
+                            { name: "網安好奇寶寶", date: "2025-07-04", unlocked: true, icon: "curious.png" },
+                            { name: "AI知識探索者", date: "", unlocked: false, icon: "ai.jpg" },
+                            { name: "投資守門員", date: "", unlocked: false, icon: "investment.png" },
+                            { name: "電玩騙術剋星", date: "", unlocked: false, icon: "game.jpg" }
+                        ]
+                    },
+                    {
+                        name: "蘇偉庭", badgeNum: 2, totalBadge: 6, lastBadge: "網購見習生", percent: 33, badges: [
+                            { name: "網購見習生", date: "2025-07-02", unlocked: true, icon: "shopping.jpg" },
+                            { name: "社群守護者", date: "2025-07-04", unlocked: true, icon: "social.png" },
+                            { name: "AI知識探索者", date: "", unlocked: false, icon: "ai.jpg" },
+                            { name: "網安好奇寶寶", date: "", unlocked: false, icon: "curious.png" },
+                            { name: "投資守門員", date: "", unlocked: false, icon: "investment.png" },
+                            { name: "電玩騙術剋星", date: "", unlocked: false, icon: "game.jpg" }
+                        ]
+                    },
+                    {
+                        name: "邱思妤", badgeNum: 5, totalBadge: 6, lastBadge: "電玩騙術剋星", percent: 83, badges: [
+                            { name: "社群守護者", date: "2025-07-01", unlocked: true, icon: "social.png" },
+                            { name: "網購見習生", date: "2025-07-02", unlocked: true, icon: "shopping.jpg" },
+                            { name: "AI知識探索者", date: "2025-07-03", unlocked: true, icon: "ai.jpg" },
+                            { name: "網安好奇寶寶", date: "2025-07-04", unlocked: true, icon: "curious.png" },
+                            { name: "投資守門員", date: "2025-07-06", unlocked: true, icon: "investment.png" },
+                            { name: "電玩騙術剋星", date: "2025-07-08", unlocked: true, icon: "game.jpg" }
+                        ]
+                    },
+                    {
+                        name: "劉亭羽", badgeNum: 1, totalBadge: 6, lastBadge: "網購見習生", percent: 17, badges: [
+                            { name: "網購見習生", date: "2025-07-02", unlocked: true, icon: "shopping.jpg" },
+                            { name: "社群守護者", date: "", unlocked: false, icon: "social.png" },
+                            { name: "AI知識探索者", date: "", unlocked: false, icon: "ai.jpg" },
+                            { name: "網安好奇寶寶", date: "", unlocked: false, icon: "curious.png" },
+                            { name: "投資守門員", date: "", unlocked: false, icon: "investment.png" },
+                            { name: "電玩騙術剋星", date: "", unlocked: false, icon: "game.jpg" }
+                        ]
+                    },
+                    {
+                        name: "廖政辰", badgeNum: 3, totalBadge: 6, lastBadge: "網安好奇寶寶", percent: 50, badges: [
+                            { name: "網安好奇寶寶", date: "2025-07-03", unlocked: true, icon: "curious.png" },
+                            { name: "社群守護者", date: "2025-07-04", unlocked: true, icon: "social.png" },
+                            { name: "電玩騙術剋星", date: "2025-07-05", unlocked: true, icon: "game.jpg" },
+                            { name: "網購見習生", date: "", unlocked: false, icon: "shopping.jpg" },
+                            { name: "AI知識探索者", date: "", unlocked: false, icon: "ai.jpg" },
+                            { name: "投資守門員", date: "", unlocked: false, icon: "investment.png" }
+                        ]
+                    },
+                    {
+                        name: "林辰佑", badgeNum: 2, totalBadge: 6, lastBadge: "AI知識探索者", percent: 33, badges: [
+                            { name: "AI知識探索者", date: "2025-07-06", unlocked: true, icon: "ai.jpg" },
+                            { name: "投資守門員", date: "", unlocked: false, icon: "investment.png" },
+                            { name: "網安好奇寶寶", date: "", unlocked: false, icon: "curious.png" },
+                            { name: "社群守護者", date: "", unlocked: false, icon: "social.png" },
+                            { name: "網購見習生", date: "", unlocked: false, icon: "shopping.jpg" },
+                            { name: "電玩騙術剋星", date: "", unlocked: false, icon: "game.jpg" }
+                        ]
+                    },
+                    {
+                        name: "李芷瑄", badgeNum: 4, totalBadge: 6, lastBadge: "投資守門員", percent: 67, badges: [
+                            { name: "投資守門員", date: "2025-07-05", unlocked: true, icon: "investment.png" },
+                            { name: "AI知識探索者", date: "2025-07-06", unlocked: true, icon: "ai.jpg" },
+                            { name: "社群守護者", date: "2025-07-07", unlocked: true, icon: "social.png" },
+                            { name: "電玩騙術剋星", date: "2025-07-08", unlocked: true, icon: "game.jpg" },
+                            { name: "網安好奇寶寶", date: "", unlocked: false, icon: "curious.png" },
+                            { name: "網購見習生", date: "", unlocked: false, icon: "shopping.jpg" }
+                        ]
+                    },
+                    {
+                        name: "江宜樺", badgeNum: 2, totalBadge: 6, lastBadge: "電玩騙術剋星", percent: 33, badges: [
+                            { name: "電玩騙術剋星", date: "2025-07-08", unlocked: true, icon: "game.jpg" },
+                            { name: "社群守護者", date: "2025-07-09", unlocked: true, icon: "social.png" },
+                            { name: "網安好奇寶寶", date: "", unlocked: false, icon: "curious.png" },
+                            { name: "網購見習生", date: "", unlocked: false, icon: "shopping.jpg" },
+                            { name: "AI知識探索者", date: "", unlocked: false, icon: "ai.jpg" },
+                            { name: "投資守門員", date: "", unlocked: false, icon: "investment.png" }
+                        ]
+                    },
+                    {
+                        name: "趙冠宇", badgeNum: 5, totalBadge: 6, lastBadge: "AI知識探索者", percent: 83, badges: [
+                            { name: "社群守護者", date: "2025-07-01", unlocked: true, icon: "social.png" },
+                            { name: "網購見習生", date: "2025-07-02", unlocked: true, icon: "shopping.jpg" },
+                            { name: "AI知識探索者", date: "2025-07-03", unlocked: true, icon: "ai.jpg" },
+                            { name: "網安好奇寶寶", date: "2025-07-04", unlocked: true, icon: "curious.png" },
+                            { name: "投資守門員", date: "2025-07-05", unlocked: true, icon: "investment.png" },
+                            { name: "電玩騙術剋星", date: "", unlocked: false, icon: "game.jpg" }
+                        ]
+                    }
+                ];
+
+                // 徽章列表渲染
+                function renderBadgeList() {
+                    const el = document.getElementById('badgeList');
+                    el.innerHTML = '';
+                    badges.forEach(b => {
+                        el.innerHTML += `
                     <div class="${b.status === 'active' ? 'bg-blue-100' : 'bg-gray-100'} p-4 rounded shadow flex flex-col items-center">
                         <img src="${b.icon}" alt="${b.name}" class="badge-icon mb-2 ${b.status !== 'active' ? 'grayscale' : ''}">
                         <h3 class="text-md font-bold">${b.name}</h3>
@@ -253,14 +332,14 @@
                             <button onclick="previewBadge('${b.icon}','${b.name}')" class="text-blue-500 hover:underline">預覽</button>
                         </div>
                     </div>`;
-            });
-        }
-        // 學生成就統計
-        function renderStudentStat() {
-            const el = document.getElementById('studentStatList');
-            el.innerHTML = '';
-            students.forEach((s, idx) => {
-                el.innerHTML += `
+                    });
+                }
+                // 學生成就統計
+                function renderStudentStat() {
+                    const el = document.getElementById('studentStatList');
+                    el.innerHTML = '';
+                    students.forEach((s, idx) => {
+                        el.innerHTML += `
                     <tr class="border-t">
                         <td class="px-4 py-2">${s.name}</td>
                         <td class="px-4 py-2">${s.badgeNum}/${s.totalBadge}</td>
@@ -274,101 +353,102 @@
                             <button onclick="openStudentModal(${idx})" class="text-blue-500 hover:underline">查看</button>
                         </td>
                     </tr>`;
-            });
-        }
-        // 徽章學生視角預覽
-        function renderBadgePreview() {
-            const el = document.getElementById('badgePreview');
-            el.innerHTML = '';
-            badges.forEach(b => {
-                el.innerHTML += `
+                    });
+                }
+                // 徽章學生視角預覽
+                function renderBadgePreview() {
+                    const el = document.getElementById('badgePreview');
+                    el.innerHTML = '';
+                    badges.forEach(b => {
+                        el.innerHTML += `
                     <div class="text-center">
                         <img src="${b.icon}" alt="${b.name}" class="badge-icon mx-auto ${b.status !== 'active' ? 'grayscale' : ''}">
                         <p class="text-sm font-semibold">${b.name}</p>
                         <p class="text-xs text-gray-600">${b.status === 'active' ? '已解鎖' : '未解鎖'}</p>
                     </div>
                 `;
-            });
-        }
-        // 編輯/新增徽章
-        let editBadgeId = null;
-        function openBadgeModal(edit = false) {
-            document.getElementById('badgeModal').classList.add('active');
-            if (edit && editBadgeId) {
-                let b = badges.find(x => x.id === editBadgeId);
-                document.getElementById('badgeModalTitle').innerText = "編輯成就";
-                document.getElementById('badgeName').value = b.name;
-                document.getElementById('badgeStatus').value = b.status;
-                // 不做條件細節和icon編輯demo
-            } else {
-                editBadgeId = null;
-                document.getElementById('badgeModalTitle').innerText = "新增成就";
-                document.getElementById('badgeName').value = '';
-                document.getElementById('badgeStatus').value = 'active';
-            }
-        }
-        function closeBadgeModal() {
-            document.getElementById('badgeModal').classList.remove('active');
-            editBadgeId = null;
-        }
-        function saveBadge(e) {
-            e.preventDefault();
-            // 實作略，僅重繪
-            closeBadgeModal();
-            renderBadgeList(); renderBadgePreview();
-        }
-        function editBadge(id) {
-            editBadgeId = id;
-            openBadgeModal(true);
-        }
-        function delBadge(id) {
-            if (confirm("確定刪除？")) {
-                badges = badges.filter(b => b.id !== id);
-                renderBadgeList(); renderBadgePreview();
-            }
-        }
-        function previewBadge(icon, name) {
-            alert(`預覽徽章：${name}`);
-        }
-        // 學生Modal
-        function openStudentModal(idx) {
-            document.getElementById('studentModal').classList.add('active');
-            let s = students[idx];
-            document.getElementById('studentName').innerText = '學生姓名：' + s.name;
-            let html = '';
-            s.badges.forEach(b => {
-                html += `
+                    });
+                }
+                // 編輯/新增徽章
+                let editBadgeId = null;
+                function openBadgeModal(edit = false) {
+                    document.getElementById('badgeModal').classList.add('active');
+                    if (edit && editBadgeId) {
+                        let b = badges.find(x => x.id === editBadgeId);
+                        document.getElementById('badgeModalTitle').innerText = "編輯成就";
+                        document.getElementById('badgeName').value = b.name;
+                        document.getElementById('badgeStatus').value = b.status;
+                        // 不做條件細節和icon編輯demo
+                    } else {
+                        editBadgeId = null;
+                        document.getElementById('badgeModalTitle').innerText = "新增成就";
+                        document.getElementById('badgeName').value = '';
+                        document.getElementById('badgeStatus').value = 'active';
+                    }
+                }
+                function closeBadgeModal() {
+                    document.getElementById('badgeModal').classList.remove('active');
+                    editBadgeId = null;
+                }
+                function saveBadge(e) {
+                    e.preventDefault();
+                    // 實作略，僅重繪
+                    closeBadgeModal();
+                    renderBadgeList(); renderBadgePreview();
+                }
+                function editBadge(id) {
+                    editBadgeId = id;
+                    openBadgeModal(true);
+                }
+                function delBadge(id) {
+                    if (confirm("確定刪除？")) {
+                        badges = badges.filter(b => b.id !== id);
+                        renderBadgeList(); renderBadgePreview();
+                    }
+                }
+                function previewBadge(icon, name) {
+                    alert(`預覽徽章：${name}`);
+                }
+                // 學生Modal
+                function openStudentModal(idx) {
+                    document.getElementById('studentModal').classList.add('active');
+                    let s = students[idx];
+                    document.getElementById('studentName').innerText = '學生姓名：' + s.name;
+                    let html = '';
+                    s.badges.forEach(b => {
+                        html += `
                     <div class="text-center">
                         <img src="${b.icon}" alt="${b.name}" class="badge-icon mx-auto ${!b.unlocked ? 'grayscale' : ''}">
                         <p class="text-sm font-semibold">${b.name}</p>
                         <p class="text-xs text-gray-600">${b.unlocked ? '已解鎖：' + b.date : '未解鎖'}</p>
                     </div>`;
-            });
-            document.getElementById('studentBadgeDetail').innerHTML = html;
-        }
-        function closeStudentModal() {
-            document.getElementById('studentModal').classList.remove('active');
-        }
+                    });
+                    document.getElementById('studentBadgeDetail').innerHTML = html;
+                }
+                function closeStudentModal() {
+                    document.getElementById('studentModal').classList.remove('active');
+                }
 
-        function openTeamInviteModal() {
-          document.getElementById('teamInviteModal').classList.remove('hidden');
-        }
-        function closeTeamInviteModal() {
-          document.getElementById('teamInviteModal').classList.add('hidden');
-        }
-        function sendTeamInvite(e) {
-          e.preventDefault();
-          // 這裡可加送出邀請的邏輯
-          alert('邀請已送出！');
-          closeTeamInviteModal();
-        }
-        // 初始化
-        document.addEventListener('DOMContentLoaded', () => {
-            renderBadgeList();
-            renderStudentStat();
-            renderBadgePreview();
-        });
-    </script>
+                function openTeamInviteModal() {
+                    document.getElementById('teamInviteModal').classList.remove('hidden');
+                }
+                function closeTeamInviteModal() {
+                    document.getElementById('teamInviteModal').classList.add('hidden');
+                }
+                function sendTeamInvite(e) {
+                    e.preventDefault();
+                    // 這裡可加送出邀請的邏輯
+                    alert('邀請已送出！');
+                    closeTeamInviteModal();
+                }
+                // 初始化
+                document.addEventListener('DOMContentLoaded', () => {
+                    renderBadgeList();
+                    renderStudentStat();
+                    renderBadgePreview();
+                });
+            </script>
+
 </body>
 
 </html>
