@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
     <title>AI詐騙防護系統 - 家長儀表板</title>
@@ -8,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <!-- 背景動畫 -->
     <div class="background-animation"></div>
@@ -107,13 +109,15 @@
                         <b>王小明（國中二）</b><br>
                         本週登入：<span class="stat-number" style="font-size:2rem;">4</span><br>
                         最近完成：AI詐騙辨識<br>
-                        上週成效：自信提升明顯 <span class="role-badge" style="font-size:0.9rem; background:var(--success-gradient);">AI簡評</span>
+                        上週成效：自信提升明顯 <span class="role-badge"
+                            style="font-size:0.9rem; background:var(--success-gradient);">AI簡評</span>
                     </div>
                     <div class="dashboard-card" style="min-width:220px; margin:0;">
                         <b>王小美（國小五）</b><br>
                         本週登入：<span class="stat-number" style="font-size:2rem;">2</span><br>
                         最近完成：網購詐騙主題<br>
-                        上週成效：需持續補強 <span class="role-badge" style="font-size:0.9rem; background:var(--warning-gradient);">AI簡評</span>
+                        上週成效：需持續補強 <span class="role-badge"
+                            style="font-size:0.9rem; background:var(--warning-gradient);">AI簡評</span>
                     </div>
                 </div>
             </div>
@@ -136,7 +140,8 @@
                 </div>
                 <div class="card-content">
                     <div class="stat-label" style="">
-                        <span class="role-badge" style="background:var(--accent-gradient);font-size:0.8rem;">AI 建議</span>
+                        <span class="role-badge" style="background:var(--accent-gradient);font-size:0.8rem;">AI
+                            建議</span>
                         最近小明自信高於表現，請多給鼓勵，避免責備。
                     </div>
                 </div>
@@ -167,9 +172,10 @@
         document.addEventListener('DOMContentLoaded', () => {
             const path = window.location.pathname;
             document.querySelectorAll('.nav-link').forEach(link => {
-                if(path.includes(link.getAttribute('href'))) link.classList.add('active');
+                if (path.includes(link.getAttribute('href'))) link.classList.add('active');
             });
         });
     </script>
 </body>
+
 </html>

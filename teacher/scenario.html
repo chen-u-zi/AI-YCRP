@@ -16,6 +16,14 @@
       <div class="text-sm text-blue-800 font-semibold">👨‍🏫 教師</div>
       <a href="../home.html" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">登出</a>
     </div>
+    <style>
+      .badge { display:inline-block; border-radius:1rem; font-size:0.85em; padding:0.2em 0.8em; margin-right:0.5em;}
+      .badge-hot { background:#fde047; color:#92400e;}
+      .badge-risk-high { background:#fee2e2; color:#b91c1c;}
+      .badge-risk-medium { background:#fef9c3; color:#ca8a04;}
+      .badge-risk-low { background:#d1fae5; color:#065f46;}
+      .selected { border:2px solid #2563eb; }
+    </style>
   </header>
   <div class="flex min-h-[calc(100vh-64px)]">
     <!-- 側邊欄 -->
@@ -33,278 +41,142 @@
       </nav>
     </aside>
     <!-- 主內容區 -->
-    <div class="flex-1 flex flex-col">
-      <main class="p-6 flex-1">
-        <!-- 分類選單與搜尋 -->
-        <div class="flex justify-between items-center mb-6">
-          <div class="flex space-x-4">
-            <select class="border rounded px-3 py-2 text-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-300">
-              <option value="">所有分類</option>
-              <option value="fake-shopping">假購物詐騙</option>
-              <option value="investment">投資詐騙</option>
-              <option value="social">社群詐騙</option>
-              <option value="customer-service">客服詐騙</option>
-            </select>
-            <input type="text" placeholder="搜尋題目..." class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-300">
+  <!-- 主內容 -->
+  <main class="flex-1 p-8">
+      <h1 class="text-2xl font-bold mb-6">情境題庫管理</h1>
+      <!-- 篩選與操作 -->
+      <div class="flex flex-wrap gap-4 items-end mb-6">
+          <div>
+              <label class="block text-sm font-semibold mb-1">風險等級</label>
+              <select id="riskFilter" class="border rounded px-3 py-2">
+                  <option value="">全部</option>
+                  <option value="high">高風險</option>
+                  <option value="medium">中風險</option>
+                  <option value="low">低風險</option>
+              </select>
           </div>
-          <a href="javascript:void(0);" id="toggle-form-btn" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">新增題目</a>
-        </div>
-
-        <!-- 題目列表 -->
-        <div id="question-list" class="bg-white shadow rounded-lg overflow-hidden">
-          <table class="w-full border-collapse">
-            <thead>
-              <tr class="bg-blue-100">
-                <th class="p-3 text-left text-blue-800">題號</th>
-                <th class="p-3 text-left text-blue-800">標題</th>
-                <th class="p-3 text-left text-blue-800">題型</th>
-                <th class="p-3 text-left text-blue-800">難度</th>
-                <th class="p-3 text-left text-blue-800">顯示狀態</th>
-                <th class="p-3 text-left text-blue-800">建立時間</th>
-                <th class="p-3 text-left text-blue-800">操作</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="hover:bg-blue-50">
-                <td class="p-3 border-t">001</td>
-                <td class="p-3 border-t">假冒網購平台客服詐騙</td>
-                <td class="p-3 border-t">單選</td>
-                <td class="p-3 border-t"><span class="inline-block px-2 py-1 bg-green-200 text-green-800 rounded">簡單</span></td>
-                <td class="p-3 border-t"><span class="inline-block px-2 py-1 bg-blue-200 text-blue-800 rounded">上架</span></td>
-                <td class="p-3 border-t">2025-07-10</td>
-                <td class="p-3 border-t">
-                  <a href="test.html" class="text-blue-500 hover:underline">查看</a>
-                  <a href="#add-question" class="text-blue-500 hover:underline ml-2">編輯</a>
-                  <button class="text-red-500 hover:underline ml-2">刪除</button>
-                </td>
-              </tr>
-              <tr class="hover:bg-blue-50">
-                <td class="p-3 border-t">002</td>
-                <td class="p-3 border-t">假冒學校老師或同學借錢詐騙</td>
-                <td class="p-3 border-t">單選</td>
-                <td class="p-3 border-t"><span class="inline-block px-2 py-1 bg-yellow-200 text-yellow-800 rounded">中等</span></td>
-                <td class="p-3 border-t"><span class="inline-block px-2 py-1 bg-blue-200 text-blue-800 rounded">上架</span></td>
-                <td class="p-3 border-t">2025-07-11</td>
-                <td class="p-3 border-t">
-                  <a href="test.html" class="text-blue-500 hover:underline">查看</a>
-                  <a href="#add-question" class="text-blue-500 hover:underline ml-2">編輯</a>
-                  <button class="text-red-500 hover:underline ml-2">刪除</button>
-                </td>
-              </tr>
-              <tr class="hover:bg-blue-50">
-                <td class="p-3 border-t">003</td>
-                <td class="p-3 border-t">假冒遊戲點數詐騙</td>
-                <td class="p-3 border-t">單選</td>
-                <td class="p-3 border-t"><span class="inline-block px-2 py-1 bg-green-200 text-green-800 rounded">簡單</span></td>
-                <td class="p-3 border-t"><span class="inline-block px-2 py-1 bg-blue-200 text-blue-800 rounded">上架</span></td>
-                <td class="p-3 border-t">2025-07-12</td>
-                <td class="p-3 border-t">
-                  <a href="test.html" class="text-blue-500 hover:underline">查看</a>
-                  <a href="#add-question" class="text-blue-500 hover:underline ml-2">編輯</a>
-                  <button class="text-red-500 hover:underline ml-2">刪除</button>
-                </td>
-              </tr>
-              <tr class="hover:bg-blue-50">
-                <td class="p-3 border-t">004</td>
-                <td class="p-3 border-t">假網拍低價商品詐騙</td>
-                <td class="p-3 border-t">單選</td>
-                <td class="p-3 border-t"><span class="inline-block px-2 py-1 bg-yellow-200 text-yellow-800 rounded">中等</span></td>
-                <td class="p-3 border-t"><span class="inline-block px-2 py-1 bg-blue-200 text-blue-800 rounded">上架</span></td>
-                <td class="p-3 border-t">2025-07-13</td>
-                <td class="p-3 border-t">
-                  <a href="test.html" class="text-blue-500 hover:underline">查看</a>
-                  <a href="#add-question" class="text-blue-500 hover:underline ml-2">編輯</a>
-                  <button class="text-red-500 hover:underline ml-2">刪除</button>
-                </td>
-              </tr>
-              <tr class="hover:bg-blue-50">
-                <td class="p-3 border-t">005</td>
-                <td class="p-3 border-t">假冒社群帳號釣魚連結</td>
-                <td class="p-3 border-t">模擬互動</td>
-                <td class="p-3 border-t"><span class="inline-block px-2 py-1 bg-red-200 text-red-800 rounded">困難</span></td>
-                <td class="p-3 border-t"><span class="inline-block px-2 py-1 bg-blue-200 text-blue-800 rounded">上架</span></td>
-                <td class="p-3 border-t">2025-07-14</td>
-                <td class="p-3 border-t">
-                  <a href="test.html" class="text-blue-500 hover:underline">查看</a>
-                  <a href="#add-question" class="text-blue-500 hover:underline ml-2">編輯</a>
-                  <button class="text-red-500 hover:underline ml-2">刪除</button>
-                </td>
-              </tr>
-              <tr class="hover:bg-blue-50">
-                <td class="p-3 border-t">006</td>
-                <td class="p-3 border-t">假冒手機簡訊中獎通知詐騙</td>
-                <td class="p-3 border-t">單選</td>
-                <td class="p-3 border-t"><span class="inline-block px-2 py-1 bg-green-200 text-green-800 rounded">簡單</span></td>
-                <td class="p-3 border-t"><span class="inline-block px-2 py-1 bg-blue-200 text-blue-800 rounded">上架</span></td>
-                <td class="p-3 border-t">2025-07-15</td>
-                <td class="p-3 border-t">
-                  <a href="test.html" class="text-blue-500 hover:underline">查看</a>
-                  <a href="#add-question" class="text-blue-500 hover:underline ml-2">編輯</a>
-                  <button class="text-red-500 hover:underline ml-2">刪除</button>
-                </td>
-              </tr>
-              <tr class="hover:bg-blue-50">
-                <td class="p-3 border-t">007</td>
-                <td class="p-3 border-t">假冒網路投資高報酬詐騙</td>
-                <td class="p-3 border-t">單選</td>
-                <td class="p-3 border-t"><span class="inline-block px-2 py-1 bg-yellow-200 text-yellow-800 rounded">中等</span></td>
-                <td class="p-3 border-t"><span class="inline-block px-2 py-1 bg-blue-200 text-blue-800 rounded">上架</span></td>
-                <td class="p-3 border-t">2025-07-16</td>
-                <td class="p-3 border-t">
-                  <a href="test.html" class="text-blue-500 hover:underline">查看</a>
-                  <a href="#add-question" class="text-blue-500 hover:underline ml-2">編輯</a>
-                  <button class="text-red-500 hover:underline ml-2">刪除</button>
-                </td>
-              </tr>
-              <tr class="hover:bg-blue-50">
-                <td class="p-3 border-t">008</td>
-                <td class="p-3 border-t">假冒網路交友戀愛詐騙</td>
-                <td class="p-3 border-t">模擬互動</td>
-                <td class="p-3 border-t"><span class="inline-block px-2 py-1 bg-red-200 text-red-800 rounded">困難</span></td>
-                <td class="p-3 border-t"><span class="inline-block px-2 py-1 bg-blue-200 text-blue-800 rounded">上架</span></td>
-                <td class="p-3 border-t">2025-07-17</td>
-                <td class="p-3 border-t">
-                  <a href="test.html" class="text-blue-500 hover:underline">查看</a>
-                  <a href="#add-question" class="text-blue-500 hover:underline ml-2">編輯</a>
-                  <button class="text-red-500 hover:underline ml-2">刪除</button>
-                </td>
-              </tr>
-              <tr class="hover:bg-blue-50">
-                <td class="p-3 border-t">009</td>
-                <td class="p-3 border-t">假冒政府機關詐騙</td>
-                <td class="p-3 border-t">單選</td>
-                <td class="p-3 border-t"><span class="inline-block px-2 py-1 bg-yellow-200 text-yellow-800 rounded">中等</span></td>
-                <td class="p-3 border-t"><span class="inline-block px-2 py-1 bg-blue-200 text-blue-800 rounded">上架</span></td>
-                <td class="p-3 border-t">2025-07-18</td>
-                <td class="p-3 border-t">
-                  <a href="test.html" class="text-blue-500 hover:underline">查看</a>
-                  <a href="#add-question" class="text-blue-500 hover:underline ml-2">編輯</a>
-                  <button class="text-red-500 hover:underline ml-2">刪除</button>
-                </td>
-              </tr>
-              <tr class="hover:bg-blue-50">
-                <td class="p-3 border-t">010</td>
-                <td class="p-3 border-t">假冒APP更新或安裝木馬程式詐騙</td>
-                <td class="p-3 border-t">單選</td>
-                <td class="p-3 border-t"><span class="inline-block px-2 py-1 bg-red-200 text-red-800 rounded">困難</span></td>
-                <td class="p-3 border-t"><span class="inline-block px-2 py-1 bg-blue-200 text-blue-800 rounded">上架</span></td>
-                <td class="p-3 border-t">2025-07-19</td>
-                <td class="p-3 border-t">
-                  <a href="test.html" class="text-blue-500 hover:underline">查看</a>
-                  <a href="#add-question" class="text-blue-500 hover:underline ml-2">編輯</a>
-                  <button class="text-red-500 hover:underline ml-2">刪除</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- 新增/編輯題目表單 -->
-        <div id="add-question" class="bg-white rounded-lg p-6 mt-6 w-full hidden" style="width: 100%;">
-          <h2 class="text-xl font-bold mb-4 text-blue-800">新增/編輯題目</h2>
-          <form>
-            <div class="mb-4">
-              <label class="block text-blue-800 mb-1">題目敘述</label>
-              <textarea class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-300" rows="4" placeholder="輸入題目敘述..."></textarea>
-            </div>
-            <div class="mb-4">
-              <label class="block text-blue-800 mb-1">題目類型</label>
-              <select class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-300">
-                <option value="single">單選</option>
-                <option value="multiple">多選</option>
-                <option value="interactive">模擬互動</option>
+          <div>
+              <label class="block text-sm font-semibold mb-1">熱門度</label>
+              <select id="popularityFilter" class="border rounded px-3 py-2">
+                  <option value="">不限</option>
+                  <option value="80">80↑</option>
+                  <option value="60">60↑</option>
               </select>
-            </div>
-            <div class="mb-4">
-              <label class="block text-blue-800 mb-1">分類</label>
-              <select class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-300">
-                <option value="fake-shopping">假購物詐騙</option>
-                <option value="investment">投資詐騙</option>
-                <option value="social">社群詐騙</option>
-                <option value="customer-service">客服詐騙</option>
-              </select>
-            </div>
-            <div class="mb-4">
-              <label class="block text-blue-800 mb-1">上傳圖片/影片</label>
-              <input type="file" accept="image/*,video/*" class="w-full border rounded px-3 py-2">
-            </div>
-            <div class="mb-4">
-              <label class="block text-blue-800 mb-1">選項</label>
-              <div class="space-y-2">
-                <div class="flex items-center">
-                  <input type="text" class="flex-1 border rounded px-3 py-2" placeholder="選項 1">
-                  <input type="checkbox" class="ml-2" title="正確答案">
-                </div>
-                <div class="flex items-center">
-                  <input type="text" class="flex-1 border rounded px-3 py-2" placeholder="選項 2">
-                  <input type="checkbox" class="ml-2" title="正確答案">
-                </div>
-                <button type="button" class="text-blue-500 hover:underline">+ 新增選項</button>
+          </div>
+          <button onclick="selectAll()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">全選</button>
+          <button onclick="addToModule()" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">加入課程題組</button>
+      </div>
+
+      <!-- 題庫列表 -->
+      <div id="questionList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4"></div>
+
+      <!-- 本次課程題組 -->
+      <div class="mt-8 bg-blue-50 p-6 rounded">
+          <h2 class="font-bold mb-4">本次課程題組</h2>
+          <div id="moduleList" class="space-y-2"></div>
+      </div>
+  </main>
+
+  <script>
+  // 假設後端API: /api/questions 或 data/scams.json
+  // 假資料範例
+  const questions = [
+      { id:1, title:"IG假帳號抽獎", topic:"社群詐騙", risk:"high", popularity:92, desc:"假冒名人帳號傳送抽獎訊息...", },
+      { id:2, title:"購物網站低價陷阱", topic:"網購詐騙", risk:"medium", popularity:81, desc:"偽造購物平台...", },
+      { id:3, title:"AI深偽語音騙家長", topic:"AI詐騙", risk:"high", popularity:75, desc:"詐騙集團用AI變聲...", },
+      { id:4, title:"投資暴利廣告", topic:"假投資", risk:"high", popularity:90, desc:"社群出現投資高報酬連結...", },
+      { id:5, title:"Steam遊戲點數詐騙", topic:"遊戲詐騙", risk:"medium", popularity:69, desc:"假裝是朋友索取點數序號...", },
+      { id:6, title:"帳號釣魚郵件", topic:"釣魚詐騙", risk:"low", popularity:55, desc:"收到偽造官方通知...", },
+  ];
+
+  let moduleQuestions = []; // 課程模組
+
+  function renderQuestions() {
+      const riskMap = { high: "badge-risk-high", medium: "badge-risk-medium", low: "badge-risk-low" };
+      const riskName = { high: "高風險", medium: "中風險", low: "低風險" };
+      const list = document.getElementById('questionList');
+      list.innerHTML = '';
+      // 篩選
+      const rf = document.getElementById('riskFilter').value;
+      const pf = document.getElementById('popularityFilter').value;
+      let filtered = questions.filter(q=>
+          (!rf || q.risk===rf) && (!pf || q.popularity>=parseInt(pf))
+      );
+      // 列表
+      filtered.forEach(q=>{
+          const checked = moduleQuestions.includes(q.id) ? 'checked disabled' : '';
+          list.innerHTML += `
+          <div class="bg-white p-4 rounded shadow flex flex-col border border-gray-200">
+              <div class="mb-2">
+                  <span class="badge ${riskMap[q.risk]}">${riskName[q.risk]}</span>
+                  <span class="badge badge-hot">🔥${q.popularity}</span>
+                  <span class="ml-2 text-sm text-gray-500">#${q.topic}</span>
               </div>
-            </div>
-            <div class="mb-4">
-              <label class="block text-blue-800 mb-1">難度</label>
-              <select class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-300">
-                <option value="easy">簡單</option>
-                <option value="medium">中等</option>
-                <option value="hard">困難</option>
-              </select>
-            </div>
-            <div class="mb-4 flex items-center">
-              <label class="text-blue-800 mr-2">顯示狀態</label>
-              <input type="checkbox" class="toggle-checkbox" checked>
-              <span class="ml-2 text-blue-800">上架</span>
-            </div>
-            <div class="flex justify-end space-x-2">
-              <button type="reset" class="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400">取消</button>
-              <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">儲存</button>
-            </div>
-          </form>
-          <button type="button" id="back-to-list" class="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 mt-4">返回列表</button>
-        </div>
-      </main>
-      <footer class="text-center p-4 bg-white shadow mt-auto">© 2025 機器人想放假團隊。保留所有權利。</footer>
-    </div>
-  </div>
-</body>
-<script>
-  // 取得元素
-  const toggleBtn = document.getElementById('toggle-form-btn');
-  const questionList = document.getElementById('question-list');
-  const addQuestion = document.getElementById('add-question');
-  const backToListBtn = document.getElementById('back-to-list');
-
-  let showingForm = false; // false: 顯示列表, true: 顯示表單
-
-  function showForm() {
-    questionList.classList.add('hidden');
-    addQuestion.classList.remove('hidden');
-    toggleBtn.textContent = '返回列表';
-    toggleBtn.classList.remove('bg-blue-500');
-    toggleBtn.classList.add('bg-gray-400');
-    showingForm = true;
+              <div class="font-bold mb-2">${q.title}</div>
+              <div class="text-gray-700 text-sm mb-2">${q.desc}</div>
+              <div class="flex items-center justify-between">
+                  <label class="flex items-center">
+                      <input type="checkbox" class="mr-2 q-select" value="${q.id}" ${checked}>
+                      加入本次課程
+                  </label>
+                  <button onclick="editQ(${q.id})" class="text-blue-600 hover:underline text-sm">編輯</button>
+                  <button onclick="delQ(${q.id})" class="text-red-600 hover:underline text-sm">刪除</button>
+              </div>
+          </div>`;
+      });
   }
 
-  function showList() {
-    addQuestion.classList.add('hidden');
-    questionList.classList.remove('hidden');
-    toggleBtn.textContent = '新增題目';
-    toggleBtn.classList.remove('bg-gray-400');
-    toggleBtn.classList.add('bg-blue-500');
-    showingForm = false;
+  function selectAll() {
+      document.querySelectorAll('.q-select:not(:disabled)').forEach(cb=>cb.checked=true);
+  }
+  function addToModule() {
+      document.querySelectorAll('.q-select:checked').forEach(cb=>{
+          const id = parseInt(cb.value);
+          if(!moduleQuestions.includes(id)) moduleQuestions.push(id);
+      });
+      renderQuestions();
+      renderModule();
+  }
+  function renderModule() {
+      const el = document.getElementById('moduleList');
+      el.innerHTML = '';
+      moduleQuestions.forEach(id=>{
+          const q = questions.find(x=>x.id===id);
+          el.innerHTML += `
+              <div class="bg-white rounded shadow p-3 flex justify-between items-center">
+                  <div>
+                      <span class="badge badge-hot">🔥${q.popularity}</span>
+                      <span class="font-bold">${q.title}</span>
+                      <span class="text-sm text-gray-500 ml-2">#${q.topic}</span>
+                      <span class="badge ${q.risk==='high'?'badge-risk-high':q.risk==='medium'?'badge-risk-medium':'badge-risk-low'} ml-2">${q.risk==='high'?'高風險':q.risk==='medium'?'中風險':'低風險'}</span>
+                  </div>
+                  <button onclick="removeFromModule(${id})" class="text-red-500 hover:underline">移除</button>
+              </div>`;
+      });
+  }
+  function removeFromModule(id){
+      moduleQuestions = moduleQuestions.filter(qid=>qid!==id);
+      renderQuestions();
+      renderModule();
+  }
+  // 編輯/刪除（僅DEMO）
+  function editQ(id) { alert("編輯題目："+id); }
+  function delQ(id) { 
+      if(confirm("確定刪除？")) {
+          // 若想同步後端請寫API
+          let idx = questions.findIndex(q=>q.id===id);
+          if(idx>-1) questions.splice(idx,1);
+          renderQuestions();
+          renderModule();
+      }
   }
 
-  toggleBtn.addEventListener('click', function() {
-    if (!showingForm) {
-      showForm();
-    } else {
-      showList();
-    }
+  // 篩選事件
+  document.addEventListener('DOMContentLoaded', ()=>{
+      renderQuestions();
+      document.getElementById('riskFilter').addEventListener('change', renderQuestions);
+      document.getElementById('popularityFilter').addEventListener('change', renderQuestions);
   });
-
-  // 保留表單下方的返回按鈕
-  if (backToListBtn) {
-    backToListBtn.addEventListener('click', showList);
-  }
-</script>
+  </script>
+</body>
 </html>
