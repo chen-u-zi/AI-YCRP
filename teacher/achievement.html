@@ -355,20 +355,6 @@
                     </tr>`;
                     });
                 }
-                // 徽章學生視角預覽
-                function renderBadgePreview() {
-                    const el = document.getElementById('badgePreview');
-                    el.innerHTML = '';
-                    badges.forEach(b => {
-                        el.innerHTML += `
-                    <div class="text-center">
-                        <img src="${b.icon}" alt="${b.name}" class="badge-icon mx-auto ${b.status !== 'active' ? 'grayscale' : ''}">
-                        <p class="text-sm font-semibold">${b.name}</p>
-                        <p class="text-xs text-gray-600">${b.status === 'active' ? '已解鎖' : '未解鎖'}</p>
-                    </div>
-                `;
-                    });
-                }
                 // 編輯/新增徽章
                 let editBadgeId = null;
                 function openBadgeModal(edit = false) {

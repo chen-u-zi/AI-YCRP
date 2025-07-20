@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -266,6 +267,9 @@
       opacity: 1;
       background: linear-gradient(135deg, #2C82C9, #1B3B5F);
       color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .badge:hover {
@@ -356,6 +360,7 @@
     }
   </style>
 </head>
+
 <body>
   <nav class="top-nav">
     <div class="logo-section">
@@ -374,12 +379,10 @@
         </div>
       </div>
       <button class="logout-btn" onclick="logout()" aria-label="登出並返回首頁">
-        <span>🚪</span>
-        登出
+        <span>🚪</span> 登出
       </button>
     </div>
   </nav>
-
   <div class="admin-layout">
     <aside class="sidebar">
       <div class="sidebar-header">
@@ -389,37 +392,31 @@
       <ul class="nav-menu">
         <li class="nav-item">
           <button class="nav-btn" onclick="loadModule('home')" aria-label="切換到首頁">
-            <span class="nav-icon">🏠</span>
-            首頁
+            <span class="nav-icon">🏠</span> 首頁
           </button>
         </li>
         <li class="nav-item">
           <button class="nav-btn" onclick="loadModule('challenge')" aria-label="切換到詐騙模擬挑戰">
-            <span class="nav-icon">🎮</span>
-            詐騙模擬挑戰
+            <span class="nav-icon">🎮</span> 詐騙模擬挑戰
           </button>
         </li>
         <li class="nav-item">
           <button class="nav-btn" onclick="loadModule('assessment')" aria-label="切換到自信心評估">
-            <span class="nav-icon">🧠</span>
-            自信心評估
+            <span class="nav-icon">🧠</span> 自信心評估
           </button>
         </li>
         <li class="nav-item">
           <button class="nav-btn" onclick="loadModule('knowledge')" aria-label="切換到知識庫">
-            <span class="nav-icon">📚</span>
-            知識庫
+            <span class="nav-icon">📚</span> 知識庫
           </button>
         </li>
         <li class="nav-item">
           <button class="nav-btn active" onclick="loadModule('achievements')" aria-label="切換到成就系統">
-            <span class="nav-icon">🏆</span>
-            成就系統
+            <span class="nav-icon">🏆</span> 成就系統
           </button>
         </li>
       </ul>
     </aside>
-
     <main class="main-content">
       <div class="content-header">
         <h2 class="content-title">
@@ -428,84 +425,140 @@
         </h2>
         <div class="content-actions">
           <button class="action-btn" onclick="refreshModule()" aria-label="重新整理當前模組">
-            <span>🔄</span>
-            重新整理
+            <span>🔄</span> 重新整理
           </button>
           <button class="action-btn" onclick="showHelp()" aria-label="顯示幫助資訊">
-            <span>❓</span>
-            幫助
+            <span>❓</span> 幫助
           </button>
         </div>
       </div>
-
       <div class="achievement-container">
         <h2>🏆 我的成就</h2>
-        <div class="badge-list">
-          <div class="badge earned">
-            <span class="badge-icon">🌟</span>
-            <span class="badge-title">防詐新星</span>
-          </div>
-          <div class="badge earned">
-            <span class="badge-icon">🔍</span>
-            <span class="badge-title">詐騙識破者</span>
-          </div>
-          <div class="badge locked">
-            <span class="badge-icon">📞</span>
-            <span class="badge-title">假客服專家</span>
-          </div>
-          <div class="badge locked">
-            <span class="badge-icon">🛍️</span>
-            <span class="badge-title">假購物專家</span>
-          </div>
-          <div class="badge locked">
-            <span class="badge-icon">🧐</span>
-            <span class="badge-title">高警覺性</span>
-          </div>
-          <div class="badge earned">
-            <span class="badge-icon">📖</span>
-            <span class="badge-title">認真學習</span>
-          </div>
-          <div class="badge locked">
-            <span class="badge-icon">🗓️</span>
-            <span class="badge-title">堅持到底</span>
-          </div>
-          <div class="badge locked">
-            <span class="badge-icon">💡</span>
-            <span class="badge-title">反思高手</span>
+        <!-- 成就列表只動態產生 -->
+        <div class="badge-list" id="badgeList"></div>
+        <!-- 彈出視窗（Modal） -->
+        <div id="badgeModal" class="modal fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-40"
+          style="display:none;">
+          <div class="bg-white p-6 rounded-lg w-full max-w-sm mx-auto text-center relative">
+            <button onclick="closeBadgeModal()" style="position:absolute;top:1rem;right:1rem;"
+              aria-label="關閉">&times;</button>
+            <img id="modalBadgeImg" class="badge-icon mx-auto mb-2" style="width:80px;height:80px;">
+            <div class="badge-title" id="modalBadgeName" style="font-size:1.2rem;font-weight:700;"></div>
+            <div class="mb-2" id="modalBadgeCondition" style="color:#2C82C9;font-size:1rem;"></div>
+            <div class="mb-2" id="modalBadgeStatus"></div>
+            <div class="mb-2" id="modalBadgeDate"></div>
           </div>
         </div>
-
         <div class="level-progress">
           <div class="level-info">目前等級：Lv.2 防詐新手 (130/250 EXP)</div>
           <div class="progress-bar">
             <div class="progress-fill" style="width:52%;"></div>
           </div>
         </div>
-
         <div class="feedback-section">
           <h3>💡 個人化回饋</h3>
           <div class="feedback-item">
             <p><strong>🌟 「防詐新星」徽章達成！</strong><br>
-            你完成了第一次防詐測驗，踏出了成為網路安全小達人的第一步！繼續探索更多挑戰吧！</p>
+              你完成了第一次防詐測驗，踏出了成為網路安全小達人的第一步！繼續探索更多挑戰吧！</p>
           </div>
           <div class="feedback-item">
             <p><strong>🔍 「詐騙識破者」徽章達成！</strong><br>
-            你成功識破所有的詐騙陷阱，繼續保持警覺，保護你自己和朋友吧！</p>
+              你成功識破所有的詐騙陷阱，繼續保持警覺，保護你自己和朋友吧！</p>
           </div>
           <div class="feedback-item">
             <p><strong>📖 「認真學習」徽章達成！</strong><br>
-            你已經瀏覽知識庫超過5次，持續學習的熱情將讓你成為防詐專家！</p>
+              你已經瀏覽知識庫超過5次，持續學習的熱情將讓你成為防詐專家！</p>
           </div>
         </div>
       </div>
     </main>
   </div>
-
   <script>
-    // 全域變數
+    // 成就假資料
+    const badges = [
+      { id: 1, name: "社群守護者", icon: "../teacher/social.png", unlocked: true, date: "2025-07-01", condition: "參加3次社群詐騙情境且正確率80%以上" },
+      { id: 2, name: "網購見習生", icon: "../teacher/shopping.png", unlocked: true, date: "2025-07-02", condition: "完成網購詐騙題5題且正確率80%以上" },
+      { id: 3, name: "電玩騙術剋星", icon: "game.jpg", unlocked: false, date: "", condition: "破解遊戲詐騙題3題且正確率100%" },
+      { id: 4, name: "網安好奇寶寶", icon: "../teacher/curious.png", unlocked: false, date: "", condition: "首次完成所有主題的情境測驗" },
+      { id: 5, name: "投資守門員", icon: "../teacher/investment.png", unlocked: false, date: "", condition: "投資詐騙題達90分" },
+      { id: 6, name: "AI知識探索者", icon: "../teacher/ai.jpg", unlocked: false, date: "", condition: "AI深偽題全對" }
+    ];
+    // 初始化與 UI 動畫
+    window.onload = function () {
+      renderBadges();
+      initializeUser();
+      loadModule('achievements');
+      // 動畫效果
+      setTimeout(() => {
+        const badgeEls = document.querySelectorAll('.badge');
+        badgeEls.forEach((badge, idx) => {
+          badge.style.opacity = '0';
+          badge.style.transform = 'translateY(20px)';
+          setTimeout(() => {
+            badge.style.transition = 'all 0.5s ease';
+            badge.style.opacity = '1';
+            badge.style.transform = 'translateY(0)';
+          }, idx * 100);
+        });
+        // 個人化回饋動畫
+        const feedbackItems = document.querySelectorAll('.feedback-item');
+        feedbackItems.forEach((item, idx) => {
+          item.style.opacity = '0';
+          item.style.transform = 'translateY(20px)';
+          setTimeout(() => {
+            item.style.transition = 'all 0.5s ease';
+            item.style.opacity = '1';
+            item.style.transform = 'translateY(0)';
+          }, idx * 100 + 200);
+        });
+      }, 100);
+    };
+    // 渲染成就
+    function renderBadges() {
+      const list = document.getElementById('badgeList');
+      list.innerHTML = '';
+      badges.forEach((b, idx) => {
+        list.innerHTML += `
+          <div class="badge ${b.unlocked ? 'earned' : 'locked'}" 
+               style="cursor:pointer;${b.unlocked ? '' : 'opacity:0.5; background:#f0f4ff; color:#1B3B5F;'}"
+               onclick="showBadgeModal(${idx})">
+               <div>
+               <div style="padding-left:20%;">
+            <img src="${b.icon}" alt="${b.name}" class="badge-icon" 
+                 style="width:56px;height:56px;${b.unlocked ? '' : 'filter:grayscale(100%)'}"></div>
+            <div class="badge-title">${b.name}</div>
+            <div style="font-size:0.9rem; margin-top:0.3rem; color:${b.unlocked ? '#fff' : '#999'}">
+              ${b.unlocked && b.date ? `取得日期：${b.date}` : '尚未解鎖'}
+            </div>
+            </div>
+          </div>
+        `;
+      });
+    }
+    // 彈窗詳細
+    function showBadgeModal(idx) {
+      const b = badges[idx];
+      document.getElementById('modalBadgeImg').src = b.icon;
+      document.getElementById('modalBadgeName').textContent = b.name;
+      document.getElementById('modalBadgeCondition').textContent = "解鎖條件：" + b.condition;
+      document.getElementById('modalBadgeStatus').textContent = b.unlocked ? "✅ 已解鎖" : "🔒 尚未解鎖";
+      document.getElementById('modalBadgeDate').textContent = b.unlocked && b.date ? `取得日期：${b.date}` : '';
+      document.getElementById('badgeModal').style.display = 'flex';
+    }
+    function closeBadgeModal() {
+      document.getElementById('badgeModal').style.display = 'none';
+    }
+    // 用戶資訊初始化
+    function initializeUser() {
+      const role = localStorage.getItem('role') || 'guest';
+      const name = role === 'guest' ? '訪客' : role === 'admin' ? '系統管理員' : '學員';
+      const userRole = role === 'guest' ? '未登入' : role === 'admin' ? 'Administrator' : '學員';
+      document.getElementById('userName').textContent = name;
+      document.getElementById('userRole').textContent = userRole;
+      document.getElementById('userAvatar').textContent = name.charAt(0);
+    }
+    // 模組切換
     let currentModule = 'achievements';
-
-    // 模組配置
     const moduleConfig = {
       home: { title: '首頁', icon: '🏠', description: '歡迎回來，開始您的學習之旅' },
       challenge: { title: '詐騙模擬挑戰', icon: '🎮', description: '體驗真實詐騙情境' },
@@ -513,113 +566,42 @@
       knowledge: { title: '知識庫', icon: '📚', description: '探索防詐騙知識' },
       achievements: { title: '成就系統', icon: '🏆', description: '展示您的學習成果' }
     };
-
-    // 初始化
-    window.onload = function() {
-      initializeUser();
-      loadModule('achievements');
-    };
-
-    // 初始化用戶資訊
-    function initializeUser() {
-      const role = localStorage.getItem('role') || 'guest';
-      const name = role === 'guest' ? '訪客' : role === 'admin' ? '系統管理員' : '學員';
-      const userRole = role === 'guest' ? '未登入' : role === 'admin' ? 'Administrator' : '學員';
-
-      document.getElementById('userName').textContent = name;
-      document.getElementById('userRole').textContent = userRole;
-      document.getElementById('userAvatar').textContent = name.charAt(0);
-    }
-
-    // 載入模組
     function loadModule(moduleName) {
       if (!moduleConfig[moduleName]) return;
-
       currentModule = moduleName;
       const config = moduleConfig[moduleName];
-
-      document.querySelectorAll('.nav-btn').forEach(btn => {
-        btn.classList.remove('active');
-      });
-
-      const currentBtn = Array.from(document.querySelectorAll('.nav-btn')).find(btn => {
-        return btn.textContent.trim().includes(config.title);
-      });
-      if (currentBtn) {
-        currentBtn.classList.add('active');
-      }
-
+      document.querySelectorAll('.-btn').forEach(btn => btn.classList.remove('active'));
+      const currentBtn = Array.from(document.querySelectorAll('.nav-btn')).find(btn => btn.textContent.trim().includes(config.title));
+      if (currentBtn) currentBtn.classList.add('active');
       document.getElementById('moduleIcon').textContent = config.icon;
       document.getElementById('moduleTitle').textContent = config.title;
-
       try {
-        if (moduleName === 'home') {
-          console.log('Redirecting to index.html');
-          window.location.href = 'index.html';
-        } else if (moduleName === 'challenge') {
-          console.log('Redirecting to test.html');
-          window.location.href = 'test.html';
-        } else if (moduleName === 'assessment') {
-          console.log('Redirecting to confidence.html');
-          window.location.href = 'confidence.html';
-        } else if (moduleName === 'knowledge') {
-          console.log('Redirecting to knowledge.html');
-          window.location.href = 'knowledge.html';
-        }
-      } catch (error) {
-        console.error('Navigation error:', error);
-      }
+        if (moduleName === 'home') window.location.href = 'index.html';
+        else if (moduleName === 'challenge') window.location.href = 'test.html';
+        else if (moduleName === 'assessment') window.location.href = 'confidence.html';
+        else if (moduleName === 'knowledge') window.location.href = 'knowledge.html';
+      } catch (error) { }
     }
-
-    // 重新整理模組
+    // 重新整理
     function refreshModule() {
       loadModule(currentModule);
       showMessage('模組已重新整理！');
     }
-
-    // 顯示幫助
+    // 幫助
     function showHelp() {
       showMessage('幫助資訊：點擊側邊欄切換模組，查看你的成就進度。如需支持，請聯繫管理團隊。');
     }
-
     // 登出
     function logout() {
       localStorage.removeItem('role');
       showMessage('已登出，2秒後返回首頁...');
-      setTimeout(() => {
-        window.location.href = "../home.html";
-      }, 2000);
+      setTimeout(() => window.location.href = "../home.html", 2000);
     }
-
     // 顯示訊息
     function showMessage(message) {
       alert(message);
     }
-
-    // 添加互動效果
-    document.addEventListener('DOMContentLoaded', function() {
-      const badges = document.querySelectorAll('.badge');
-      badges.forEach((badge, index) => {
-        badge.style.opacity = '0';
-        badge.style.transform = 'translateY(20px)';
-        setTimeout(() => {
-          badge.style.transition = 'all 0.5s ease';
-          badge.style.opacity = '1';
-          badge.style.transform = 'translateY(0)';
-        }, index * 100);
-      });
-
-      const feedbackItems = document.querySelectorAll('.feedback-item');
-      feedbackItems.forEach((item, index) => {
-        item.style.opacity = '0';
-        item.style.transform = 'translateY(20px)';
-        setTimeout(() => {
-          item.style.transition = 'all 0.5s ease';
-          item.style.opacity = '1';
-          item.style.transform = 'translateY(0)';
-        }, index * 100 + 200);
-      });
-    });
   </script>
 </body>
+
 </html>
