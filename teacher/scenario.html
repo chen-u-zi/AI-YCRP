@@ -110,6 +110,34 @@
       }
     }
   </style>
+  <style>
+    .search-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      background-color: #fff;
+      border-radius: 24px;
+      box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+      min-width: 680px;
+    }
+
+    .search-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: 15px;
+      padding: 10px;
+      color: #333;
+      height: 25px;
+    }
+
+    .search-icon {
+      padding: 0 10px;
+      cursor: pointer;
+
+    }
+  </style>
 </head>
 
 <body class="bg-gray-100 min-h-screen">
@@ -141,10 +169,10 @@
   <!-- 主內容區 -->
   <!-- 主內容 -->
   <div class="main-content">
-    <main class="flex-1 p-8">
+    <main class="flex-1">
       <h1 class="text-2xl font-bold mb-6">情境題庫管理</h1>
       <!-- 篩選與操作 -->
-      <div class="flex flex-wrap gap-4 items-end mb-6">
+      <div class="flex flex-wrap gap-4 items-end mb-6" style="display: flex;  align-items: center;">
         <div>
           <label class="block text-sm font-semibold mb-1">風險等級</label>
           <select id="riskFilter" class="border rounded px-3 py-2">
@@ -162,9 +190,19 @@
             <option value="60">60↑</option>
           </select>
         </div>
-        <button onclick="selectAll()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">全選</button>
-        <button onclick="addToModule()"
-          class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">加入課程題組</button>
+        <div style="padding-top: 25px;">
+          <button onclick="selectAll()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">全選</button>
+          <button onclick="addToModule()"
+            class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">加入課程題組</button>
+        </div>
+        <div style="padding-top: 25px;">
+          <div class="search-container">
+            <span class="search-icon">🔍</span>
+            <input type="text" class="search-input" placeholder="輸入關鍵字進行搜尋">
+          </div>
+        </div>
+
+
       </div>
 
       <!-- 題庫列表 -->
