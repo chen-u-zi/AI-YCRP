@@ -359,6 +359,22 @@
       }
     }
   </style>
+  <style>
+    .badgeModal{
+      display: none;
+      justify-content: center;
+
+    }
+    .badgebox {
+      background-color: #f0f4ff;
+      display: flex;
+      justify-content: center;
+      border-radius: 20px;
+      min-width: 800px;
+      padding:20px;
+      position: relative;   /* 這行最重要！ */
+    }
+  </style>
 </head>
 
 <body>
@@ -437,18 +453,19 @@
         <!-- 成就列表只動態產生 -->
         <div class="badge-list" id="badgeList"></div>
         <!-- 彈出視窗（Modal） -->
-        <div id="badgeModal" class="modal fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-40"
-          style="display:none;">
-          <div class="bg-white p-6 rounded-lg w-full max-w-sm mx-auto text-center relative">
-            <button onclick="closeBadgeModal()" style="position:absolute;top:1rem;right:1rem;"
-              aria-label="關閉">&times;</button>
-            <img id="modalBadgeImg" class="badge-icon mx-auto mb-2" style="width:80px;height:80px;">
-            <div class="badge-title" id="modalBadgeName" style="font-size:1.2rem;font-weight:700;"></div>
-            <div class="mb-2" id="modalBadgeCondition" style="color:#2C82C9;font-size:1rem;"></div>
-            <div class="mb-2" id="modalBadgeStatus"></div>
-            <div class="mb-2" id="modalBadgeDate"></div>
+        <div id="badgeModal" class="badgeModal">
+          <div class="badgebox">
+            <div>
+              <img id="modalBadgeImg"style="width:80px;height:80px;">
+              <button onclick="closeBadgeModal()" style="position:absolute;top:1rem;right:1rem;" aria-label="關閉">&times;</button>
+              <div class="badge-title" id="modalBadgeName" style="font-size:1.2rem;font-weight:700;"></div>
+              <div class="mb-2" id="modalBadgeCondition" style="color:#2C82C9;font-size:1rem;"></div>
+              <div class="mb-2" id="modalBadgeStatus"></div>
+              <div class="mb-2" id="modalBadgeDate"></div>
+            </div>
           </div>
         </div>
+
         <div class="level-progress">
           <div class="level-info">目前等級：Lv.2 防詐新手 (130/250 EXP)</div>
           <div class="progress-bar">
